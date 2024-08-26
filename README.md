@@ -2,6 +2,18 @@
 
 Welcome to **Pokedex-v2**! 🎉 This project is an enhanced version of the classic Pokémon Pokedex, designed to provide an improved user experience with a range of exciting features.
 
+## Badges 🏅
+
+[![Build Status](https://img.shields.io/travis/mariokreitz/pokedex-v2.svg)](https://travis-ci.org/mariokreitz/pokedex-v2)
+[![Version](https://img.shields.io/npm/v/pokedex-v2.svg)](https://www.npmjs.com/package/pokedex-v2)
+[![License](https://img.shields.io/github/license/mariokreitz/pokedex-v2.svg)](LICENSE)
+
+
+## Demo 🎥
+
+Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreitz.dev/)
+
+
 ## Features ✨
 
 - **Caching**: 🗃️ Efficiently cache Pokémon data to reduce loading times and enhance performance.
@@ -64,17 +76,6 @@ Having trouble? Here are some common issues and solutions:
 - **PokéAPI**: For providing comprehensive Pokémon data.
 - **ChartJS**: For the powerful charting library used for data visualization.
 - **Franziska**: For the stunning design of this project. 💖
-
-## Demo 🎥
-
-Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreitz.dev/)
-
-## Badges 🏅
-
-[![Build Status](https://img.shields.io/travis/mariokreitz/pokedex-v2.svg)](https://travis-ci.org/mariokreitz/pokedex-v2)
-[![Version](https://img.shields.io/npm/v/pokedex-v2.svg)](https://www.npmjs.com/package/pokedex-v2)
-[![License](https://img.shields.io/github/license/mariokreitz/pokedex-v2.svg)](LICENSE)
-
 
 ## Contact 📬
 
