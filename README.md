@@ -58,8 +58,6 @@ Having trouble? Here are some common issues and solutions:
 ## Changelog 📅
 
 - **v1.0.0**: Initial release with caching and basic data fetching.
-- **v1.1.0**: Added PokéStats visualization with ChartJS.
-- **v1.2.0**: Included detailed Pokémon information such as held items and edition availability.
 
 ## Acknowledgements 🙏
 
