@@ -91,6 +91,3 @@ Thank you for checking out **Pokedex-v2**! We hope you enjoy exploring Pokémon 
 *Made with ❤️ by [Mario Kreitz](https://github.com/mariokreitz)*  
 *Design by [Franziska](https://www.instagram.com/18ago/)*
 
----
-
-Feel free to adjust the sections based on the specific needs of your project and your audience!
