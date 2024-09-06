@@ -1,0 +1,7 @@
+@import "./styles/_reset";
+@import "./styles/_vars";
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+}
