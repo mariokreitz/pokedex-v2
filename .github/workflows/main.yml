@@ -26,4 +26,4 @@ jobs:
         run: npm install -g @angular/cli
 
       - name: Build Angular project
-        run: ng build --prod
+        run: ng build
