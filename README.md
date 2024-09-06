@@ -4,9 +4,9 @@ Welcome to **Pokedex-v2**! 🎉 This project is an enhanced version of the class
 
 ## Badges 🏅
 
-[![Build Status](https://img.shields.io/travis/mariokreitz/pokedex-v2.svg)](https://travis-ci.org/mariokreitz/pokedex-v2)
-[![Version](https://img.shields.io/npm/v/pokedex-v2.svg)](https://www.npmjs.com/package/pokedex-v2)
 [![License](https://img.shields.io/github/license/mariokreitz/pokedex-v2.svg)](LICENSE)
+[![Version](https://img.shields.io/github/v/release/mariokreitz/pokedex-v2.svg)](https://github.com/mariokreitz/pokedex-v2/releases)
+[![Build Status](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml/badge.svg)](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml)
 
 
 ## Demo 🎥
