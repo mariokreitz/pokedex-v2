@@ -1,0 +1,7 @@
+<div class="card">
+  <h1 class="name">
+    {{ name | titlecase }}
+    <span>#{{ Pokemon.order | number }}</span>
+  </h1>
+  <img class="img" [src]="imgSrc" [alt]="name" />
+</div>
