@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from '../../services/shared.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +9,10 @@ import { SharedService } from '../../services/shared.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
-  constructor(private sharedService: SharedService) {}
+  constructor(private searchService: SearchService) {}
 
   handleSearchInputChange(searchTerm: string): void {
-    this.sharedService.changeSearch(searchTerm);
+    this.searchService.changeSearch(searchTerm);
   }
 
   ngOnInit(): void {}
