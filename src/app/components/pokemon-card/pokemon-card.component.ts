@@ -12,6 +12,7 @@ import { DecimalPipe, TitleCasePipe } from '@angular/common';
 export class PokemonCardComponent {
   name!: string;
   imgSrc!: string | null;
+  types!: string[];
 
   constructor() {}
 
@@ -21,5 +22,7 @@ export class PokemonCardComponent {
   ngOnInit() {
     this.name = this.Pokemon.name;
     this.imgSrc = this.Pokemon.sprites.other.dream_world.front_default;
+
+    this.types = this.Pokemon.types.map((pokemon) => pokemon.type.name);
   }
 }
