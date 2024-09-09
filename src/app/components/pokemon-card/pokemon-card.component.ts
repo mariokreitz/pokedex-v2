@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Pokemon } from '../../../types/pokedex';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
-import { PokemonImageComponent } from '../pokemon-image/pokemon-image.component';
+import { PokemonImageComponent } from './pokemon-image/pokemon-image.component';
 
 @Component({
   selector: 'app-pokemon-card',
