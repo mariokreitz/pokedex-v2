@@ -1,4 +1,4 @@
-# ![Pokedex](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png) Pokedex-v2 [![Version](https://img.shields.io/github/v/release/mariokreitz/pokedex-v2.svg)](https://github.com/mariokreitz/pokedex-v3/releases) [![Build Status](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml/badge.svg)](https://github.com/mariokreitz/pokedex-v3/actions/workflows/main.yml) [![License](https://img.shields.io/github/license/mariokreitz/pokedex-v2.svg)](LICENSE)
+# ![Pokedex](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png) Pokedex-v2 [![Version](https://img.shields.io/github/v/release/mariokreitz/pokedex-v2.svg)](https://github.com/mariokreitz/pokedex-v2/releases) [![Build Status](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml/badge.svg)](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml) [![License](https://img.shields.io/github/license/mariokreitz/pokedex-v2.svg)](LICENSE)
 
 Welcome to **Pokedex-v2**! 🎉 This project is a cutting-edge version of the classic Pokémon Pokedex, now powered by Angular 17 and the new `pokeapi-js-wrapper`, designed to provide an even more enhanced user experience with a range of exciting features.
 
@@ -28,7 +28,7 @@ To get started with **Pokedex-v2**, follow these steps:
 2. **Navigate to the Project Directory**:
 
    ```bash
-   cd pokedex-v3
+   cd pokedex-v2
    ```
 
 3. **Install Dependencies**:
@@ -84,7 +84,7 @@ Having trouble? Here are some common issues and solutions:
 For any questions or feedback, feel free to reach out:
 
 - **Email**: [contact@mario-kreitz.dev](mailto:contact@mario-kreitz.dev)
-- **GitHub Issues**: [Submit an issue](https://github.com/mariokreitz/pokedex-v3/issues)
+- **GitHub Issues**: [Submit an issue](https://github.com/mariokreitz/pokedex-v2/issues)
 
 Thank you for checking out **Pokedex-v2**! We hope you enjoy exploring Pokémon with our enhanced features. Happy coding! 😄
 
