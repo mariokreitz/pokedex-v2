@@ -1,3 +1,17 @@
 <header>
-  <img src="./assets/pokedex_logo.png" alt="Pokedex Logo" />
+  <div class="grid-layout">
+    <div class="grid-item-1">
+      <img src="./assets/pokedex_logo.png" alt="Pokedex Logo" />
+      <input
+        (input)="handleSearchInputChange(searchbar.value)"
+        type="text"
+        name="searchbar"
+        id="searchbar"
+        #searchbar
+      />
+    </div>
+    <div class="grid-item-2">
+      <h2>Pokeball here</h2>
+    </div>
+  </div>
 </header>
