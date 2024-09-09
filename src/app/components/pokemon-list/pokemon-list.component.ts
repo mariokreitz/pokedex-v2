@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
 import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../../types/pokedex';
-import { SharedService } from '../../services/shared.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -18,13 +18,13 @@ export class PokemonListComponent implements OnInit {
 
   constructor(
     private pokemonService: PokemonService,
-    private sharedService: SharedService
+    private searchService: SearchService
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.pokemons = await this.pokemonService.getPokemons();
 
-    this.sharedService.currentSearch.subscribe((currentSearchTerm) => {
+    this.searchService.currentSearch.subscribe((currentSearchTerm) => {
       const searchTerm = currentSearchTerm;
       if (searchTerm) {
         this.filteredPokemons = this.pokemons.filter((pokemon) =>
@@ -35,5 +35,9 @@ export class PokemonListComponent implements OnInit {
         this.displayedPokemons = this.pokemons;
       }
     });
+  }
+
+  onPokemonClick(pokemon: Pokemon) {
+    console.log(pokemon);
   }
 }
