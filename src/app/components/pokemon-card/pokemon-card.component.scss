@@ -30,17 +30,6 @@
     }
   }
 
-  .types {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    span {
-      padding: 5px 14px;
-      border-radius: 9999px;
-    }
-  }
-
   &:hover {
     cursor: pointer;
   }
