@@ -25,8 +25,11 @@ export class PokemonService {
 
     const pokemons = await Promise.all(
       result.map(async (pokemon) => {
+        const pokemonSpecies = await this.pokedex.getPokemonSpeciesByName(
+          pokemon.name
+        );
         const pokemonData = await this.pokedex.getPokemonByName(pokemon.name);
-        return pokemonData;
+        return { ...pokemonData, ...pokemonSpecies };
       })
     );
 
