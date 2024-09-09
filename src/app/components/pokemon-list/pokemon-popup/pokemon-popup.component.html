@@ -1,0 +1,30 @@
+<div class="overview-card">
+  <div class="header">
+    <button (click)="closePopup()" type="button">X</button>
+    <div class="heading">
+      <h2>{{ name | titlecase }}</h2>
+      <h2>#{{ id | number }}</h2>
+    </div>
+  </div>
+  <div class="main">
+    <div class="left">
+      <img [src]="imgSrc" [alt]="name" />
+      <div class="types">
+        @for (type of types; track $index) {
+        <span [className]="type">{{ type | titlecase }}</span
+        >}
+      </div>
+    </div>
+    <div class="right">
+      <div class="stat-chart">
+        <p style="color: red">stats chart here</p>
+      </div>
+      <div class="info">
+        <p style="color: red">items and edition</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p>{{ description }}</p>
+  </div>
+</div>
