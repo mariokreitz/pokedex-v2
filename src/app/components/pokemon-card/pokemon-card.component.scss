@@ -1,28 +1,43 @@
+@import "../../../styles/_vars";
+@import "../../../styles/_types";
+
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 250px;
-  height: 300px;
-  border-radius: 10px;
-  gap: 8px;
-  background-color: #fefefe;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+  height: 350px;
+  padding: 10px;
+  border: 1px solid $text-color;
 
-.name {
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 10px;
-}
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-.img {
-  width: 200px;
-  height: 200px;
-}
+  .img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
 
-.types {
-  display: flex;
-  gap: 10px;
+    app-pokemon-image {
+      height: inherit;
+      width: inherit;
+    }
+  }
+
+  .types {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    span {
+      padding: 5px 14px;
+      border-radius: 9999px;
+    }
+  }
 }
