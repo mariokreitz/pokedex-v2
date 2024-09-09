@@ -23,7 +23,6 @@ export class PokemonListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.pokemons = await this.pokemonService.getPokemons();
-    console.log(this.pokemons);
 
     this.sharedService.currentSearch.subscribe((currentSearchTerm) => {
       const searchTerm = currentSearchTerm;
