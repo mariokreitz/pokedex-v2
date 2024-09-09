@@ -9,22 +9,7 @@ export type Pokemon = {
     };
   }[];
   order: number;
-  types: {
-    slot: number;
-    type: {
-      name: string;
-      url: string;
-    };
-  }[];
-  stats: {
-    base_stat: number;
-    stat: {
-      name: string;
-      url: string;
-    };
-  }[];
   height: number;
-  weight: number;
   sprites: {
     front_default: string | null;
     other: {
@@ -75,4 +60,35 @@ export type Pokemon = {
       url: string;
     };
   }[];
+  moves: {
+    move: {
+      name: string;
+      url: string;
+    };
+    version_group_details: {
+      level_learned_at: number;
+      move_learn_method: {
+        name: string;
+        url: string;
+      };
+      version_group: {
+        name: string;
+        url: string;
+      };
+    }[];
+  }[];
+  species: {
+    name: string;
+    url: string;
+  };
+  stats: {
+    base_stat: number;
+    effort: number;
+    stat: { name: string; url: string };
+  }[];
+  types: {
+    slot: number;
+    type: { name: string; url: string };
+  }[];
+  weight: number;
 };
