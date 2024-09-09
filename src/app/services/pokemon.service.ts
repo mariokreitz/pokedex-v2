@@ -5,19 +5,20 @@ import { Pokedex } from 'pokeapi-js-wrapper';
   providedIn: 'root',
 })
 export class PokemonService {
+  constructor() {}
+
   customOptions = {
     cache: true,
     timeout: 5 * 1000,
   };
+
   pokedex = new Pokedex(this.customOptions);
 
   interval = {
     offset: 0,
-    limit: 20,
+    limit: 151,
   };
-  constructor() {}
-
-  async getPokemons() {
+  async getPokemons(offset: number = 0) {
     const data = await this.pokedex.getPokemonsList(this.interval);
     const result = data.results;
 
@@ -27,6 +28,7 @@ export class PokemonService {
         return pokemonData;
       })
     );
+
     return pokemons;
   }
 }
