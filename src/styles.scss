@@ -5,3 +5,18 @@ body {
   background-color: $background-color;
   color: $text-color;
 }
+
+.d_none {
+  display: none !important;
+}
+
+.types {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  span {
+    padding: 5px 14px;
+    border-radius: 9999px;
+  }
+}
