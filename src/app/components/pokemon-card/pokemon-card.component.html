@@ -1,11 +1,16 @@
 <div class="card">
-  <h1 class="name">
-    {{ name | titlecase }}
-    <span>#{{ Pokemon.order | number }}</span>
-  </h1>
-  <img class="img" [src]="imgSrc" [alt]="name" />
+  <div class="header">
+    <h1 class="name">
+      {{ name | titlecase }}
+    </h1>
+    <h2>#{{ id | number }}</h2>
+  </div>
+  <div class="img">
+    <app-pokemon-image class="sprite" [src]="imgSrc" [alt]="name" />
+  </div>
   <div class="types">
-    @for (type of types; track $index) { <span>{{ type | titlecase }}</span
+    @for (type of types; track $index) {
+    <span [className]="type">{{ type | titlecase }}</span
     >}
   </div>
 </div>
