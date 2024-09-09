@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
 import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../../types/pokedex';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -11,10 +12,27 @@ import { Pokemon } from '../../../types/pokedex';
   styleUrl: './pokemon-list.component.scss',
 })
 export class PokemonListComponent implements OnInit {
+  displayedPokemons!: Pokemon[];
   pokemons!: Pokemon[];
-  constructor(private pokemonService: PokemonService) {}
+  filteredPokemons!: Pokemon[];
+  constructor(
+    private pokemonService: PokemonService,
+    private sharedService: SharedService
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.pokemons = await this.pokemonService.getPokemons();
+
+    this.sharedService.currentSearch.subscribe((currentSearchTerm) => {
+      const searchTerm = currentSearchTerm;
+      if (searchTerm) {
+        this.filteredPokemons = this.pokemons.filter((pokemon) =>
+          pokemon.name.includes(searchTerm)
+        );
+        this.displayedPokemons = this.filteredPokemons;
+      } else {
+        this.displayedPokemons = this.pokemons;
+      }
+    });
   }
 }
