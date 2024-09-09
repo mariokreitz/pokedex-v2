@@ -4,4 +4,8 @@
     <span>#{{ Pokemon.order | number }}</span>
   </h1>
   <img class="img" [src]="imgSrc" [alt]="name" />
+  <div class="types">
+    @for (type of types; track $index) { <span>{{ type | titlecase }}</span
+    >}
+  </div>
 </div>
