@@ -1,8 +1,8 @@
 <div class="container">
-  @if (pokemons) { @for (pokemon of pokemons; track pokemon.id) {
+  @if (pokemons) { @for (pokemon of displayedPokemons; track pokemon.id) {
   <app-pokemon-card [Pokemon]="pokemon" />
   }@empty {
-  <h1>No pokemons found</h1>
+  <h1>No Pokémon found</h1>
   } }@else {
   <h1>Loading...</h1>
   }
