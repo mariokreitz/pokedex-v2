@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PokemonService } from '../../services/pokemon.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +9,10 @@ import { PokemonService } from '../../services/pokemon.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
-  constructor(private pokemonService: PokemonService) {}
+  constructor(private sharedService: SharedService) {}
 
   handleSearchInputChange(searchTerm: string): void {
-    console.log(searchTerm);
+    this.sharedService.changeSearch(searchTerm);
   }
 
   ngOnInit(): void {}
