@@ -1,18 +1,16 @@
 # ![Pokedex](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png) Pokedex-v2
 
-Welcome to **Pokedex-v2**! 🎉 This project is an enhanced version of the classic Pokémon Pokedex, designed to provide an improved user experience with a range of exciting features.
+Welcome to **Pokedex-v2**! 🎉 This project is a cutting-edge version of the classic Pokémon Pokedex, now powered by Angular 17 and the new `pokeapi-js-wrapper`, designed to provide an even more enhanced user experience with a range of exciting features.
 
 ## Badges 🏅
 
-[![License](https://img.shields.io/github/license/mariokreitz/pokedex-v2.svg)](LICENSE)
-[![Version](https://img.shields.io/github/v/release/mariokreitz/pokedex-v2.svg)](https://github.com/mariokreitz/pokedex-v2/releases)
-[![Build Status](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml/badge.svg)](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml)
-
+[![License](https://img.shields.io/github/license/mariokreitz/pokedex-v3.svg)](LICENSE)  
+[![Version](https://img.shields.io/github/v/release/mariokreitz/pokedex-v3.svg)](https://github.com/mariokreitz/pokedex-v3/releases)  
+[![Build Status](https://github.com/mariokreitz/pokedex-v3/actions/workflows/main.yml/badge.svg)](https://github.com/mariokreitz/pokedex-v3/actions/workflows/main.yml)
 
 ## Demo 🎥
 
 Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreitz.dev/)
-
 
 ## Features ✨
 
@@ -20,42 +18,48 @@ Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreit
 - **On-Demand Data Fetching**: 📈 Retrieve more Pokémon data as needed, keeping the app responsive and up-to-date.
 - **PokéStats Visualization**: 📊 Visualize Pokémon stats with interactive charts using ChartJS.
 - **Detailed Pokémon Information**: 📜 Get comprehensive details such as held items, availability by edition, and more!
+- **Angular 17**: 🚀 Built with the latest version of Angular for improved performance and developer experience.
+- **pokeapi-js-wrapper**: 🔌 Seamlessly integrated with `pokeapi-js-wrapper` for more flexible and powerful API interactions.
 
 ## Getting Started Guide 📚
 
 To get started with **Pokedex-v2**, follow these steps:
 
 1. **Clone the Repository**:
+
    ```bash
    git clone https://github.com/mariokreitz/pokedex-v2.git
    ```
 
 2. **Navigate to the Project Directory**:
+
    ```bash
-   cd pokedex-v2
+   cd pokedex-v3
    ```
 
 3. **Install Dependencies**:
+
    ```bash
    npm install
    ```
 
 4. **Run the Application**:
+
    ```bash
    npm start
    ```
 
-5. Open your browser and go to `http://localhost:3000` to start exploring!
+5. Open your browser and go to `http://localhost:4200` to start exploring!
 
 ## API Documentation 🌐
 
-This project interacts with the [PokéAPI](https://pokeapi.co/). Here’s a brief overview of the key endpoints:
+This project interacts with the [PokéAPI](https://pokeapi.co/) using the `pokeapi-js-wrapper`. Here’s a brief overview of the key methods available in this wrapper:
 
-- **Pokémon**: `/pokemon/{id or name}`
-- **Types**: `/type/{id or name}`
-- **Abilities**: `/ability/{id or name}`
+- **getPokemonByName(name)**: Retrieves Pokémon data by name.
+- **getTypeByName(name)**: Retrieves Pokémon type data by name.
+- **getAbilityByName(name)**: Retrieves Pokémon ability data by name.
 
-For more details, check the [PokéAPI documentation](https://pokeapi.co/docs/v2).
+For more details, check the [pokeapi-js-wrapper documentation](https://github.com/PokeAPI/pokeapi-js-wrapper) and the [PokéAPI documentation](https://pokeapi.co/docs/v2).
 
 ## Troubleshooting 🛠️
 
@@ -67,13 +71,17 @@ Having trouble? Here are some common issues and solutions:
 - **Issue: Data not loading**  
   **Solution**: Verify your internet connection and ensure the API service is up.
 
+- **Issue: API request failures**  
+  **Solution**: Check if the `pokeapi-js-wrapper` configuration is correct and that the API rate limits are not exceeded.
+
 ## Changelog 📅
 
-- **v1.0.0**: Initial release with caching and basic data fetching.
+- **v2.0.0**: Migrated to Angular 17 and integrated `pokeapi-js-wrapper` for enhanced API interactions.
 
 ## Acknowledgements 🙏
 
 - **PokéAPI**: For providing comprehensive Pokémon data.
+- **pokeapi-js-wrapper**: For simplifying and enhancing API interactions.
 - **ChartJS**: For the powerful charting library used for data visualization.
 - **Franziska**: For the stunning design of this project. 💖
 
@@ -82,12 +90,11 @@ Having trouble? Here are some common issues and solutions:
 For any questions or feedback, feel free to reach out:
 
 - **Email**: [contact@mario-kreitz.dev](mailto:contact@mario-kreitz.dev)
-- **GitHub Issues**: [Submit an issue](https://github.com/mariokreitz/pokedex-v2/issues)
+- **GitHub Issues**: [Submit an issue](https://github.com/mariokreitz/pokedex-v3/issues)
 
-Thank you for checking out **Pokedex-v2**! We hope you enjoy exploring Pokémon with our enhanced features. Happy coding! 😄
+Thank you for checking out **Pokedex-v3**! We hope you enjoy exploring Pokémon with our enhanced features. Happy coding! 😄
 
 ---
 
-*Made with ❤️ by [Mario Kreitz](https://github.com/mariokreitz)*  
-*Design by [Franziska](https://www.instagram.com/18ago/)*
-
+_Made with ❤️ by [Mario Kreitz](https://github.com/mariokreitz)_  
+_Design by [Franziska](https://www.instagram.com/18ago/)_
