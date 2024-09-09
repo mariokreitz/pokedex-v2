@@ -16,7 +16,8 @@ export class PokemonService {
 
   interval = {
     offset: 0,
-    limit: 151,
+    limit: 10,
+    // limit: 1025,
   };
   async getPokemons(offset: number = 0) {
     const data = await this.pokedex.getPokemonsList(this.interval);
