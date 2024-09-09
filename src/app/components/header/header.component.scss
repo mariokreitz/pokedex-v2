@@ -1,0 +1,22 @@
+header {
+  margin-inline: 54px;
+}
+
+input {
+  color: black;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    margin-inline: 20px;
+  }
+
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
