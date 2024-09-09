@@ -1,6 +1,13 @@
 export type Pokemon = {
   id: number;
   name: string;
+  names: {
+    name: string;
+    language: {
+      name: string;
+      url: string;
+    };
+  }[];
   order: number;
   types: {
     slot: number;
@@ -56,5 +63,16 @@ export type Pokemon = {
         url: string;
       };
     }[];
+  }[];
+  flavor_text_entries: {
+    flavor_text: string;
+    language: {
+      name: string;
+      url: string;
+    };
+    version: {
+      name: string;
+      url: string;
+    };
   }[];
 };
