@@ -4,9 +4,9 @@ Welcome to **Pokedex-v2**! 🎉 This project is a cutting-edge version of the cl
 
 ## Badges 🏅
 
-[![License](https://img.shields.io/github/license/mariokreitz/pokedex-v3.svg)](LICENSE)  
-[![Version](https://img.shields.io/github/v/release/mariokreitz/pokedex-v3.svg)](https://github.com/mariokreitz/pokedex-v3/releases)  
-[![Build Status](https://github.com/mariokreitz/pokedex-v3/actions/workflows/main.yml/badge.svg)](https://github.com/mariokreitz/pokedex-v3/actions/workflows/main.yml)
+[![License](https://img.shields.io/github/license/mariokreitz/pokedex-v2.svg)](LICENSE)  
+[![Version](https://img.shields.io/github/v/release/mariokreitz/pokedex-v2.svg)](https://github.com/mariokreitz/pokedex-v3/releases)  
+[![Build Status](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml/badge.svg)](https://github.com/mariokreitz/pokedex-v3/actions/workflows/main.yml)
 
 ## Demo 🎥
 
@@ -92,7 +92,7 @@ For any questions or feedback, feel free to reach out:
 - **Email**: [contact@mario-kreitz.dev](mailto:contact@mario-kreitz.dev)
 - **GitHub Issues**: [Submit an issue](https://github.com/mariokreitz/pokedex-v3/issues)
 
-Thank you for checking out **Pokedex-v3**! We hope you enjoy exploring Pokémon with our enhanced features. Happy coding! 😄
+Thank you for checking out **Pokedex-v2**! We hope you enjoy exploring Pokémon with our enhanced features. Happy coding! 😄
 
 ---
 
