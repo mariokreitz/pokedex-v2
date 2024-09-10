@@ -25,7 +25,7 @@ export class PokemonService {
 
     const pokemons = await Promise.all(
       result.map(async (pokemon) => {
-        //TODO: FIX ME
+        // TODO: FIX ME WITH POKEMON SPECIES BY LIMIT AT 1025
         const pokemonSpecies = await this.pokedex
           .getPokemonSpeciesByName(pokemon.name)
           .catch(() => {
