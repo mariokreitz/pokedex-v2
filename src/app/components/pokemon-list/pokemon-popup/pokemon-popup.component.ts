@@ -10,6 +10,12 @@ import { DecimalPipe, TitleCasePipe } from '@angular/common';
   styleUrl: './pokemon-popup.component.scss',
 })
 export class PokemonPopupComponent implements OnInit {
+  playCry() {
+    if (this.cries) {
+      const audio = new Audio(this.cries.legacy);
+      audio.play();
+    }
+  }
   closePopup() {
     document.getElementById('overview')?.classList.add('d_none');
   }
@@ -20,6 +26,10 @@ export class PokemonPopupComponent implements OnInit {
   imgSrc!: string | null;
   types!: string[];
   description!: string;
+  cries?: {
+    latest: string;
+    legacy: string;
+  };
 
   constructor() {}
 
@@ -44,6 +54,7 @@ export class PokemonPopupComponent implements OnInit {
           stats,
           types,
           weight,
+          cries,
         } = this.selectedPokemon;
         this.id = id;
         this.name = name;
@@ -51,7 +62,15 @@ export class PokemonPopupComponent implements OnInit {
           sprites.other.dream_world.front_default ??
           sprites.other['official-artwork'].front_default;
         this.types = types.map(({ type }) => type.name);
-        this.description = flavor_text_entries[0].flavor_text;
+        const filteredDescription = flavor_text_entries.filter(
+          ({ language }) => language.name === 'en'
+        );
+        const randomDescription =
+          filteredDescription[
+            Math.floor(Math.random() * filteredDescription.length)
+          ];
+        this.description = randomDescription.flavor_text;
+        this.cries = cries;
       }
     }
   }
