@@ -12,8 +12,15 @@ import { DecimalPipe, TitleCasePipe } from '@angular/common';
 export class PokemonPopupComponent implements OnInit {
   playCry() {
     if (this.cries) {
-      const audio = new Audio(this.cries.legacy);
-      audio.play();
+      if (this.cries.latest) {
+        const audio = new Audio(this.cries.latest);
+        audio.play();
+      } else {
+        const audio = new Audio(this.cries.legacy);
+        audio.play();
+      }
+    } else {
+      alert('Cry not found');
     }
   }
   closePopup() {
