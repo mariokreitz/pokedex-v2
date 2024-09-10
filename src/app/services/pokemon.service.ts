@@ -25,9 +25,19 @@ export class PokemonService {
 
     const pokemons = await Promise.all(
       result.map(async (pokemon) => {
-        const pokemonSpecies = await this.pokedex.getPokemonSpeciesByName(
-          pokemon.name
-        );
+        //TODO: FIX ME
+        const pokemonSpecies = await this.pokedex
+          .getPokemonSpeciesByName(pokemon.name)
+          .catch(() => {
+            /*
+            Catch that stupid ass pokemon name with "-" in it
+            that doesn't exist in the Pokedex under Species
+            e.g "wormadam-plan" => "wormadam" becaus "look at me im special"
+            */
+            const idiotPokemon = pokemon.name.split('-')[0];
+            return this.pokedex.getPokemonSpeciesByName(idiotPokemon);
+          });
+
         const pokemonData = await this.pokedex.getPokemonByName(pokemon.name);
         return { ...pokemonData, ...pokemonSpecies };
       })
