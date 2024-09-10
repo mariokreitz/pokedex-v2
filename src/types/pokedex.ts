@@ -91,4 +91,8 @@ export type Pokemon = {
     type: { name: string; url: string };
   }[];
   weight: number;
+  cries?: {
+    latest: string;
+    legacy: string;
+  };
 };
