@@ -87,3 +87,7 @@ button:focus {
 svg:not(:root) {
   overflow: hidden;
 }
+
+canvas {
+  display: inline-block;
+}
