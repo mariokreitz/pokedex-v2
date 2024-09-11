@@ -1,12 +1,12 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Pokemon } from '../../../../types/pokedex';
-import { DecimalPipe, TitleCasePipe } from '@angular/common';
+import { DecimalPipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-pokemon-popup',
   standalone: true,
-  imports: [TitleCasePipe, DecimalPipe],
+  imports: [UpperCasePipe, TitleCasePipe, DecimalPipe],
   templateUrl: './pokemon-popup.component.html',
   styleUrl: './pokemon-popup.component.scss',
 })
@@ -20,6 +20,8 @@ export class PokemonPopupComponent implements OnInit {
 
   id!: number;
   name!: string;
+  hp_number!: number;
+  hp_text!: string;
   imgSrc!: string | null;
   types!: string[];
   stats!: {
@@ -34,6 +36,22 @@ export class PokemonPopupComponent implements OnInit {
   };
   height!: number;
   weight!: number;
+  held_items!: {
+    item: { name: string; url: string };
+    version_details: {
+      rarity: number;
+    }[];
+  }[];
+  game_indices!: {
+    game_index: number;
+    version: { name: string; url: string };
+  }[];
+  items?: {
+    name: string;
+    sprites: {
+      default: string | null;
+    };
+  }[];
 
   constructor() {}
 
@@ -59,6 +77,7 @@ export class PokemonPopupComponent implements OnInit {
           types,
           weight,
           cries,
+          items,
         } = this.selectedPokemon;
         this.id = id;
         this.name = name;
@@ -76,8 +95,13 @@ export class PokemonPopupComponent implements OnInit {
         this.description = randomDescription.flavor_text;
         this.cries = cries;
         this.stats = stats;
+        this.hp_number = stats[0].base_stat;
+        this.hp_text = stats[0].stat.name;
         this.height = (height * this.CM) / 100;
         this.weight = (weight * this.HECTOGRAM) / 1000;
+        this.game_indices = game_indices;
+        this.held_items = held_items;
+        this.items = Array.isArray(items) ? items : [];
 
         this.populateStatsChart();
       }
@@ -153,5 +177,24 @@ export class PokemonPopupComponent implements OnInit {
         },
       },
     });
+  }
+
+  openTab(event: Event, tabName: string): void {
+    const tabContents = document.querySelectorAll<
+      HTMLCanvasElement | HTMLDivElement
+    >('.tabcontent');
+
+    tabContents.forEach((tabContent) => (tabContent.style.display = 'none'));
+
+    const tabLinks = document.querySelectorAll<HTMLImageElement>('.tablinks');
+    tabLinks.forEach((tabLink) => tabLink.classList.remove('active'));
+
+    const selectedTab = document.getElementById(tabName);
+    if (selectedTab) {
+      selectedTab.style.display = 'block';
+
+      if (event.currentTarget)
+        (event.currentTarget as HTMLImageElement).className += ' active';
+    }
   }
 }
