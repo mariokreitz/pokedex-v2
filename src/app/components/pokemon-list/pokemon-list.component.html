@@ -8,5 +8,21 @@
   }
 </div>
 <div id="overview" class="overview d_none">
+  <button
+    type="button"
+    class="overview-button"
+    id="prev-pokemon"
+    (click)="onPrevClick()"
+  >
+    -
+  </button>
   <app-pokemon-popup [selectedPokemon]="selectedPokemon" />
+  <button
+    type="button"
+    class="overview-button"
+    id="next-pokemon"
+    (click)="onNextClick()"
+  >
+    +
+  </button>
 </div>
