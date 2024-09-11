@@ -95,4 +95,10 @@ export type Pokemon = {
     latest: string;
     legacy: string;
   };
+  items?: {
+    name: string;
+    sprites: {
+      default: string | null;
+    };
+  };
 };
