@@ -23,7 +23,7 @@
     color: white;
     cursor: pointer;
     width: fit-content;
-    margin-inline: -30px;
+    margin-inline: -34px;
     font-size: 40px;
     z-index: 10;
 
@@ -45,7 +45,22 @@ app-pokemon-popup {
     padding-inline: 20px;
     .overview-button {
       font-size: 30px;
-      margin-inline: -45px;
+      margin-inline: -24px;
+    }
+  }
+}
+
+@media screen and (max-width: 520px) {
+  app-pokemon-popup {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .overview {
+    padding-inline: unset;
+    .overview-button {
+      font-size: 30px;
+      margin-inline: -24px;
     }
   }
 }
