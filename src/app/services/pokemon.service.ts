@@ -20,29 +20,39 @@ export class PokemonService {
     // limit: 1025,
   };
   async getPokemons(offset: number = 0) {
-    const data = await this.pokedex.getPokemonsList(this.interval);
-    const result = data.results;
+    const pokemonListResponse = await this.pokedex.getPokemonsList(
+      this.interval
+    );
+    const pokemonNames = pokemonListResponse.results;
 
     const pokemons = await Promise.all(
-      result.map(async (pokemon) => {
-        // TODO: FIX ME WITH POKEMON SPECIES BY LIMIT AT 1025
-        const pokemonSpecies = await this.pokedex
-          .getPokemonSpeciesByName(pokemon.name)
-          .catch(() => {
-            /*
-            Catch that stupid ass pokemon name with "-" in it
-            that doesn't exist in the Pokedex under Species
-            e.g "wormadam-plan" => "wormadam" becaus "look at me im special"
-            */
-            const idiotPokemon = pokemon.name.split('-')[0];
-            return this.pokedex.getPokemonSpeciesByName(idiotPokemon);
-          });
+      pokemonNames.map(async (pokemonName) => {
+        const pokemonSpecies = await this.getPokemonSpeciesByNameWithFallback(
+          pokemonName.name
+        );
 
-        const pokemonData = await this.pokedex.getPokemonByName(pokemon.name);
-        return { ...pokemonData, ...pokemonSpecies };
+        const pokemonData = await this.pokedex.getPokemonByName(
+          pokemonName.name
+        );
+
+        const pokemonItemNames = pokemonData.held_items.map(
+          (item) => item.item.name
+        );
+        const pokemonItems = await this.pokedex.getItemByName(pokemonItemNames);
+
+        return { ...pokemonData, ...pokemonSpecies, items: pokemonItems };
       })
     );
 
     return pokemons;
+  }
+
+  private async getPokemonSpeciesByNameWithFallback(pokemonName: string) {
+    try {
+      return await this.pokedex.getPokemonSpeciesByName(pokemonName);
+    } catch {
+      const pokemonBaseName = pokemonName.split('-')[0];
+      return await this.pokedex.getPokemonSpeciesByName(pokemonBaseName);
+    }
   }
 }
