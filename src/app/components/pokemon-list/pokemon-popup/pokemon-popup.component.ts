@@ -52,6 +52,14 @@ export class PokemonPopupComponent implements OnInit {
       default: string | null;
     };
   }[];
+  abilities!: {
+    ability: {
+      name: string;
+      url: string;
+    };
+    is_hidden: boolean;
+    slot: number;
+  }[];
 
   constructor() {}
 
@@ -102,7 +110,7 @@ export class PokemonPopupComponent implements OnInit {
         this.game_indices = game_indices;
         this.held_items = held_items;
         this.items = Array.isArray(items) ? items : [];
-
+        this.abilities = abilities;
         this.populateStatsChart();
       }
     }
