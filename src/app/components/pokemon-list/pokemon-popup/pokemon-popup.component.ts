@@ -90,6 +90,7 @@ export class PokemonPopupComponent implements OnInit {
   }
   closePopup() {
     document.getElementById('overview')?.classList.add('d_none');
+    document.body.classList.remove('no-scroll');
   }
 
   populateStatsChart() {
