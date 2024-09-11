@@ -83,9 +83,29 @@
 
 @media screen and (max-width: 768px) {
   .overview-card {
-    margin-inline: 20px;
     .main {
       flex-direction: column;
+      margin-block: 10px;
+      gap: 10px;
+
+      .left {
+        img {
+          width: 150px;
+          height: 150px;
+        }
+      }
+
+      .right {
+        .chart {
+          .stats-Chart {
+            width: 200px;
+            height: 200px;
+          }
+        }
+      }
     }
   }
+}
+
+@media screen and (max-width: 520px) {
 }
