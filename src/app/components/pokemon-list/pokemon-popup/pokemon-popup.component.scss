@@ -56,11 +56,25 @@
       flex-direction: column;
       align-items: center;
       flex: 1;
+      gap: 20px;
 
       .chart {
         .stats-Chart {
           width: 250px;
           height: 250px;
+        }
+      }
+
+      .info {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+
+        img {
+          position: relative;
+          width: 40px;
+          height: 40px;
+          cursor: pointer;
         }
       }
     }
