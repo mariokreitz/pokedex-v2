@@ -58,7 +58,17 @@
       flex: 1;
       gap: 20px;
 
-      .chart {
+      .stats {
+        .stats-base {
+          display: flex;
+          gap: 20px;
+
+          h3 {
+            display: flex;
+            gap: 10px;
+          }
+        }
+
         .stats-Chart {
           width: 250px;
           height: 250px;
