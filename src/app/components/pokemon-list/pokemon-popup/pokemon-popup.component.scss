@@ -25,6 +25,9 @@
 
       svg {
         cursor: pointer;
+        fill: $text-color;
+        width: 20px;
+        height: 20px;
       }
 
       .name {
@@ -43,6 +46,7 @@
       display: flex;
       flex: 1;
       flex-direction: column;
+      align-items: center;
       gap: 20px;
 
       img {
@@ -63,9 +67,17 @@
           display: flex;
           gap: 20px;
 
-          h3 {
+          .height,
+          .weight {
             display: flex;
+            align-items: center;
             gap: 10px;
+
+            svg {
+              fill: $text-color;
+              height: 16px;
+              width: 16px;
+            }
           }
         }
 
