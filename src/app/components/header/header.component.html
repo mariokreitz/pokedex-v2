@@ -3,7 +3,7 @@
     <div class="grid-item-1">
       <img src="./assets/pokedex_logo.png" alt="Pokedex Logo" />
       <input
-        (input)="handleSearchInputChange(searchbar.value)"
+        (input)="handleSearchInputChange(searchbar.value.toLowerCase())"
         type="text"
         name="searchbar"
         id="searchbar"
