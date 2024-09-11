@@ -12,6 +12,11 @@ import Chart from 'chart.js/auto';
 })
 export class PokemonPopupComponent implements OnInit {
   @Input() selectedPokemon: Pokemon | null = null;
+  // https://github.com/veekun/pokedex/blob/master/pokedex/db/tables.py#L1649
+  // The height of the Pokémon, in tenths of a meter (decimeters = 10cm)
+  // The weight of the Pokémon, in tenths of a kilogram (hectograms = 100gramm)
+  private readonly CM = 10;
+  private readonly HECTOGRAM = 100;
 
   id!: number;
   name!: string;
@@ -27,6 +32,8 @@ export class PokemonPopupComponent implements OnInit {
     latest: string;
     legacy: string;
   };
+  height!: number;
+  weight!: number;
 
   constructor() {}
 
@@ -69,6 +76,8 @@ export class PokemonPopupComponent implements OnInit {
         this.description = randomDescription.flavor_text;
         this.cries = cries;
         this.stats = stats;
+        this.height = (height * this.CM) / 100;
+        this.weight = (weight * this.HECTOGRAM) / 1000;
 
         this.populateStatsChart();
       }
