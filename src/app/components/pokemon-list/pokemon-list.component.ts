@@ -43,5 +43,33 @@ export class PokemonListComponent implements OnInit {
   onPokemonClick(pokemon: Pokemon) {
     this.selectedPokemon = pokemon;
     document.getElementById('overview')?.classList.remove('d_none');
+    document.body.classList.add('no-scroll');
+  }
+
+  onPrevClick() {
+    if (this.selectedPokemon) {
+      const index = this.displayedPokemons.findIndex(
+        (pokemon) => pokemon.id === this.selectedPokemon!.id
+      );
+      const prevIndex =
+        (index - 1 + this.displayedPokemons.length) %
+        this.displayedPokemons.length;
+      this.selectedPokemon = this.displayedPokemons[prevIndex];
+    } else {
+      this.selectedPokemon =
+        this.displayedPokemons[this.displayedPokemons.length - 1];
+    }
+  }
+
+  onNextClick() {
+    if (this.selectedPokemon) {
+      const index = this.displayedPokemons.findIndex(
+        (pokemon) => pokemon.id === this.selectedPokemon!.id
+      );
+      const nextIndex = (index + 1) % this.displayedPokemons.length;
+      this.selectedPokemon = this.displayedPokemons[nextIndex];
+    } else {
+      this.selectedPokemon = this.displayedPokemons[0];
+    }
   }
 }
