@@ -16,6 +16,10 @@
   </div>
   <div class="main">
     <div class="left">
+      <div class="hitpoints">
+        <span>{{ hp_number }}</span
+        ><span>{{ hp_text | uppercase }}</span>
+      </div>
       <img [src]="imgSrc" [alt]="name" />
       <div class="types">
         @for (type of types; track $index) {
@@ -45,11 +49,48 @@
             {{ weight }} Kilogram
           </h3>
         </div>
-        <canvas id="stats-Chart" class="stats-Chart"></canvas>
+        <canvas id="stats-Chart" class="tabcontent"></canvas>
+        <div id="items" class="tabcontent">
+          @if (items) { @if (items.length > 0) {
+          <h4>Items to hold</h4>
+          @for (item of items; track $index) {
+          <div class="item">
+            <img
+              class="item-img"
+              [src]="item.sprites.default"
+              [alt]="item.name"
+            />
+            <p>{{ item.name | titlecase }}</p>
+          </div>
+          }@empty {
+          <p>Snorlax must have eaten all the items!</p>
+          }} @else {
+          <p>Looks like this Pokémon can't hold any items!</p>
+          }} @else {
+          <p>All Pokémon used Fly and flew off with the items!</p>
+          }
+        </div>
+        <div id="editions" class="tabcontent"></div>
       </div>
-      <div class="info">
-        <img src="./assets/bag.png" alt="Bag Icon" />
-        <img src="./assets/gb_cartridge.png" alt="Gameboy Cartridge Icon" />
+      <div class="tab">
+        <img
+          (click)="openTab($event, 'stats-Chart')"
+          class="tablinks"
+          src="./assets/graph.png"
+          alt="Graph Icon"
+        />
+        <img
+          (click)="openTab($event, 'items')"
+          class="tablinks"
+          src="./assets/bag.png"
+          alt="Bag Icon"
+        />
+        <img
+          (click)="openTab($event, 'editions')"
+          class="tablinks"
+          src="./assets/gb_cartridge.png"
+          alt="Gameboy Cartridge Icon"
+        />
       </div>
     </div>
   </div>
