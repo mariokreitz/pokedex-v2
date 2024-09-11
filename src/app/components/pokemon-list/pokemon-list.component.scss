@@ -16,4 +16,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .overview-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: fit-content;
+    margin-inline: -30px;
+    font-size: 40px;
+    z-index: 10;
+
+    &:hover {
+      scale: 1.25;
+    }
+
+    &:active {
+      scale: 1;
+    }
+  }
 }
