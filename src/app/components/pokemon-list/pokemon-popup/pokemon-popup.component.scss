@@ -12,9 +12,11 @@
     display: flex;
     gap: 40px;
     justify-content: space-between;
+    align-items: center;
 
     button {
       width: fit-content;
+      height: fit-content;
     }
 
     .heading {
@@ -47,7 +49,7 @@
       flex: 1;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      justify-content: space-between;
 
       .hitpoints {
         width: 100%;
@@ -70,43 +72,57 @@
 
       .stats {
         display: flex;
-        flex-direction: column;
         gap: 20px;
 
-        .stats-base {
+        .height,
+        .weight {
           display: flex;
-          gap: 20px;
+          align-items: center;
+          gap: 10px;
 
-          .height,
-          .weight {
+          svg {
+            fill: $text-color;
+            height: 16px;
+            width: 16px;
+          }
+        }
+      }
+
+      #items {
+        gap: 10px;
+      }
+
+      #editions {
+        .wrapper {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .content {
+            height: 80%;
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            flex-wrap: wrap;
 
-            svg {
-              fill: $text-color;
-              height: 16px;
-              width: 16px;
+            p {
+              font-size: 14px;
             }
           }
         }
+      }
 
-        #items {
+      .tabcontent {
+        width: 250px !important;
+        height: 250px !important;
+        display: none;
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
+
+        .item {
+          display: flex;
           gap: 10px;
-        }
-
-        .tabcontent {
-          width: 250px !important;
-          height: 250px !important;
-          display: none;
-          -webkit-animation: fadeEffect 1s;
-          animation: fadeEffect 1s;
-
-          .item {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-          }
+          align-items: center;
         }
       }
 
@@ -126,6 +142,22 @@
           }
         }
       }
+    }
+  }
+
+  .footer {
+    display: flex;
+    gap: 40px;
+
+    .passiv-ability {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .info {
+      flex: 1;
+      padding-inline: 40px;
     }
   }
 }
@@ -151,8 +183,7 @@
 @media screen and (max-width: 768px) {
   .overview-card {
     .main {
-      flex-direction: column;
-      margin-block: 10px;
+      margin-block: 20px;
       gap: 10px;
 
       .left {
@@ -163,10 +194,16 @@
       }
 
       .right {
-        .chart {
-          .stats-Chart {
-            width: 200px;
-            height: 200px;
+        .tabcontent {
+          .wrapper {
+            gap: 5px;
+          }
+        }
+
+        .tab {
+          img {
+            width: 30px;
+            height: 30px;
           }
         }
       }
@@ -175,4 +212,89 @@
 }
 
 @media screen and (max-width: 520px) {
+  .overview-card {
+    width: 100%;
+    height: 100%;
+    padding: 12px 20px;
+    border: unset;
+
+    .header {
+      button {
+        font-size: 14px;
+      }
+
+      .heading {
+        .name {
+          h2 {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    .main {
+      flex-direction: column;
+      margin-block: 10px;
+      gap: 10px;
+
+      .left {
+        gap: 4px;
+
+        img {
+          width: 125px;
+          height: 125px;
+        }
+      }
+
+      .right {
+        gap: 6px;
+
+        .stats {
+          gap: 10px;
+        }
+
+        .tabcontent {
+          width: 175px !important;
+          height: 175px !important;
+          overflow-y: auto;
+
+          .wrapper {
+            gap: 5px;
+
+            .content {
+              flex-wrap: nowrap !important;
+            }
+          }
+        }
+
+        .tab {
+          img {
+            width: 30px;
+            height: 30px;
+          }
+        }
+      }
+    }
+
+    .footer {
+      justify-content: space-around;
+
+      .info {
+        padding-inline: unset;
+        flex: 1.5;
+
+        p {
+          font-size: 14px;
+          height: 120px;
+          overflow-y: auto;
+        }
+      }
+
+      .passiv-ability {
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+  }
 }
