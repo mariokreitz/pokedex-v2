@@ -52,7 +52,7 @@
       <canvas id="stats-Chart" class="tabcontent"></canvas>
       <div id="items" class="tabcontent">
         @if (items) { @if (items.length > 0) {
-        <h4>Items to hold</h4>
+        <h4>Possible items to receive upon catching</h4>
         @for (item of items; track $index) {
         <div class="item">
           <img
@@ -65,7 +65,7 @@
         }@empty {
         <p>Snorlax must have eaten all the items!</p>
         }} @else {
-        <p>Looks like this Pokémon can't hold any items!</p>
+        <p>It seems this Pokémon doesn't come with any items!</p>
         }} @else {
         <p>All Pokémon used Fly and flew off with the items!</p>
         }
