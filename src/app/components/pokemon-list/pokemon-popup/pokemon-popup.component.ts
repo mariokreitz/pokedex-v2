@@ -114,6 +114,7 @@ export class PokemonPopupComponent implements OnInit {
         this.populateStatsChart();
       }
     }
+    this.resetDisplayStyle();
   }
 
   playCry() {
@@ -204,5 +205,14 @@ export class PokemonPopupComponent implements OnInit {
       if (event.currentTarget)
         (event.currentTarget as HTMLImageElement).className += ' active';
     }
+  }
+
+  resetDisplayStyle() {
+    const tabContents = document.querySelectorAll<
+      HTMLCanvasElement | HTMLDivElement
+    >('.tabcontent');
+    tabContents.forEach((tabContent) => {
+      if (tabContent.id != 'stats-Chart') tabContent.style.display = 'none';
+    });
   }
 }
