@@ -43,6 +43,7 @@ app-pokemon-popup {
 @media screen and (max-width: 768px) {
   .overview {
     padding-inline: 20px;
+
     .overview-button {
       font-size: 30px;
       margin-inline: -24px;
@@ -52,15 +53,24 @@ app-pokemon-popup {
 
 @media screen and (max-width: 520px) {
   app-pokemon-popup {
-    width: 100vw;
-    height: 100vh;
+    height: inherit;
   }
 
   .overview {
     padding-inline: unset;
+
     .overview-button {
+      position: absolute;
+      top: 50%;
+      left: 35px;
+      z-index: 10;
       font-size: 30px;
       margin-inline: -24px;
+
+      &:last-child {
+        left: unset;
+        right: 35px;
+      }
     }
   }
 }
