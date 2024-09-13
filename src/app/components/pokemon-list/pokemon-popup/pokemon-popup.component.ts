@@ -117,7 +117,15 @@ export class PokemonPopupComponent implements OnInit {
     this.resetTabDisplay();
   }
 
-  playCry() {
+  /**
+   * Plays the cry sound of a Pokémon.
+   *
+   * If a cry URL is found, it creates a new Audio object and plays the sound at 25% volume.
+   * If no cry URL is found, it displays an alert message indicating that the cry was not found.
+   *
+   * @return {void}
+   */
+  playCry(): void {
     const cryUrl = this.cries?.latest ?? this.cries?.legacy;
 
     if (cryUrl) {
@@ -129,6 +137,11 @@ export class PokemonPopupComponent implements OnInit {
     }
   }
 
+  /**
+   * Closes the popup by hiding the 'overview' element and removing the 'no-scroll' class from the document body.
+   *
+   * @return {void} This function does not return anything.
+   */
   closePopup() {
     const overview = document.getElementById('overview') as HTMLDivElement;
     if (overview) {
@@ -137,6 +150,15 @@ export class PokemonPopupComponent implements OnInit {
     document.body.classList.remove('no-scroll');
   }
 
+  /**
+   * Creates a radar chart to display the Pokémon's stats.
+   *
+   * The chart is created using the Chart.js library and is displayed in the 'stats-Chart' canvas element.
+   * The chart data is generated from the Pokémon's stats, with each stat being represented by a point on the chart.
+   * The chart options are customized to display the chart in a radar style, with a white background and gray grid lines.
+   *
+   * @return {void}
+   */
   private createStatsChart(): void {
     const ctx = this.getCanvasElement('stats-Chart');
 
@@ -166,10 +188,23 @@ export class PokemonPopupComponent implements OnInit {
     });
   }
 
+  /**
+   * Retrieves an HTMLCanvasElement from the document by its id.
+   *
+   * @param {string} id - The id of the HTMLCanvasElement to retrieve.
+   * @return {HTMLCanvasElement} The HTMLCanvasElement with the specified id.
+   */
   private getCanvasElement(id: string): HTMLCanvasElement {
     return document.getElementById(id) as HTMLCanvasElement;
   }
 
+  /**
+   * Opens a tab based on the provided tab name and event.
+   *
+   * @param {Event} event - The event that triggered the tab opening.
+   * @param {string} tabName - The name of the tab to open.
+   * @return {void} No return value.
+   */
   openTab(event: Event, tabName: string): void {
     const tabContents = document.querySelectorAll<
       HTMLCanvasElement | HTMLDivElement
@@ -194,6 +229,11 @@ export class PokemonPopupComponent implements OnInit {
     }
   }
 
+  /**
+   * Resets the display of all tab contents except for the stats chart.
+   *
+   * @return {void} No return value.
+   */
   resetTabDisplay(): void {
     const tabContents = document.querySelectorAll<HTMLElement>('.tabcontent');
 
