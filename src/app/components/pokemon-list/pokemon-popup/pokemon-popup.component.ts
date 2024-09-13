@@ -207,7 +207,7 @@ export class PokemonPopupComponent implements OnInit {
     }
   }
 
-  resetDisplayStyle() {
+  resetDisplayStyle(): void {
     const tabContents = document.querySelectorAll<
       HTMLCanvasElement | HTMLDivElement
     >('.tabcontent');
