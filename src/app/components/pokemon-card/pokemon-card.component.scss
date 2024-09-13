@@ -9,8 +9,8 @@
   width: 270px;
   height: 350px;
   padding: 10px;
-  border: 1px solid $text-color;
-
+  border-radius: 4px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   background-color: #379d2c;
 
   .header {
@@ -29,11 +29,6 @@
     justify-content: center;
     width: 150px;
     height: 150px;
-
-    app-pokemon-image {
-      height: inherit;
-      width: inherit;
-    }
   }
 
   &:hover {
