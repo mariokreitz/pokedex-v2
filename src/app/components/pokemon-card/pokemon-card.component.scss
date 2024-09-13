@@ -11,7 +11,6 @@
   padding: 10px;
   border-radius: 4px;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  background-color: #379d2c;
 
   .header {
     width: 100%;
@@ -20,7 +19,6 @@
     justify-content: space-between;
     padding-inline: 8px;
     border-radius: 4px;
-    background-color: green;
   }
 
   .img {
@@ -33,5 +31,18 @@
 
   &:hover {
     cursor: pointer;
+  }
+
+  .types {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .type {
+      padding: 5px 14px;
+      border-radius: 9999px;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
   }
 }
