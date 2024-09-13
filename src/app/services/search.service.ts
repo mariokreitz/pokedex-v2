@@ -5,13 +5,17 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SearchService {
-  private searchSubject = new BehaviorSubject<string>('');
+  private readonly searchSubject = new BehaviorSubject<string>('');
 
-  currentSearch = this.searchSubject.asObservable();
+  readonly currentSearch = this.searchSubject.asObservable();
 
-  constructor() {}
-
-  changeSearch(searchTerm: string) {
+  /**
+   * Updates the current search term.
+   *
+   * @param {string} searchTerm - The new search term to update the current search with.
+   * @return {void} No return value.
+   */
+  changeSearch(searchTerm: string): void {
     this.searchSubject.next(searchTerm);
   }
 }
