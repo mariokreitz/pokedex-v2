@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Pokedex } from 'pokeapi-js-wrapper';
+import { Pokemon } from '../../types/pokedex';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class PokemonService {
     limit: 151,
     // limit: 1025,
   };
-  async getPokemons(offset: number = 0) {
+  async getPokemons(offset: number = 0): Promise<Pokemon[]> {
     const pokemonListResponse = await this.pokedex.getPokemonsList(
       this.interval
     );
