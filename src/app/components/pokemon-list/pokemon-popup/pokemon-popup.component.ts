@@ -130,7 +130,10 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   closePopup() {
-    document.getElementById('overview')?.classList.add('d_none');
+    const overview = document.getElementById('overview') as HTMLDivElement;
+    if (overview) {
+      overview.classList.add('d_none');
+    }
     document.body.classList.remove('no-scroll');
   }
 
