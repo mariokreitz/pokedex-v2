@@ -112,9 +112,26 @@ export class PokemonPopupComponent implements OnInit {
         this.items = Array.isArray(items) ? items : [];
         this.abilities = abilities;
         this.createStatsChart();
+        this.addDynamicBackground();
       }
     }
     this.resetTabDisplay();
+  }
+
+  /**
+   * Dynamically adds a CSS class to the overview card element based on the Pokémon's type.
+   *
+   * This function retrieves the overview card element and adds a CSS class corresponding to the Pokémon's primary type.
+   *
+   * @return {void}
+   */
+  private addDynamicBackground(): void {
+    const overviewCard = document.getElementById('overview-card');
+
+    if (overviewCard) {
+      overviewCard.className = 'overview-card';
+      overviewCard.classList.add('type', this.types[0]);
+    }
   }
 
   /**
