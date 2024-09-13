@@ -8,28 +8,47 @@ import { PokemonImageComponent } from './pokemon-image/pokemon-image.component';
   standalone: true,
   imports: [TitleCasePipe, DecimalPipe, PokemonImageComponent],
   templateUrl: './pokemon-card.component.html',
-  styleUrl: './pokemon-card.component.scss',
+  styleUrls: ['./pokemon-card.component.scss'],
 })
 export class PokemonCardComponent {
-  id!: number;
-  name!: string;
-  imgSrc!: string | null;
-  types!: string[];
+  @Input() Pokemon!: Pokemon;
 
-  constructor() {}
+  /**
+   * Retrieves the ID of the Pokémon.
+   *
+   * @return {number} The ID of the Pokémon.
+   */
+  get id(): number {
+    return this.Pokemon.id;
+  }
 
-  @Input()
-  Pokemon!: Pokemon;
+  /**
+   * Returns the name of the Pokemon.
+   *
+   * @return {string} The name of the Pokemon.
+   */
+  get name(): string {
+    return this.Pokemon.name;
+  }
 
-  ngOnInit(): void {
-    const { id, name, sprites, types } = this.Pokemon;
+  /**
+   * Retrieves the image source URL for the Pokémon.
+   *
+   * @return {string | null} The URL of the Pokémon's image, or null if no image is available.
+   */
+  get imgSrc(): string | null {
+    return (
+      this.Pokemon.sprites.other.dream_world.front_default ??
+      this.Pokemon.sprites.other['official-artwork'].front_default
+    );
+  }
 
-    this.id = id;
-    this.name = name;
-    this.imgSrc =
-      sprites.other.dream_world.front_default ??
-      sprites.other['official-artwork'].front_default;
-
-    this.types = types.map(({ type }) => type.name);
+  /**
+   * Returns a list of Pokémon types.
+   *
+   * @return {string[]} An array of Pokémon type names.
+   */
+  get types(): string[] {
+    return this.Pokemon.types.map(({ type }) => type.name);
   }
 }
