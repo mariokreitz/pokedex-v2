@@ -118,18 +118,17 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   playCry() {
-    if (this.cries) {
-      if (this.cries.latest) {
-        const audio = new Audio(this.cries.latest);
-        audio.play();
-      } else {
-        const audio = new Audio(this.cries.legacy);
-        audio.play();
-      }
+    const cryUrl = this.cries?.latest ?? this.cries?.legacy;
+
+    if (cryUrl) {
+      const audio = new Audio(cryUrl);
+      audio.volume = 0.25;
+      audio.play();
     } else {
       alert('Cry not found');
     }
   }
+
   closePopup() {
     document.getElementById('overview')?.classList.add('d_none');
     document.body.classList.remove('no-scroll');
