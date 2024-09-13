@@ -111,7 +111,7 @@ export class PokemonPopupComponent implements OnInit {
         this.held_items = held_items;
         this.items = Array.isArray(items) ? items : [];
         this.abilities = abilities;
-        this.populateStatsChart();
+        this.createStatsChart();
       }
     }
     this.resetDisplayStyle();
@@ -137,57 +137,37 @@ export class PokemonPopupComponent implements OnInit {
     document.body.classList.remove('no-scroll');
   }
 
-  populateStatsChart() {
-    const statNames = [
-      'HP',
-      'Attack',
-      'Defense',
-      'Sp. Atk',
-      'Sp. Def',
-      'Speed',
-    ];
-    const statData = this.stats.map(({ base_stat }) => base_stat);
+  private createStatsChart(): void {
+    const ctx = this.getCanvasElement('stats-Chart');
 
-    const ctx = document.getElementById('stats-Chart') as HTMLCanvasElement;
+    const labels = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'];
+    const data = this.stats.map((stat) => stat.base_stat);
 
-    let myChart = Chart.getChart(ctx);
-    if (myChart) {
-      myChart.destroy();
+    const chart = Chart.getChart(ctx);
+    if (chart) {
+      chart.destroy();
     }
+
     new Chart(ctx, {
       type: 'radar',
-      data: {
-        labels: statNames,
-        datasets: [
-          {
-            label: 'Stats',
-            data: statData,
-          },
-        ],
-      },
+      data: { labels, datasets: [{ label: 'Stats', data }] },
       options: {
         scales: {
           r: {
-            ticks: {
-              display: false,
-              stepSize: 20,
-            },
-            pointLabels: {
-              color: 'white',
-            },
-            angleLines: {
-              display: true,
-              color: 'rgba(255, 255, 255, 0.75)',
-            },
-            grid: {
-              color: 'rgba(255, 255, 255, 0.75)',
-            },
+            ticks: { display: false, stepSize: 20 },
+            pointLabels: { color: 'white' },
+            angleLines: { display: true, color: 'rgba(255, 255, 255, 0.75)' },
+            grid: { color: 'rgba(255, 255, 255, 0.75)' },
             suggestedMin: 0,
             suggestedMax: 120,
           },
         },
       },
     });
+  }
+
+  private getCanvasElement(id: string): HTMLCanvasElement {
+    return document.getElementById(id) as HTMLCanvasElement;
   }
 
   openTab(event: Event, tabName: string): void {
