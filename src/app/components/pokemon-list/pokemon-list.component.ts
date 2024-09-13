@@ -61,15 +61,16 @@ export class PokemonListComponent implements OnInit {
     }
   }
 
-  onNextClick() {
-    if (this.selectedPokemon) {
-      const index = this.displayedPokemons.findIndex(
-        (pokemon) => pokemon.id === this.selectedPokemon!.id
-      );
-      const nextIndex = (index + 1) % this.displayedPokemons.length;
-      this.selectedPokemon = this.displayedPokemons[nextIndex];
-    } else {
+  onNextClick(): void {
+    const currentIndex = this.displayedPokemons.findIndex(
+      (pokemon) => pokemon.id === this.selectedPokemon?.id
+    );
+
+    if (currentIndex === -1) {
       this.selectedPokemon = this.displayedPokemons[0];
+    } else {
+      const nextIndex = (currentIndex + 1) % this.displayedPokemons.length;
+      this.selectedPokemon = this.displayedPokemons[nextIndex];
     }
   }
 }
