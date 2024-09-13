@@ -175,17 +175,22 @@ export class PokemonPopupComponent implements OnInit {
       HTMLCanvasElement | HTMLDivElement
     >('.tabcontent');
 
-    tabContents.forEach((tabContent) => (tabContent.style.display = 'none'));
+    tabContents.forEach((tabContent) => {
+      tabContent.style.display = 'none';
+    });
 
-    const tabLinks = document.querySelectorAll<HTMLImageElement>('.tablinks');
-    tabLinks.forEach((tabLink) => tabLink.classList.remove('active'));
+    const tabs = document.querySelectorAll<HTMLImageElement>('.tablinks');
+
+    tabs.forEach((tab) => tab.classList.remove('active'));
 
     const selectedTab = document.getElementById(tabName);
+
     if (selectedTab) {
       selectedTab.style.display = 'block';
 
-      if (event.currentTarget)
-        (event.currentTarget as HTMLImageElement).className += ' active';
+      if (event.currentTarget) {
+        (event.currentTarget as HTMLImageElement).classList.add('active');
+      }
     }
   }
 
