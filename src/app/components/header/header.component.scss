@@ -24,6 +24,7 @@ header {
         position: absolute;
         left: -25%;
         height: inherit;
+        z-index: -1;
         filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8));
       }
     }
