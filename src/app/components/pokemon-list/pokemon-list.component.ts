@@ -19,33 +19,55 @@ export class PokemonListComponent implements OnInit {
 
   selectedPokemon: Pokemon | null = null;
 
+  /**
+   * Initializes the PokemonListComponent with the necessary services.
+   *
+   * @param {PokemonService} pokemonService - The service used to fetch Pokémon data.
+   * @param {SearchService} searchService - The service used to handle search functionality.
+   */
   constructor(
-    private pokemonService: PokemonService,
-    private searchService: SearchService
+    private readonly pokemonService: PokemonService,
+    private readonly searchService: SearchService
   ) {}
 
+  /**
+   * Initializes the component by fetching the list of pokemons and setting up the search subscription.
+   *
+   * @return {Promise<void>} A promise that resolves when the initialization is complete.
+   */
   async ngOnInit(): Promise<void> {
     this.pokemons = await this.pokemonService.getPokemons();
 
-    this.searchService.currentSearch.subscribe((currentSearchTerm) => {
-      const searchTerm = currentSearchTerm;
-      if (searchTerm) {
-        this.filteredPokemons = this.pokemons.filter((pokemon) =>
-          pokemon.name.includes(searchTerm)
-        );
-        this.displayedPokemons = this.filteredPokemons;
-      } else {
-        this.displayedPokemons = this.pokemons;
-      }
+    this.searchService.currentSearch.subscribe((searchTerm) => {
+      this.displayedPokemons = searchTerm
+        ? this.pokemons.filter(({ name }) => name.includes(searchTerm))
+        : this.pokemons;
     });
   }
 
-  onPokemonClick(pokemon: Pokemon) {
+  /**
+   * Displays the overview of a selected Pokémon.
+   *
+   * @param {Pokemon} pokemon - The Pokémon to display the overview for.
+   * @return {void}
+   */
+  showPokemonOverview(pokemon: Pokemon): void {
     this.selectedPokemon = pokemon;
-    document.getElementById('overview')?.classList.remove('d_none');
+    const overviewElement = document.getElementById('overview');
+    if (overviewElement) {
+      overviewElement.classList.remove('d_none');
+    }
     document.body.classList.add('no-scroll');
   }
 
+  /**
+   *  Navigates to the previous Pokémon in the list of displayed Pokémon.
+   *
+   *  If the currently selected Pokémon is found in the list of displayed Pokémon,
+   *  it moves to the previous Pokémon in the list, wrapping around to the end if necessary.
+   *
+   *  @return {void}
+   */
   onPrevClick(): void {
     const currentIndex = this.displayedPokemons.findIndex(
       (pokemon) => pokemon.id === this.selectedPokemon?.id
@@ -58,6 +80,15 @@ export class PokemonListComponent implements OnInit {
     this.selectedPokemon = this.displayedPokemons[prevIndex];
   }
 
+  /**
+   *  Navigates to the next Pokémon in the list of displayed Pokémon.
+   *
+   *  If the currently selected Pokémon is not found in the list of displayed Pokémon,
+   *  it defaults to the first Pokémon in the list. Otherwise, it moves to the next
+   *  Pokémon in the list, wrapping around to the start if necessary.
+   *
+   *  @return {void}
+   */
   onNextClick(): void {
     const currentIndex = this.displayedPokemons.findIndex(
       (pokemon) => pokemon.id === this.selectedPokemon?.id
