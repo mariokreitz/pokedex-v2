@@ -1,4 +1,4 @@
-<div class="card">
+<div [className]="'card' + ' ' + types[0]">
   <div class="header">
     <h1 class="name">
       {{ name | titlecase }}
@@ -10,7 +10,7 @@
   </div>
   <div class="types">
     @for (type of types; track $index) {
-    <span [className]="type">{{ type | titlecase }}</span
+    <span [className]="'type' + ' ' + type">{{ type | titlecase }}</span
     >}
   </div>
 </div>
