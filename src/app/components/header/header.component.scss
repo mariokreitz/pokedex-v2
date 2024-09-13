@@ -1,5 +1,5 @@
 header {
-  margin: 20px 54px;
+  margin: 20px 4px;
   height: 200px;
 
   .grid-layout {
@@ -30,8 +30,10 @@ header {
   }
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1448px) {
   header {
+    margin-inline: 20px;
+
     .grid-layout {
       .grid-item-2 {
         .pokeball {
