@@ -31,7 +31,7 @@ export class PokemonListComponent implements OnInit {
   ) {}
 
   /**
-   * Initializes the component by fetching the list of pokemons and setting up the search subscription.
+   * Initializes the component by fetching the list of Pokémons and setting up the search subscription.
    *
    * @return {Promise<void>} A promise that resolves when the initialization is complete.
    */
@@ -39,9 +39,13 @@ export class PokemonListComponent implements OnInit {
     this.pokemons = await this.pokemonService.getPokemons();
 
     this.searchService.currentSearch.subscribe((searchTerm) => {
-      this.displayedPokemons = searchTerm
-        ? this.pokemons.filter(({ name }) => name.includes(searchTerm))
-        : this.pokemons;
+      if (searchTerm.length >= 3) {
+        this.displayedPokemons = this.pokemons.filter(({ name }) =>
+          name.includes(searchTerm)
+        );
+      } else {
+        this.displayedPokemons = this.pokemons;
+      }
     });
   }
 
