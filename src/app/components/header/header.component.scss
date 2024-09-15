@@ -1,5 +1,5 @@
 header {
-  margin: 20px 4px;
+  margin: 20px 24px;
   height: 200px;
 
   .grid-layout {
@@ -9,6 +9,14 @@ header {
 
     .grid-item-1 {
       height: inherit;
+      display: flex;
+      gap: 4px;
+      flex-direction: column;
+
+      img {
+        height: fit-content;
+        width: fit-content;
+      }
 
       input {
         color: black;
