@@ -166,6 +166,10 @@ export class PokemonPopupComponent implements OnInit {
     this.audioVolume = volume;
   }
 
+  getAudioVolume(): number {
+    return this.audioVolume;
+  }
+
   /**
    * Closes the popup by hiding the 'overview' element and removing the 'no-scroll' class from the document body.
    *
