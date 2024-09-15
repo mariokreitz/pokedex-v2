@@ -1,7 +1,18 @@
 <div id="overview-card" class="overview-card">
   <div class="header">
-    <button (click)="closePopup()" type="button">X</button>
+    <button (click)="closePopup()" type="button">&#10006;</button>
     <div class="heading">
+      <input
+        type="range"
+        name=""
+        id="volume-slider"
+        (input)="setAudioVolume(+volumeSlider.value)"
+        #volumeSlider
+        min="0"
+        max="1"
+        step="0.01"
+        [value]="getAudioVolume()"
+      />
       <svg (click)="playCry()" viewBox="0 0 640 512">
         <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
         <path
