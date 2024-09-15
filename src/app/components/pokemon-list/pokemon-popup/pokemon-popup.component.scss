@@ -10,38 +10,45 @@
 
   .header {
     display: flex;
-    gap: 40px;
-    justify-content: space-between;
     align-items: center;
 
-    button {
+    .close {
       display: flex;
       align-items: center;
-      justify-content: center;
-      height: 30px;
-      width: 30px;
-      border-radius: 9999px;
-      background-color: rgba(128, 128, 128, 0.33);
+      flex: 1;
+      width: 100%;
 
-      &:hover {
-        background-color: rgba(128, 128, 128, 0.66);
-      }
+      button {
+        height: 30px;
+        width: 30px;
+        border-radius: 9999px;
+        background-color: rgba(128, 128, 128, 0.33);
 
-      &:active {
-        background-color: rgba(128, 128, 128, 0.99);
+        &:hover {
+          background-color: rgba(128, 128, 128, 0.66);
+        }
+
+        &:active {
+          background-color: rgba(128, 128, 128, 0.99);
+        }
       }
     }
 
     .heading {
       display: flex;
+      flex: 1;
       gap: 10px;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 4px 8px;
 
       svg {
         cursor: pointer;
         fill: $text-color;
-        height: 40px;
+        height: 30px;
+        width: 30px;
       }
 
       .name {
@@ -53,7 +60,6 @@
 
   .main {
     display: flex;
-    gap: 40px;
     margin-block: 40px;
 
     .left {
@@ -67,6 +73,12 @@
         width: 100%;
         display: flex;
         gap: 4px;
+
+        & > p {
+          padding: 2px 8px;
+          background-color: rgba(255, 255, 255, 0.25);
+          border-radius: 9999px;
+        }
       }
 
       img {
