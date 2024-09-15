@@ -156,16 +156,21 @@ export class PokemonPopupComponent implements OnInit {
     }
   }
 
-  /**
-   * Adjusts the volume of the audio for the crying sound effect.
-   *
-   * @param {number} volume The new volume value between 0 and 1.
-   * @return {void}
-   */
   setAudioVolume(volume: number): void {
+    /**
+     * Adjusts the volume of the audio for the crying sound effect.
+     *
+     * @param {number} volume - The new volume value between 0 and 1.
+     * @return {void} No return value.
+     */
     this.audioVolume = volume;
   }
 
+  /**
+   * Returns the current audio volume.
+   *
+   * @return {number} The current audio volume.
+   */
   getAudioVolume(): number {
     return this.audioVolume;
   }
