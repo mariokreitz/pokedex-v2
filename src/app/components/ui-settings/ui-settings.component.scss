@@ -29,3 +29,15 @@
     transform: rotate3d(0, 0, 1, 90deg);
   }
 }
+
+@media screen and (max-width: 520px) {
+  .settings {
+    width: 40px;
+    height: 40px;
+    svg {
+      padding: 4px;
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
