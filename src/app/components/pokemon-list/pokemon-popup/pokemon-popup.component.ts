@@ -264,12 +264,12 @@ export class PokemonPopupComponent implements OnInit {
     }
   }
 
+  /**
+   * Resets the display of tabs to their default state.
+   *
+   * @return {void} No return value.
+   */
   resetTabDisplay(): void {
-    /**
-     * Resets the display of tabs to their default state.
-     *
-     * @return {void} No return value.
-     */
     const tabContents = document.querySelectorAll<HTMLElement>('.tabcontent');
 
     tabContents.forEach((tabContent) => {
