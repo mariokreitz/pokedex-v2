@@ -15,8 +15,21 @@
     align-items: center;
 
     button {
-      width: fit-content;
-      height: fit-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      width: 30px;
+      border-radius: 9999px;
+      background-color: rgba(128, 128, 128, 0.33);
+
+      &:hover {
+        background-color: rgba(128, 128, 128, 0.66);
+      }
+
+      &:active {
+        background-color: rgba(128, 128, 128, 0.99);
+      }
     }
 
     .heading {
@@ -28,8 +41,7 @@
       svg {
         cursor: pointer;
         fill: $text-color;
-        width: 20px;
-        height: 20px;
+        height: 40px;
       }
 
       .name {
