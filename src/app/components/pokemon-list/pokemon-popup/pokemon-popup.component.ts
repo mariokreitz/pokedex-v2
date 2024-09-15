@@ -2,6 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Pokemon } from '../../../../types/pokedex';
 import { DecimalPipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import Chart from 'chart.js/auto';
+import { SettingsService } from '../../../services/settings.service';
 
 @Component({
   selector: 'app-pokemon-popup',
@@ -63,9 +64,13 @@ export class PokemonPopupComponent implements OnInit {
     slot: number;
   }[];
 
-  constructor() {}
+  constructor(private settingsService: SettingsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.settingsService.currentAudioVolume.subscribe((volume) => {
+      this.audioVolume = volume;
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedPokemon']) {
@@ -154,25 +159,6 @@ export class PokemonPopupComponent implements OnInit {
     } else {
       alert('Cry not found');
     }
-  }
-
-  setAudioVolume(volume: number): void {
-    /**
-     * Adjusts the volume of the audio for the crying sound effect.
-     *
-     * @param {number} volume - The new volume value between 0 and 1.
-     * @return {void} No return value.
-     */
-    this.audioVolume = volume;
-  }
-
-  /**
-   * Returns the current audio volume.
-   *
-   * @return {number} The current audio volume.
-   */
-  getAudioVolume(): number {
-    return this.audioVolume;
   }
 
   /**
