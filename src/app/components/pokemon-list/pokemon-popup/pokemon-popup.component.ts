@@ -184,7 +184,7 @@ export class PokemonPopupComponent implements OnInit {
    * @return {void}
    */
   private createStatsChart(): void {
-    const ctx = this.getCanvasElement('stats-Chart');
+    const ctx = this.getCanvasElement('chart');
 
     const labels = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'];
     const data = this.stats.map((stat) => stat.base_stat);
@@ -208,6 +208,9 @@ export class PokemonPopupComponent implements OnInit {
             suggestedMax: 120,
           },
         },
+        plugins: {
+          legend: { display: false },
+        },
       },
     });
   }
@@ -230,9 +233,8 @@ export class PokemonPopupComponent implements OnInit {
    * @return {void} No return value.
    */
   openTab(event: Event, tabName: string): void {
-    const tabContents = document.querySelectorAll<
-      HTMLCanvasElement | HTMLDivElement
-    >('.tabcontent');
+    const tabContents =
+      document.querySelectorAll<HTMLDivElement>('.tabcontent');
 
     tabContents.forEach((tabContent) => {
       tabContent.style.display = 'none';
@@ -253,18 +255,17 @@ export class PokemonPopupComponent implements OnInit {
     }
   }
 
-  /**
-   * Resets the display of all tab contents except for the stats chart.
-   *
-   * @return {void} No return value.
-   */
   resetTabDisplay(): void {
+    /**
+     * Resets the display of tabs to their default state.
+     *
+     * @return {void} No return value.
+     */
     const tabContents = document.querySelectorAll<HTMLElement>('.tabcontent');
 
     tabContents.forEach((tabContent) => {
-      if (tabContent.id !== 'stats-Chart') {
-        tabContent.style.display = 'none';
-      }
+      tabContent.style.display =
+        tabContent.id === 'stats-Chart' ? 'block' : 'none';
     });
   }
 }

@@ -138,9 +138,13 @@
         }
       }
 
+      canvas {
+        z-index: 2;
+      }
+
       .tabcontent {
-        width: 250px !important;
-        height: 250px !important;
+        width: 250px;
+        height: 250px;
         display: none;
         -webkit-animation: fadeEffect 1s;
         animation: fadeEffect 1s;
@@ -266,9 +270,10 @@
 
     .main {
       flex-direction: column;
+      gap: 12px;
 
       .left {
-        gap: 4px;
+        gap: 8px;
 
         img {
           width: 125px;
