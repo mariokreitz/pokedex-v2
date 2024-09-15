@@ -23,7 +23,11 @@ export class SettingsService {
     });
   }
 
-  updateAudioVolume(volume: number): void {
+  setAudioVolume(volume: number): void {
     this.audioVolume.next(volume);
+  }
+
+  getAudioVolume(): number {
+    return this.audioVolume.getValue();
   }
 }
