@@ -18,6 +18,8 @@ export class PokemonPopupComponent implements OnInit {
   private readonly CM = 10;
   private readonly HECTOGRAM = 100;
 
+  private audioVolume = 0.25;
+
   id!: number;
   name!: string;
   hp_number!: number;
@@ -137,8 +139,8 @@ export class PokemonPopupComponent implements OnInit {
   /**
    * Plays the cry sound of a Pokémon.
    *
-   * If a cry URL is found, it creates a new Audio object and plays the sound at 25% volume.
-   * If no cry URL is found, it displays an alert message indicating that the cry was not found.
+   * Attempts to play the latest cry sound available, falling back to the legacy sound if the latest is not found.
+   * If neither sound is found, an alert is displayed to the user.
    *
    * @return {void}
    */
@@ -147,7 +149,7 @@ export class PokemonPopupComponent implements OnInit {
 
     if (cryUrl) {
       const audio = new Audio(cryUrl);
-      audio.volume = 0.25;
+      audio.volume = this.audioVolume;
       audio.play();
     } else {
       alert('Cry not found');
@@ -155,11 +157,21 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
+   * Adjusts the volume of the audio for the crying sound effect.
+   *
+   * @param {number} volume The new volume value between 0 and 1.
+   * @return {void}
+   */
+  setAudioVolume(volume: number): void {
+    this.audioVolume = volume;
+  }
+
+  /**
    * Closes the popup by hiding the 'overview' element and removing the 'no-scroll' class from the document body.
    *
    * @return {void} This function does not return anything.
    */
-  closePopup() {
+  closePopup(): void {
     const overview = document.getElementById('overview') as HTMLDivElement;
     if (overview) {
       overview.classList.add('d_none');
