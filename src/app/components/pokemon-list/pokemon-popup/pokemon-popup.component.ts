@@ -20,6 +20,7 @@ export class PokemonPopupComponent implements OnInit {
   private readonly HECTOGRAM = 100;
 
   private audioVolume = 0.25;
+  private isAudioPlaying = false;
 
   id!: number;
   name!: string;
@@ -142,20 +143,28 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Plays the cry sound of a Pokémon.
+   * Plays the cry of the current Pokémon.
    *
-   * Attempts to play the latest cry sound available, falling back to the legacy sound if the latest is not found.
-   * If neither sound is found, an alert is displayed to the user.
+   * Retrieves the latest or legacy cry URL from the Pokémon's cries object and creates a new Audio object to play the cry.
+   * If the cry is found, it sets the audio volume and plays the cry. It also adds an event listener to reset the isAudioPlaying flag when the cry ends.
+   * If the cry is not found, it displays an alert message.
    *
    * @return {void}
    */
   playCry(): void {
-    const cryUrl = this.cries?.latest ?? this.cries?.legacy;
+    const { latest, legacy } = this.cries || {};
+    const audioUrl = latest || legacy;
 
-    if (cryUrl) {
-      const audio = new Audio(cryUrl);
+    if (audioUrl) {
+      const audio = new Audio(audioUrl);
       audio.volume = this.audioVolume;
-      audio.play();
+      if (!this.isAudioPlaying) {
+        this.isAudioPlaying = true;
+        audio.play();
+      }
+      audio.addEventListener('ended', () => {
+        this.isAudioPlaying = false;
+      });
     } else {
       alert('Cry not found');
     }
