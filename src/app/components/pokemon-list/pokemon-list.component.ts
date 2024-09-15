@@ -73,15 +73,14 @@ export class PokemonListComponent implements OnInit {
    *  @return {void}
    */
   onPrevClick(): void {
-    const currentIndex = this.displayedPokemons.findIndex(
+    const currentIndex = this.pokemons.findIndex(
       (pokemon) => pokemon.id === this.selectedPokemon?.id
     );
 
     const prevIndex =
-      (currentIndex - 1 + this.displayedPokemons.length) %
-      this.displayedPokemons.length;
+      (currentIndex - 1 + this.pokemons.length) % this.pokemons.length;
 
-    this.selectedPokemon = this.displayedPokemons[prevIndex];
+    this.selectedPokemon = this.pokemons[prevIndex];
   }
 
   /**
@@ -94,15 +93,15 @@ export class PokemonListComponent implements OnInit {
    *  @return {void}
    */
   onNextClick(): void {
-    const currentIndex = this.displayedPokemons.findIndex(
+    const currentIndex = this.pokemons.findIndex(
       (pokemon) => pokemon.id === this.selectedPokemon?.id
     );
 
     if (currentIndex === -1) {
-      this.selectedPokemon = this.displayedPokemons[0];
+      this.selectedPokemon = this.pokemons[0];
     } else {
-      const nextIndex = (currentIndex + 1) % this.displayedPokemons.length;
-      this.selectedPokemon = this.displayedPokemons[nextIndex];
+      const nextIndex = (currentIndex + 1) % this.pokemons.length;
+      this.selectedPokemon = this.pokemons[nextIndex];
     }
   }
 }
