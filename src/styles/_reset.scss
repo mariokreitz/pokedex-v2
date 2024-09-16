@@ -59,7 +59,9 @@ select {
   line-height: inherit;
 }
 
-button {
+button,
+input,
+label {
   cursor: pointer;
 }
 
