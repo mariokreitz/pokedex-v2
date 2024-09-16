@@ -2,6 +2,8 @@
 @import "../../../../styles/_types";
 
 .overview-card {
+  background-image: url("./../../../../assets/background_card_big.png");
+  background-size: cover;
   padding: 20px;
   color: white;
   width: 720px;
