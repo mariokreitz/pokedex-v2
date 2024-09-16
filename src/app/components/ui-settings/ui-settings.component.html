@@ -3,7 +3,7 @@
     <div class="settings-content">
       <h3>Settings</h3>
       <div class="setting">
-        <label for="volume">Volume</label>
+        <label for="volume">Volume: {{ getAudioVolume() | percent }}</label>
         <input
           type="range"
           id="volume"
@@ -12,11 +12,30 @@
           max="1"
           step="0.01"
           [value]="getAudioVolume()"
-          (click)="updateAudioVolume($event, +volume.value)"
+          (click)="setAudioVolume($event, +volume.value)"
           touch-action="none"
-          (input)="updateAudioVolume($event, +volume.value)"
+          (input)="setAudioVolume($event, +volume.value)"
           #volume
         />
+      </div>
+      <div class="setting">
+        <h4 style="color: red">Danger Zone</h4>
+        <h6 style="color: red">i know what i'm doing</h6>
+        <h3>Pokemon loading limit</h3>
+        @for (limit of loadLimits; track $index) {
+        <label class="limit" (click)="setPokemonLimit($event, limit)">
+          <input
+            type="radio"
+            [id]="'pokemon-limit-' + $index"
+            name="pokemon-limit"
+            [value]="limit"
+            [checked]="limit.isSelected"
+          />
+          Gen {{ limit.gen }} - {{ limit.limit }} @if (limit.isDefault) {
+          <span>(default)</span>
+          }
+        </label>
+        }
       </div>
     </div>
   </div>

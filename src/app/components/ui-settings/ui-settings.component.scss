@@ -48,6 +48,18 @@
 
       .setting {
         margin-block: 20px;
+
+        .limit {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 10px;
+
+          input[type="radio"] {
+            width: 20px;
+            height: 20px;
+          }
+        }
       }
     }
   }

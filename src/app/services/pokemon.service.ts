@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Pokedex, PokemonSpecies } from 'pokeapi-js-wrapper';
 import { Pokemon } from '../../types/pokedex';
+import { SettingsService } from './settings.service';
 
 /**
  * Provides methods to fetch Pokemon data from PokeAPI.
@@ -17,6 +18,15 @@ import { Pokemon } from '../../types/pokedex';
   providedIn: 'root',
 })
 export class PokemonService {
+  /**
+   * Initializes the PokemonService instance.
+   *
+   * @param {SettingsService} settingsService - The settings service instance.
+   */
+  constructor(private readonly settingsService: SettingsService) {
+    this.setPokemonInterval();
+  }
+
   /**
    * The PokeAPI client.
    *
@@ -39,10 +49,18 @@ export class PokemonService {
    *
    * @private
    */
-  interval = {
+  private interval = {
     offset: 0,
-    limit: 151,
+    limit: 0,
   };
+
+  /**
+   * Sets the current Pokémon interval limit based on the provided limit. */
+  private setPokemonInterval() {
+    this.settingsService.currentPokemonLimit.subscribe((limit) => {
+      this.interval.limit = limit;
+    });
+  }
 
   /**
    * Fetches a list of Pokemon.
@@ -54,22 +72,41 @@ export class PokemonService {
    * const pokemons = await pokemonService.getPokemons();
    * console.log(pokemons);
    */
-  async getPokemons(): Promise<Pokemon[]> {
+  private async fetchPokemons(): Promise<Pokemon[]> {
     const response = await this.pokedex.getPokemonsList(this.interval);
-    const result = response.results;
-    const pokemons = await Promise.all(
-      result.map(async (pokemon) => {
+    const pokemonList = response.results;
+    const pokemonPromises = pokemonList.map(
+      async (pokemonData): Promise<Pokemon> => {
         const species = await this.getPokemonSpeciesByNameWithFallback(
-          pokemon.name
+          pokemonData.name
         );
-        const data = await this.pokedex.getPokemonByName(pokemon.name);
+        const pokemon = await this.pokedex.getPokemonByName(pokemonData.name);
         const items = await this.pokedex.getItemByName(
-          data.held_items.map((items) => items.item.name)
+          pokemon.held_items.map((items) => items.item.name)
         );
 
-        return { ...data, ...species, items };
-      })
+        return { ...pokemon, ...species, items };
+      }
     );
+
+    return await Promise.all(pokemonPromises);
+  }
+
+  /**
+   * Triggers the `fetchPokemons` method and keeps track of the last fetched
+   * interval.
+   *
+   * @returns {Promise<Pokemon[]>} A promise that resolves with an array
+   * of Pokemon.
+   */
+  async getPokemons(): Promise<Pokemon[]> {
+    const lastPokemonLimit = this.interval;
+
+    const pokemons = await this.fetchPokemons();
+
+    if (this.interval !== lastPokemonLimit) {
+      return this.getPokemons();
+    }
 
     return pokemons;
   }

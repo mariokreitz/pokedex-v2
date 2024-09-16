@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../services/settings.service';
+import { PercentPipe } from '@angular/common';
+import { Limit } from '../../../types/loadingLimits';
 
 @Component({
   selector: 'app-ui-settings',
   standalone: true,
-  imports: [],
+  imports: [PercentPipe],
   templateUrl: './ui-settings.component.html',
   styleUrl: './ui-settings.component.scss',
 })
 export class UiSettingsComponent implements OnInit {
+  loadLimits = this.settingsService.getLimits();
+
   constructor(private settingsService: SettingsService) {}
 
   ngOnInit(): void {}
@@ -35,7 +39,7 @@ export class UiSettingsComponent implements OnInit {
    * @param {number} volume - The new audio volume.
    * @return {void} No return value.
    */
-  updateAudioVolume(event: Event, volume: number): void {
+  setAudioVolume(event: Event, volume: number): void {
     event.stopPropagation();
 
     this.settingsService.setAudioVolume(volume);
@@ -46,7 +50,13 @@ export class UiSettingsComponent implements OnInit {
    *
    * @return {number} The current audio volume.
    */
-  getAudioVolume() {
+  getAudioVolume(): number {
     return this.settingsService.getAudioVolume();
+  }
+
+  setPokemonLimit(event: Event, limit: Limit): void {
+    event.stopPropagation();
+
+    this.settingsService.setPokemonLimit(limit);
   }
 }

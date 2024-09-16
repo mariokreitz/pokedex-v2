@@ -4,6 +4,7 @@ import { PokemonService } from '../../services/pokemon.service';
 import { Pokemon } from '../../../types/pokedex';
 import { SearchService } from '../../services/search.service';
 import { PokemonPopupComponent } from './pokemon-popup/pokemon-popup.component';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -27,26 +28,43 @@ export class PokemonListComponent implements OnInit {
    */
   constructor(
     private readonly pokemonService: PokemonService,
-    private readonly searchService: SearchService
+    private readonly searchService: SearchService,
+    private readonly settingsService: SettingsService
   ) {}
 
   /**
-   * Initializes the component by fetching the list of Pokémons and setting up the search subscription.
+   * Initializes the component by setting up subscriptions to the current Pokémon limit and search term.
    *
-   * @return {Promise<void>} A promise that resolves when the initialization is complete.
+   * When the current Pokémon limit changes, it fetches the Pokémon data and filters it based on the current search term.
+   *
+   * When the search term changes, it filters the Pokémon data based on the new search term.
+   *
+   * @return {Promise<void>} No return value, initializes the component instead.
    */
   async ngOnInit(): Promise<void> {
-    this.pokemons = await this.pokemonService.getPokemons();
+    this.settingsService.currentPokemonLimit.subscribe(() => {
+      this.pokemonService.getPokemons().then((fetchedPokemons) => {
+        this.pokemons = fetchedPokemons;
+        this.filterPokemons('');
+      });
+    });
 
     this.searchService.currentSearch.subscribe((searchTerm) => {
-      if (searchTerm.length >= 3) {
-        this.displayedPokemons = this.pokemons.filter(({ name }) =>
-          name.includes(searchTerm)
-        );
-      } else {
-        this.displayedPokemons = this.pokemons;
-      }
+      this.filterPokemons(searchTerm);
     });
+  }
+
+  /**
+   * Filters the list of Pokémon based on the provided search term.
+   *
+   * @param {string} searchTerm - The term to search for in the Pokémon names.
+   * @return {void} No return value, modifies the displayedPokemons property instead.
+   */
+  private filterPokemons(searchTerm: string): void {
+    this.displayedPokemons =
+      searchTerm.length >= 3
+        ? this.pokemons.filter(({ name }) => name.includes(searchTerm))
+        : this.pokemons;
   }
 
   /**
