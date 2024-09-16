@@ -83,13 +83,22 @@
             @for (game of game_indices; track $index) {
             <p>{{ game.version.name | titlecase }}</p>
             }@empty {
-            <p>Looks like this Pokemon has not appeared in any games!</p>
+            <p>
+              Whoops, looks like the Pokédex is missing some info... must be a
+              wild Porygon on the loose!
+            </p>
             }
           </div>
           }@else {
-          <p>Looks like this Pokemon has not appeared in any games!</p>
+          <p>
+            Whoops, looks like the Pokédex is missing some info... must be a
+            wild Porygon on the loose!
+          </p>
           } }@else {
-          <p>Looks like this Pokemon has not appeared in any games!</p>
+          <p>
+            Whoops, looks like the Pokédex is missing some info... must be a
+            wild Porygon on the loose!
+          </p>
           }
         </div>
       </div>
