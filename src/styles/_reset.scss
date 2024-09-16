@@ -60,7 +60,7 @@ select {
 }
 
 button,
-input,
+input[type="radio"],
 label {
   cursor: pointer;
 }
