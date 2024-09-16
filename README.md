@@ -15,6 +15,15 @@ Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreit
 - **Angular 17**: 🚀 Built with the latest version of Angular for improved performance and developer experience.
 - **pokeapi-js-wrapper**: 🔌 Seamlessly integrated with `pokeapi-js-wrapper` for more flexible and powerful API interactions.
 
+## Planned Features 🛠️
+
+We are constantly working to improve **Pokedex-v2** and have some exciting features in the pipeline:
+
+- **Localization**: 🌐 Support for multiple languages, starting with English (default) and German.
+- **Pokémon Moves**: 🎮 Display detailed move sets for selected Pokémon.
+- **PokéStats Overhaul**: 📊 Revamp the chart visuals for a more interactive and insightful Pokémon stats display.
+- **Secret Feature**: 🤫 Coming soon out of the Pokéball! *hihi* Stay tuned for a fun surprise!
+
 ## Getting Started Guide 📚
 
 To get started with **Pokedex-v2**, follow these steps:
