@@ -25,7 +25,7 @@ We are constantly working to improve **Pokedex-v2** and have some exciting featu
 - **PokéStats Overhaul**: 📊 Revamp the chart visuals for a more interactive and insightful Pokémon stats display.
 - **Secret Feature**: 🤫 Coming soon out of the Pokéball! *hihi* Stay tuned for a fun surprise!
 
-## 📖 **Documentation** ![documentation](https://pokedex.mario-kreitz.dev/documentation/images/coverage-badge-documentation.svg)
+## 📖 **Documentation** ![Documentation](https://img.shields.io/badge/Documentation-99%25-brightgreen)
 
 
 We now have detailed documentation available to help you understand and use **Pokedex-v2** effectively. You can access it here:
