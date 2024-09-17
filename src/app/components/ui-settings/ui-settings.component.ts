@@ -3,6 +3,13 @@ import { SettingsService } from '../../services/settings.service';
 import { PercentPipe } from '@angular/common';
 import { Limit } from '../../../types/loadingLimits';
 
+/**
+ * Component that renders the UI settings component.
+ *
+ * This component displays a button that toggles the visibility of the settings menu.
+ * It also displays the settings menu itself, which contains a range input for adjusting the audio volume and
+ * a series of radio buttons for selecting the Pokémon loading limit.
+ */
 @Component({
   selector: 'app-ui-settings',
   standalone: true,
@@ -11,14 +18,33 @@ import { Limit } from '../../../types/loadingLimits';
   styleUrl: './ui-settings.component.scss',
 })
 export class UiSettingsComponent implements OnInit {
+  /**
+   * The available Pokémon loading limits.
+   *
+   * This property is used to display the radio buttons for selecting the loading limit.
+   */
   loadLimits = this.settingsService.getLimits();
 
+  /**
+   * Creates an instance of the UiSettingsComponent.
+   *
+   * @param {SettingsService} settingsService - The settings service that provides the necessary data for this component.
+   */
   constructor(private settingsService: SettingsService) {}
 
+  /**
+   * Initializes the component after Angular has initialized all data-bound properties of the component.
+   *
+   * This lifecycle hook is used to initialize the component's state and to perform any necessary setup.
+   *
+   * @return {void} No return value.
+   */
   ngOnInit(): void {}
 
   /**
    * Toggles the visibility of the settings menu.
+   *
+   * This method is called when the user clicks on the settings button.
    *
    * @return {void} No return value.
    */
@@ -35,6 +61,8 @@ export class UiSettingsComponent implements OnInit {
   /**
    * Updates the audio volume by stopping the propagation of the event and then setting the audio volume using the settings service.
    *
+   * This method is called when the user changes the audio volume using the range input.
+   *
    * @param {Event} event - The event that triggered the volume update.
    * @param {number} volume - The new audio volume.
    * @return {void} No return value.
@@ -48,12 +76,23 @@ export class UiSettingsComponent implements OnInit {
   /**
    * Retrieves the current audio volume.
    *
+   * This method is used to display the current audio volume in the settings menu.
+   *
    * @return {number} The current audio volume.
    */
   getAudioVolume(): number {
     return this.settingsService.getAudioVolume();
   }
 
+  /**
+   * Sets the Pokémon loading limit by stopping the propagation of the event and then setting the limit using the settings service.
+   *
+   * This method is called when the user selects a loading limit using the radio buttons.
+   *
+   * @param {Event} event - The event that triggered the limit update.
+   * @param {Limit} limit - The new loading limit.
+   * @return {void} No return value.
+   */
   setPokemonLimit(event: Event, limit: Limit): void {
     event.stopPropagation();
 

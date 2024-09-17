@@ -1,25 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+/**
+ * Displays an image of a Pokémon.
+ */
 @Component({
   selector: 'app-pokemon-image',
   standalone: true,
   imports: [],
   templateUrl: './pokemon-image.component.html',
-  styleUrl: './pokemon-image.component.scss',
+  styleUrls: ['./pokemon-image.component.scss'],
 })
-export class PokemonImageComponent implements OnInit {
+export class PokemonImageComponent {
+  /**
+   * The URL of the Pokémon image to display.
+   */
   @Input() src!: string | null;
-  @Input() alt!: string;
-
-  imgSrc!: string;
 
   /**
-   * Initializes the component after Angular has initialized all data-bound properties of the component.
-   * Sets the `imgSrc` property to the value of `src` if it is not null or undefined, otherwise sets it to an empty string.
-   *
-   * @return {void} This function does not return anything.
+   * The alternative text for the image.
    */
-  ngOnInit(): void {
-    this.imgSrc = this.src ?? '';
+  @Input() alt!: string;
+
+  /**
+   * The URL of the image to display, or an empty string if `src` is null or undefined.
+   */
+  get imgSrc(): string {
+    return this.src ?? '';
   }
 }

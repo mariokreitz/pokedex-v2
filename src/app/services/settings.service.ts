@@ -2,11 +2,28 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Limit } from '../../types/loadingLimits';
 
+/**
+ * Provides methods to manage the application settings, such as the audio volume and the
+ * Pokémon limit.
+ *
+ * @remarks
+ * This service is a singleton, which means that it is only instantiated once and can be
+ * injected into any component or service that needs to access the application settings.
+ *
+ * @publicApi
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class SettingsService {
+  /**
+   * The default audio volume, ranging from 0 to 1.
+   */
   private readonly DEFAULT_AUDIO_VOLUME = 0.25;
+
+  /**
+   * An array of objects containing the generation and limit of Pokémon.
+   */
   private readonly POKEMON_LIMITS: Limit[] = [
     { gen: 1, limit: 151, isDefault: true, isSelected: true },
     { gen: 2, limit: 251, isDefault: false, isSelected: false },
@@ -18,22 +35,41 @@ export class SettingsService {
     { gen: 8, limit: 905, isDefault: false, isSelected: false },
     { gen: 9, limit: 1025, isDefault: false, isSelected: false },
   ];
+
+  /**
+   * The default Pokémon limit, which is the limit of the first generation.
+   */
   private readonly DEFAULT_POKEMON_LIMIT =
     this.getLimitByDefaultStatus()!.limit;
 
+  /**
+   * A subject that emits the current audio volume whenever it changes.
+   */
   private readonly audioVolume = new BehaviorSubject<number>(
     this.DEFAULT_AUDIO_VOLUME
   );
+
+  /**
+   * A subject that emits the current Pokémon limit whenever it changes.
+   */
   private readonly pokemonLimit = new BehaviorSubject<number>(
     this.DEFAULT_POKEMON_LIMIT
   );
 
+  /**
+   * An observable that emits the current audio volume whenever it changes.
+   */
   readonly currentAudioVolume = this.audioVolume.asObservable();
+
+  /**
+   * An observable that emits the current Pokémon limit whenever it changes.
+   */
   readonly currentPokemonLimit = this.pokemonLimit.asObservable();
 
   /**
-   * Initializes the SettingsService by retrieving the saved values for audio volume and pokemon limit from local storage.
-   * If no saved values are found, it uses the default values. It then subscribes to changes in audio volume and pokemon limit.
+   * Initializes the SettingsService by retrieving the saved values for audio volume and
+   * Pokémon limit from local storage. If no saved values are found, it uses the default
+   * values. It then subscribes to changes in audio volume and Pokémon limit.
    */
   constructor() {
     const savedLimit = localStorage.getItem('pokemonLimit');
@@ -116,6 +152,12 @@ export class SettingsService {
     return this.audioVolume.getValue();
   }
 
+  /**
+   * Sets the current Pokémon limit.
+   *
+   * @param {Limit} limit - The new Pokémon limit, which contains the generation and limit of Pokémon.
+   * @return {void} No return value.
+   */
   setPokemonLimit(limit: Limit): void {
     this.POKEMON_LIMITS.forEach(
       (l) => (l.isSelected = l.limit === limit.limit)

@@ -6,6 +6,10 @@ import { SearchService } from '../../services/search.service';
 import { PokemonPopupComponent } from './pokemon-popup/pokemon-popup.component';
 import { SettingsService } from '../../services/settings.service';
 
+/**
+ * A component that displays a list of Pokémon and provides functionality to
+ * navigate between them.
+ */
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
@@ -14,10 +18,23 @@ import { SettingsService } from '../../services/settings.service';
   styleUrl: './pokemon-list.component.scss',
 })
 export class PokemonListComponent implements OnInit {
+  /**
+   * The list of Pokémon to display, filtered based on the current search term.
+   */
   displayedPokemons!: Pokemon[];
+  /**
+   * The complete list of Pokémon, fetched from the API.
+   */
   pokemons!: Pokemon[];
+  /**
+   * The filtered list of Pokémon, used to store the filtered list of Pokémon
+   * while the component is initializing.
+   */
   filteredPokemons!: Pokemon[];
 
+  /**
+   * The currently selected Pokémon, or null if no Pokémon is selected.
+   */
   selectedPokemon: Pokemon | null = null;
 
   /**
