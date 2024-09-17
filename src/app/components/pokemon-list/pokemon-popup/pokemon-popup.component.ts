@@ -4,6 +4,11 @@ import { DecimalPipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import Chart from 'chart.js/auto';
 import { SettingsService } from '../../../services/settings.service';
 
+/**
+ * Displays a popup with information about a Pokémon.
+ *
+ * @param {Pokemon} selectedPokemon - The Pokémon to display.
+ */
 @Component({
   selector: 'app-pokemon-popup',
   standalone: true,
@@ -12,50 +17,124 @@ import { SettingsService } from '../../../services/settings.service';
   styleUrl: './pokemon-popup.component.scss',
 })
 export class PokemonPopupComponent implements OnInit {
+  /**
+   * The Pokémon to display.
+   */
   @Input() selectedPokemon: Pokemon | null = null;
-  // https://github.com/veekun/pokedex/blob/master/pokedex/db/tables.py#L1649
-  // The height of the Pokémon, in tenths of a meter (decimeters = 10cm)
-  // The weight of the Pokémon, in tenths of a kilogram (hectograms = 100gramm)
+
+  /**
+   * The conversion factor from centimeters to meters.
+   */
   private readonly CM = 10;
+
+  /**
+   * The conversion factor from hectograms to kilograms.
+   */
   private readonly HECTOGRAM = 100;
 
+  /**
+   * The audio volume to use for the Pokémon's cries.
+   */
   private audioVolume = 0.25;
+
+  /**
+   * Whether the Pokémon's cry is currently playing.
+   */
   private isAudioPlaying = false;
 
+  /**
+   * The ID of the Pokémon.
+   */
   id!: number;
+
+  /**
+   * The name of the Pokémon.
+   */
   name!: string;
+
+  /**
+   * The Pokémon's HP number.
+   */
   hp_number!: number;
+
+  /**
+   * The Pokémon's HP text.
+   */
   hp_text!: string;
+
+  /**
+   * The URL of the Pokémon's image, or null if no image is available.
+   */
   imgSrc!: string | null;
+
+  /**
+   * The names of the Pokémon's types.
+   */
   types!: string[];
+
+  /**
+   * The Pokémon's stats.
+   */
   stats!: {
     base_stat: number;
     effort: number;
     stat: { name: string; url: string };
   }[];
+
+  /**
+   * The Pokémon's description.
+   */
   description!: string;
+
+  /**
+   * The Pokémon's cries, if available.
+   */
   cries?: {
     latest: string;
     legacy: string;
   };
+
+  /**
+   * The Pokémon's height in meters.
+   */
   height!: number;
+
+  /**
+   * The Pokémon's weight in kilograms.
+   */
   weight!: number;
+
+  /**
+   * The items that the Pokémon is holding.
+   */
   held_items!: {
     item: { name: string; url: string };
     version_details: {
       rarity: number;
     }[];
   }[];
+
+  /**
+   * The Pokémon's game indices.
+   */
   game_indices!: {
     game_index: number;
     version: { name: string; url: string };
   }[];
+
+  /**
+   * The items that the Pokémon can hold, if available.
+   */
   items?: {
     name: string;
     sprites: {
       default: string | null;
     };
   }[];
+
+  /**
+   * The Pokémon's abilities.
+   */
   abilities!: {
     ability: {
       name: string;
@@ -67,71 +146,91 @@ export class PokemonPopupComponent implements OnInit {
 
   constructor(private settingsService: SettingsService) {}
 
+  /**
+   * Initializes the component by subscribing to the current audio volume.
+   *
+   * @return {void} No return value.
+   */
   ngOnInit(): void {
     this.settingsService.currentAudioVolume.subscribe((volume) => {
       this.audioVolume = volume;
     });
   }
 
+  /**
+   *  Handles changes to the component's input properties.
+   *
+   *  @param {SimpleChanges} changes - An object containing the changes to the input properties.
+   *  @return {void} No return value.
+   */
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedPokemon']) {
-      if (this.selectedPokemon) {
-        const {
-          abilities,
-          flavor_text_entries,
-          game_indices,
-          height,
-          held_items,
-          id,
-          moves,
-          name,
-          names,
-          order,
-          species,
-          sprites,
-          stats,
-          types,
-          weight,
-          cries,
-          items,
-        } = this.selectedPokemon;
-        this.id = id;
-        this.name = name;
-        this.imgSrc =
-          sprites.other.dream_world.front_default ??
-          sprites.other['official-artwork'].front_default;
-        this.types = types.map(({ type }) => type.name);
-        const filteredDescription = flavor_text_entries.filter(
-          ({ language }) => language.name === 'en'
-        );
-        const randomDescription =
-          filteredDescription[
-            Math.floor(Math.random() * filteredDescription.length)
-          ];
-        this.description = randomDescription.flavor_text;
-        this.cries = cries;
-        this.stats = stats;
-        this.hp_number = stats[0].base_stat;
-        this.hp_text = stats[0].stat.name;
-        this.height = (height * this.CM) / 100;
-        this.weight = (weight * this.HECTOGRAM) / 1000;
-        this.game_indices = game_indices;
-        this.held_items = held_items;
-        this.items = Array.isArray(items) ? items : [];
-        this.abilities = abilities;
-        this.createStatsChart();
-        this.addDynamicBackground();
-      }
+    if (changes['selectedPokemon'] && this.selectedPokemon) {
+      this.updatePokemonData();
+      this.createStatsChart();
+      this.addDynamicBackground();
+      this.resetTabDisplay();
     }
-    this.resetTabDisplay();
   }
 
   /**
-   * Dynamically adds a CSS class to the overview card element based on the Pokémon's type.
+   * Updates the component's Pokémon data based on the selected Pokémon.
    *
-   * This function retrieves the overview card element and adds a CSS class corresponding to the Pokémon's primary type.
+   * Extracts and processes various properties from the selected Pokémon,
+   * including its ID, name, image source, types, description, stats, and more.
+   * These properties are then assigned to the component's corresponding fields.
    *
    * @return {void}
+   */
+  private updatePokemonData(): void {
+    const {
+      abilities,
+      flavor_text_entries,
+      game_indices,
+      height,
+      held_items,
+      id,
+      moves,
+      name,
+      names,
+      order,
+      species,
+      sprites,
+      stats,
+      types,
+      weight,
+      cries,
+      items,
+    } = this.selectedPokemon as Pokemon;
+    this.id = id;
+    this.name = name;
+    this.imgSrc =
+      sprites.other.dream_world.front_default ??
+      sprites.other['official-artwork'].front_default;
+    this.types = types.map(({ type }) => type.name);
+    const filteredDescription = flavor_text_entries.filter(
+      ({ language }) => language.name === 'en'
+    );
+    const randomDescription =
+      filteredDescription[
+        Math.floor(Math.random() * filteredDescription.length)
+      ];
+    this.description = randomDescription.flavor_text;
+    this.cries = cries;
+    this.stats = stats;
+    this.hp_number = stats[0].base_stat;
+    this.hp_text = stats[0].stat.name;
+    this.height = (height * this.CM) / 100;
+    this.weight = (weight * this.HECTOGRAM) / 1000;
+    this.game_indices = game_indices;
+    this.held_items = held_items;
+    this.items = Array.isArray(items) ? items : [];
+    this.abilities = abilities;
+  }
+
+  /**
+   * Dynamically adds a background class to the overview card element.
+   *
+   * @return {void} No return value.
    */
   private addDynamicBackground(): void {
     const overviewCard = document.getElementById('overview-card');
@@ -143,11 +242,11 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Plays the cry of the current Pokémon.
+   * Plays the cry of a Pokémon.
    *
-   * Retrieves the latest or legacy cry URL from the Pokémon's cries object and creates a new Audio object to play the cry.
-   * If the cry is found, it sets the audio volume and plays the cry. It also adds an event listener to reset the isAudioPlaying flag when the cry ends.
-   * If the cry is not found, it displays an alert message.
+   * If the cry audio URL is available, it creates a new Audio object, sets the volume,
+   * and plays the audio. It also adds an event listener to stop the audio when it ends.
+   * If the audio URL is not available, it displays an alert message.
    *
    * @return {void}
    */
@@ -171,9 +270,9 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Closes the popup by hiding the 'overview' element and removing the 'no-scroll' class from the document body.
+   *  Closes the popup by hiding the overview element and re-enabling body scrolling.
    *
-   * @return {void} This function does not return anything.
+   *  @return {void} No return value.
    */
   closePopup(): void {
     const overview = document.getElementById('overview') as HTMLDivElement;
@@ -186,9 +285,9 @@ export class PokemonPopupComponent implements OnInit {
   /**
    * Creates a radar chart to display the Pokémon's stats.
    *
-   * The chart is created using the Chart.js library and is displayed in the 'stats-Chart' canvas element.
-   * The chart data is generated from the Pokémon's stats, with each stat being represented by a point on the chart.
-   * The chart options are customized to display the chart in a radar style, with a white background and gray grid lines.
+   * This function first retrieves the canvas element and then defines the labels and data for the chart.
+   * It then checks if a chart already exists on the canvas and destroys it if necessary.
+   * Finally, it creates a new radar chart with the specified options.
    *
    * @return {void}
    */
@@ -225,21 +324,21 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Retrieves an HTMLCanvasElement from the document by its id.
+   * Returns the HTMLCanvasElement with the given id from the document.
    *
-   * @param {string} id - The id of the HTMLCanvasElement to retrieve.
-   * @return {HTMLCanvasElement} The HTMLCanvasElement with the specified id.
+   * @param {string} id - The id of the canvas element to retrieve.
+   * @return {HTMLCanvasElement} The HTMLCanvasElement with the given id.
    */
   private getCanvasElement(id: string): HTMLCanvasElement {
     return document.getElementById(id) as HTMLCanvasElement;
   }
 
   /**
-   * Opens a tab based on the provided tab name and event.
+   * Opens a tab based on the provided tab name and updates the active tab links.
    *
    * @param {Event} event - The event that triggered the tab opening.
-   * @param {string} tabName - The name of the tab to open.
-   * @return {void} No return value.
+   * @param {string} tabName - The name of the tab to be opened.
+   * @return {void}
    */
   openTab(event: Event, tabName: string): void {
     const tabContents =
@@ -265,9 +364,9 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Resets the display of tabs to their default state.
+   * Resets the display of tab contents based on their IDs.
    *
-   * @return {void} No return value.
+   * @return {void} This function does not return a value.
    */
   resetTabDisplay(): void {
     const tabContents = document.querySelectorAll<HTMLElement>('.tabcontent');
