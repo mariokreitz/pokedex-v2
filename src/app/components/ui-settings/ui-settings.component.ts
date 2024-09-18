@@ -33,13 +33,14 @@ export class UiSettingsComponent implements OnInit {
   constructor(private settingsService: SettingsService) {}
 
   /**
-   * Initializes the component after Angular has initialized all data-bound properties of the component.
-   *
-   * This lifecycle hook is used to initialize the component's state and to perform any necessary setup.
+   * Initializes the component after Angular has initialized all data-bound properties.
+   * Sets the initial state of the checkbox.
    *
    * @return {void} No return value.
    */
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setCheckboxState();
+  }
 
   /**
    * Toggles the visibility of the settings menu.
@@ -110,5 +111,24 @@ export class UiSettingsComponent implements OnInit {
     const language = target.checked ? 'de' : 'en';
 
     this.settingsService.setLanguage(language);
+  }
+
+  /**
+   * Sets the state of the language switch checkbox based on the current language setting.
+   *
+   * This function retrieves the language switch checkbox element by its ID and updates its
+   * checked state based on the current language setting. If the current language setting is
+   * 'de', the checkbox is checked; otherwise, it is unchecked.
+   *
+   * @return {void} This function does not return a value.
+   */
+  private setCheckboxState(): void {
+    const languageSwitchElement = document.getElementById(
+      'languageSwitch'
+    ) as HTMLInputElement;
+    if (languageSwitchElement) {
+      languageSwitchElement.checked =
+        this.settingsService.getLanguage() === 'de';
+    }
   }
 }
