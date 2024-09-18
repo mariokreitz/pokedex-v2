@@ -50,11 +50,9 @@ export class PokemonListComponent implements OnInit {
   ) {}
 
   /**
-   * Initializes the component by setting up subscriptions to the current Pokémon limit and search term.
-   *
-   * When the current Pokémon limit changes, it fetches the Pokémon data and filters it based on the current search term.
-   *
-   * When the search term changes, it filters the Pokémon data based on the new search term.
+   * Initializes the component by setting up subscriptions to the Pokémon limit and search term.
+   * When the Pokémon limit changes, it fetches the list of Pokémon and filters them.
+   * When the search term changes, it filters the list of Pokémon based on the search term.
    *
    * @return {Promise<void>} No return value, initializes the component instead.
    */
@@ -62,26 +60,47 @@ export class PokemonListComponent implements OnInit {
     this.settingsService.currentPokemonLimit.subscribe(() => {
       this.pokemonService.getPokemons().then((fetchedPokemons) => {
         this.pokemons = fetchedPokemons;
-        this.filterPokemons('');
+        this.filterPokemonsBySearchTerm('');
       });
     });
 
     this.searchService.currentSearch.subscribe((searchTerm) => {
-      this.filterPokemons(searchTerm);
+      this.filterPokemonsBySearchTerm(searchTerm);
     });
   }
 
   /**
    * Filters the list of Pokémon based on the provided search term.
    *
+   * If the search term is at least 3 characters long, it filters the Pokémon by name
+   * and then by the name in the selected language. Otherwise, it displays all Pokémon.
+   *
    * @param {string} searchTerm - The term to search for in the Pokémon names.
    * @return {void} No return value, modifies the displayedPokemons property instead.
    */
-  private filterPokemons(searchTerm: string): void {
-    this.displayedPokemons =
-      searchTerm.length >= 3
-        ? this.pokemons.filter(({ name }) => name.includes(searchTerm))
-        : this.pokemons;
+  private filterPokemonsBySearchTerm(searchTerm: string): void {
+    const minSearchTermLength = 3;
+    const shouldFilterBySearchTerm = searchTerm.length >= minSearchTermLength;
+
+    const selectedLanguage = this.settingsService.getLanguage();
+
+    if (shouldFilterBySearchTerm) {
+      this.displayedPokemons = this.pokemons.filter(({ name }) =>
+        name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+      const germanPokemons = this.pokemons.filter(({ names }) =>
+        names.some(
+          ({ language: { name: languageName }, name: pokemonName }) =>
+            languageName === selectedLanguage &&
+            pokemonName.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+
+      this.displayedPokemons = germanPokemons;
+    } else {
+      this.displayedPokemons = this.pokemons;
+    }
   }
 
   /**
