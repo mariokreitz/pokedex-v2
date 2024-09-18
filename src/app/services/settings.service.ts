@@ -231,4 +231,13 @@ export class SettingsService {
   setLanguage(language: string): void {
     this.language.next(language);
   }
+
+  /**
+   * Retrieves the currently set language.
+   *
+   * @return {string} The currently set language.
+   */
+  getLanguage(): string {
+    return this.language.getValue();
+  }
 }
