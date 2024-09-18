@@ -2,6 +2,7 @@ import { TitleCasePipe, DecimalPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { PokemonImageComponent } from './pokemon-image/pokemon-image.component';
 import { Pokemon } from '../../../types/pokedex';
+import { SettingsService } from '../../services/settings.service';
 
 /**
  * A component that displays a Pokémon card.
@@ -25,6 +26,7 @@ import { Pokemon } from '../../../types/pokedex';
   styleUrls: ['./pokemon-card.component.scss'],
 })
 export class PokemonCardComponent {
+  constructor(private settingsService: SettingsService) {}
   /**
    * The Pokémon to display in the card.
    *
@@ -43,12 +45,19 @@ export class PokemonCardComponent {
   }
 
   /**
-   * Retrieves the name of the Pokémon.
+   * Retrieves the name of the Pokémon in the current language.
    *
-   * @returns {string} The name of the Pokémon.
+   * If the Pokémon has a name in the current language, that name is returned.
+   * Otherwise, the Pokémon's default name is returned.
+   *
+   * @return {string} The name of the Pokémon in the current language, or the default name if no translation is available.
    */
   get name(): string {
-    return this.Pokemon.name;
+    return (
+      this.Pokemon.names.find(
+        (name) => name.language.name === this.settingsService.getLanguage()
+      )?.name || this.Pokemon.name
+    );
   }
 
   /**
