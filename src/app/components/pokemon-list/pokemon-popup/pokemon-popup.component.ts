@@ -43,6 +43,11 @@ export class PokemonPopupComponent implements OnInit {
   private isAudioPlaying = false;
 
   /**
+   * The selected language.
+   */
+  private selectedLanguage = 'en';
+
+  /**
    * The ID of the Pokémon.
    */
   id!: number;
@@ -147,13 +152,17 @@ export class PokemonPopupComponent implements OnInit {
   constructor(private settingsService: SettingsService) {}
 
   /**
-   * Initializes the component by subscribing to the current audio volume.
+   * Initializes the component by subscribing to the current audio volume and language.
    *
    * @return {void} No return value.
    */
   ngOnInit(): void {
     this.settingsService.currentAudioVolume.subscribe((volume) => {
       this.audioVolume = volume;
+    });
+
+    this.settingsService.currentLanguage.subscribe((language) => {
+      this.selectedLanguage = language;
     });
   }
 
@@ -208,7 +217,7 @@ export class PokemonPopupComponent implements OnInit {
       sprites.other['official-artwork'].front_default;
     this.types = types.map(({ type }) => type.name);
     const filteredDescription = flavor_text_entries.filter(
-      ({ language }) => language.name === 'en'
+      ({ language }) => language.name === this.selectedLanguage
     );
     const randomDescription =
       filteredDescription[

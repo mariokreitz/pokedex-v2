@@ -57,6 +57,11 @@ export class SettingsService {
   );
 
   /**
+   * A subject that emits the current language whenever it changes.
+   */
+  private readonly language = new BehaviorSubject<string>('en');
+
+  /**
    * An observable that emits the current audio volume whenever it changes.
    */
   readonly currentAudioVolume = this.audioVolume.asObservable();
@@ -67,10 +72,10 @@ export class SettingsService {
   readonly currentPokemonLimit = this.pokemonLimit.asObservable();
 
   /**
-   * Initializes the SettingsService by retrieving the saved values for audio volume and
-   * Pokémon limit from local storage. If no saved values are found, it uses the default
-   * values. It then subscribes to changes in audio volume and Pokémon limit.
+   * An observable that emits the current language whenever it changes.
    */
+  readonly currentLanguage = this.language.asObservable();
+
   constructor() {
     const savedLimit = localStorage.getItem('pokemonLimit');
     const defaultLimit = this.getLimitByDefaultStatus();
@@ -181,5 +186,15 @@ export class SettingsService {
    */
   getLimits(): Limit[] {
     return this.POKEMON_LIMITS;
+  }
+
+  /**
+   * Sets the current language.
+   *
+   * @param {string} language - The new language to be set.
+   * @return {void} No return value.
+   */
+  setLanguage(language: string) {
+    this.language.next(language);
   }
 }
