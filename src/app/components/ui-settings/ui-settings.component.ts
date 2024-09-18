@@ -98,4 +98,17 @@ export class UiSettingsComponent implements OnInit {
 
     this.settingsService.setPokemonLimit(limit);
   }
+
+  /**
+   * Sets the application language based on the provided event.
+   *
+   * @param {Event} event - The event that triggered the language update.
+   * @return {void} No return value.
+   */
+  setLanguage(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const language = target.checked ? 'de' : 'en';
+
+    this.settingsService.setLanguage(language);
+  }
 }
