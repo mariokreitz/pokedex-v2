@@ -76,6 +76,12 @@ export class SettingsService {
    */
   readonly currentLanguage = this.language.asObservable();
 
+  /**
+   * Initializes the settings service by restoring saved state from local storage.
+   *
+   * Sets the initial values for the Pokémon limit, audio volume, and language based on
+   * saved values or default settings. Also subscribes to state changes.
+   */
   constructor() {
     const savedLimit = localStorage.getItem('pokemonLimit');
     const defaultLimit = this.getLimitByDefaultStatus();
@@ -90,8 +96,25 @@ export class SettingsService {
       : this.DEFAULT_AUDIO_VOLUME;
     this.audioVolume.next(initialVolume);
 
+    const savedLanguage = localStorage.getItem('language');
+    const initialLanguage = savedLanguage
+      ? JSON.parse(savedLanguage).language
+      : 'en';
+    this.language.next(initialLanguage);
+
+    this.subscribeToStateChanges();
+  }
+
+  /**
+   * Subscribes to state changes for audio volume, Pokémon limit, and language.
+   *
+   * This method initializes the subscriptions for the settings service, ensuring that
+   * the component is updated whenever the user's preferences change.
+   */
+  private subscribeToStateChanges() {
     this.subscribeToAudioVolumeChanges();
     this.subscribeToPokemonLimitChanges();
+    this.subscribeToLanguageChanges();
   }
 
   /**
@@ -111,6 +134,17 @@ export class SettingsService {
   private subscribeToAudioVolumeChanges(): void {
     this.audioVolume.subscribe((volume) =>
       localStorage.setItem('audioVolume', volume.toString())
+    );
+  }
+
+  /**
+   * Subscribes to changes in the language and updates the local storage.
+   *
+   * @return {void}
+   */
+  subscribeToLanguageChanges(): void {
+    this.language.subscribe((language) =>
+      localStorage.setItem('language', JSON.stringify({ language }))
     );
   }
 
@@ -194,7 +228,7 @@ export class SettingsService {
    * @param {string} language - The new language to be set.
    * @return {void} No return value.
    */
-  setLanguage(language: string) {
+  setLanguage(language: string): void {
     this.language.next(language);
   }
 }
