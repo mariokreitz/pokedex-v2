@@ -135,4 +135,8 @@ export class UiSettingsComponent implements OnInit {
         this.settingsService.getLanguage() === 'de';
     }
   }
+
+  get isLoading(): boolean {
+    return this.settingsService.getIsLoading();
+  }
 }
