@@ -5,6 +5,7 @@ import { Pokemon } from '../../../types/pokedex';
 import { SearchService } from '../../services/search.service';
 import { PokemonPopupComponent } from './pokemon-popup/pokemon-popup.component';
 import { SettingsService } from '../../services/settings.service';
+import { LoadingComponent } from './loading/loading.component';
 
 /**
  * A component that displays a list of Pokémon and provides functionality to
@@ -13,7 +14,7 @@ import { SettingsService } from '../../services/settings.service';
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
-  imports: [PokemonCardComponent, PokemonPopupComponent],
+  imports: [PokemonCardComponent, PokemonPopupComponent, LoadingComponent],
   templateUrl: './pokemon-list.component.html',
   styleUrl: './pokemon-list.component.scss',
 })
