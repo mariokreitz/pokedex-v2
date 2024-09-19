@@ -3,6 +3,7 @@ import { Pokemon } from '../../../../types/pokedex';
 import { DecimalPipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import Chart from 'chart.js/auto';
 import { SettingsService } from '../../../services/settings.service';
+import { PokemonService } from '../../../services/pokemon.service';
 
 /**
  * Displays a popup with information about a Pokémon.
@@ -48,6 +49,15 @@ export class PokemonPopupComponent implements OnInit {
   private selectedLanguage = 'en';
 
   /**
+   * Returns the current language setting.
+   *
+   * @return {string} The current language setting.
+   */
+  get language(): string {
+    return this.settingsService.getLanguage();
+  }
+
+  /**
    * The ID of the Pokémon.
    */
   id!: number;
@@ -75,7 +85,10 @@ export class PokemonPopupComponent implements OnInit {
   /**
    * The names of the Pokémon's types.
    */
-  types!: string[];
+  types!: {
+    english: string;
+    german: string;
+  }[];
 
   /**
    * The Pokémon's stats.
@@ -149,7 +162,10 @@ export class PokemonPopupComponent implements OnInit {
     slot: number;
   }[];
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(
+    private settingsService: SettingsService,
+    private pokemonService: PokemonService
+  ) {}
 
   /**
    * Initializes the component by subscribing to the current audio volume and language.
@@ -182,9 +198,10 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Updates the component's data based on the selected Pokémon.
+   * Updates the component's data with the selected Pokémon's information.
    *
-   * Extracts and processes the Pokémon's data, including its ID, name, image source, types, description, stats, and other attributes.
+   * This function extracts the necessary data from the selected Pokémon object
+   * and updates the component's properties accordingly.
    *
    * @return {void} No return value.
    */
@@ -213,16 +230,19 @@ export class PokemonPopupComponent implements OnInit {
     this.imgSrc =
       sprites.other.dream_world.front_default ??
       sprites.other['official-artwork'].front_default;
-    this.types = types.map(({ type }) => type.name);
-    const filteredDescription = flavor_text_entries.filter(
-      ({ language }: { language: { name: string } }) =>
-        language.name === this.selectedLanguage
+
+    this.types = types
+      .map(({ type }) => type.name)
+      .map((type) => this.pokemonService.getTypeName(type));
+
+    const filteredDescriptions = flavor_text_entries.filter(
+      ({ language }) => language.name === this.selectedLanguage
     );
-    const randomDescription =
-      filteredDescription[
-        Math.floor(Math.random() * filteredDescription.length)
-      ];
-    this.description = randomDescription.flavor_text;
+    this.description =
+      filteredDescriptions[
+        Math.floor(Math.random() * filteredDescriptions.length)
+      ].flavor_text;
+
     this.cries = cries;
     this.stats = stats;
     this.hp_number = stats[0].base_stat;
@@ -245,7 +265,7 @@ export class PokemonPopupComponent implements OnInit {
 
     if (overviewCard) {
       overviewCard.className = 'overview-card';
-      overviewCard.classList.add('type', this.types[0]);
+      overviewCard.classList.add('type', this.types[0].english);
     }
   }
 

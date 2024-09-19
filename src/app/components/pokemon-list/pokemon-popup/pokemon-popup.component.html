@@ -26,7 +26,11 @@
       <img [src]="imgSrc" [alt]="name" />
       <div class="types">
         @for (type of types; track $index) {
-        <span [className]="'type' + ' ' + type">{{ type | titlecase }}</span
+        <span [className]="'type' + ' ' + type.english">{{
+          language === "en"
+            ? (type.english | titlecase)
+            : (type.german | titlecase)
+        }}</span
         >}
       </div>
     </div>
