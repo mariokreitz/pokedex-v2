@@ -1,4 +1,4 @@
-<div [className]="'card' + ' ' + types[0]">
+<div [className]="'card' + ' ' + classTypes[0].english">
   <div class="header">
     <h1 class="name">
       {{ name | titlecase }}
@@ -9,8 +9,12 @@
     <app-pokemon-image class="sprite" [src]="imgSrc" [alt]="name" />
   </div>
   <div class="types">
-    @for (type of types; track $index) {
-    <span [className]="'type' + ' ' + type">{{ type | titlecase }}</span
+    @for (classType of classTypes; track $index) {
+    <span [className]="'type' + ' ' + classType.english">{{
+      language === "en"
+        ? (classType.english | titlecase)
+        : (classType.german | titlecase)
+    }}</span
     >}
   </div>
 </div>

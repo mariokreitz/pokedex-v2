@@ -133,4 +133,44 @@ export class PokemonService {
       return await this.pokedex.getPokemonSpeciesByName(baseName);
     }
   }
+
+  /**
+   * Retrieves the German name of a Pokémon type based on its English name.
+   *
+   * @param {string} type - The English name of the Pokémon type.
+   *
+   * @returns {{ english: string; german: string }} An object containing both the
+   * English and German names of the Pokémon type.
+   *
+   * @example
+   * const type = pokemonService.getTypeName('fire');
+   * console.log(type.english); // fire
+   * console.log(type.german); // Feuer
+   */
+  getTypeName(type: string): { english: string; german: string } {
+    const types = [
+      { english: 'normal', german: 'Normal' },
+      { english: 'fire', german: 'Feuer' },
+      { english: 'water', german: 'Wasser' },
+      { english: 'electric', german: 'Elektro' },
+      { english: 'grass', german: 'Pflanze' },
+      { english: 'flying', german: 'Flug' },
+      { english: 'bug', german: 'Käfer' },
+      { english: 'poison', german: 'Gift' },
+      { english: 'rock', german: 'Gestein' },
+      { english: 'ground', german: 'Boden' },
+      { english: 'fighting', german: 'Kämpfer' },
+      { english: 'ice', german: 'Eis' },
+      { english: 'psychic', german: 'Psycho' },
+      { english: 'ghost', german: 'Geist' },
+      { english: 'dragon', german: 'Drache' },
+      { english: 'fairy', german: 'Fee' },
+      { english: 'dark', german: 'Unlicht' },
+      { english: 'steel', german: 'Stahl' },
+    ];
+
+    const typeObject = types.find((t) => t.english === type);
+
+    return typeObject!;
+  }
 }

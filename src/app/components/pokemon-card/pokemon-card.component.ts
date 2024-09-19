@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { PokemonImageComponent } from './pokemon-image/pokemon-image.component';
 import { Pokemon } from '../../../types/pokedex';
 import { SettingsService } from '../../services/settings.service';
+import { PokemonService } from '../../services/pokemon.service';
 
 /**
  * A component that displays a Pokémon card.
@@ -26,7 +27,10 @@ import { SettingsService } from '../../services/settings.service';
   styleUrls: ['./pokemon-card.component.scss'],
 })
 export class PokemonCardComponent {
-  constructor(private settingsService: SettingsService) {}
+  constructor(
+    private settingsService: SettingsService,
+    private pokemonService: PokemonService
+  ) {}
   /**
    * The Pokémon to display in the card.
    *
@@ -34,6 +38,15 @@ export class PokemonCardComponent {
    * @type {Pokemon}
    */
   @Input() Pokemon!: Pokemon;
+
+  /**
+   * Returns the current language setting.
+   *
+   * @return {string} The current language setting.
+   */
+  get language(): string {
+    return this.settingsService.getLanguage();
+  }
 
   /**
    * Retrieves the ID of the Pokémon.
@@ -72,12 +85,12 @@ export class PokemonCardComponent {
     );
   }
 
-  /**
-   * Retrieves the types of the Pokémon.
-   *
-   * @returns {string[]} An array of Pokémon type names.
-   */
-  get types(): string[] {
-    return this.Pokemon.types.map(({ type }) => type.name);
+  get classTypes() {
+    const types = this.Pokemon.types.map(({ type }) => type.name);
+    const typesInLanguage = types.map((type) =>
+      this.pokemonService.getTypeName(type)
+    );
+
+    return typesInLanguage;
   }
 }
