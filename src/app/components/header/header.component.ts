@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
+import { SettingsService } from '../../services/settings.service';
 
 /**
  * The header component.
@@ -18,9 +19,10 @@ import { SearchService } from '../../services/search.service';
 })
 export class HeaderComponent implements OnInit {
   /**
-   * Constructor.
+   * Initializes the HeaderComponent with the necessary services.
    *
    * @param {SearchService} searchService - The search service.
+
    */
   constructor(private searchService: SearchService) {}
 
