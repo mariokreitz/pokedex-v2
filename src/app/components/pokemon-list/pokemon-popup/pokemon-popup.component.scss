@@ -79,7 +79,7 @@
         gap: 4px;
 
         & > p {
-          padding: 2px 8px;
+          padding: 6px 12px;
           background-color: rgba(255, 255, 255, 0.25);
           border-radius: 9999px;
         }
@@ -222,6 +222,14 @@
   .overview-card {
     width: 100%;
     .main {
+      .left {
+        .hitpoints {
+          & > p {
+            padding: 2px 8px;
+          }
+        }
+      }
+
       .right {
         .tabcontent {
           .wrapper {
