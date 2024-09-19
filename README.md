@@ -1,6 +1,6 @@
 # ![Pokedex](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png) Pokedex-v2 [![Version](https://img.shields.io/github/v/release/mariokreitz/pokedex-v2.svg)](https://github.com/mariokreitz/pokedex-v2/releases) [![Build Status](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml/badge.svg)](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml) [![License](https://img.shields.io/github/license/mariokreitz/pokedex-v2.svg)](LICENSE)
 
-Welcome to **Pokedex-v2**! 🎉 This project is a cutting-edge version of the classic Pokémon Pokedex, now powered by Angular 17 and the new `pokeapi-js-wrapper`, designed to provide an even more enhanced user experience with a range of exciting features.
+Welcome to **Pokedex-v2**! 🎉 This project is a cutting-edge version of the classic Pokémon Pokedex, now officially released as **version 2.0.0**. It is powered by Angular 17 and the new `pokeapi-js-wrapper`, designed to provide an even more enhanced user experience with a range of exciting features.
 
 ## Demo 🎥
 
@@ -14,13 +14,12 @@ Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreit
 - **Detailed Pokémon Information**: 📜 Get comprehensive details such as held items, availability by edition, and more!
 - **Angular 17**: 🚀 Built with the latest version of Angular for improved performance and developer experience.
 - **pokeapi-js-wrapper**: 🔌 Seamlessly integrated with `pokeapi-js-wrapper` for more flexible and powerful API interactions.
+- **Localization**: 🌐 Available in English (default) and German.
 
 ## Planned Features 🛠️
 
 We are constantly working to improve **Pokedex-v2** and have some exciting features in the pipeline:
 
-- **Localization**: 🌐 Support for multiple languages, starting with English (default) and German.
-- **Pokémon Moves**: 🎮 Display detailed move sets for selected Pokémon.
 - **PokéStats Overhaul**: 📊 Revamp the chart visuals for a more interactive and insightful Pokémon stats display.
 - **Secret Feature**: 🤫 Coming soon out of the Pokéball! _hihi_ Stay tuned for a fun surprise!
 
@@ -30,7 +29,7 @@ We now have detailed documentation available to help you understand and use **Po
 
 ➡️ [**Pokedex-v2 Documentation**](https://pokedex.mario-kreitz.dev/documentation/index.html) ⬅️
 
-Be sure to check it out to get all the information you need!
+The documentation page was created with [Compodoc](https://compodoc.app/).
 
 ## Getting Started Guide 📚
 
@@ -85,9 +84,16 @@ Having trouble? Here are some common issues and solutions:
 - **Issue: API request failures**  
   **Solution**: Check if the `pokeapi-js-wrapper` configuration is correct and that the API rate limits are not exceeded.
 
+- **Issue: Changing Pokémon loading limit**  
+  **Solution**: Be cautious with this setting, as the PokéAPI database may be incomplete. Adjust the limit carefully.
+
+## Known Issues ⚠️
+
+- **Localization**: English localization is 100% complete, while German localization is around 80% done.
+
 ## Changelog 📅
 
-- **v2.0.0**: Migrated to Angular 17 and integrated `pokeapi-js-wrapper` for enhanced API interactions.
+- **v2.0.0**: Official release with migration to Angular 17 and integration of `pokeapi-js-wrapper`. Added localization support and documentation.
 
 ## Acknowledgements 🙏
 
