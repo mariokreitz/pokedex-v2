@@ -1,7 +1,7 @@
 <div (click)="toggleSettingsVisibility()" id="settings" class="settings-button">
   <div id="settings-menu" class="settings-menu d_none">
     <div class="settings-content">
-      <h3>Settings</h3>
+      <h3>{{ language == "en" ? "Settings" : "Einstellungen" }}</h3>
       <div class="setting language">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,10 @@
         </svg>
       </div>
       <div class="setting">
-        <label for="volume">Volume: {{ getAudioVolume() | percent }}</label>
+        <label for="volume"
+          >{{ language == "en" ? "Volume" : "Lautstärke" }}:
+          {{ getAudioVolume() | percent }}</label
+        >
         <input
           type="range"
           id="volume"
@@ -60,9 +63,17 @@
         />
       </div>
       <div class="setting danger-zone">
-        <h4 style="color: red">Danger Zone</h4>
-        <h6 style="color: red">i know what i'm doing</h6>
-        <h3>Pokemon loading limit</h3>
+        <h4 style="color: red">
+          {{ language == "en" ? "Danger Zone" : "Gefahrenbereich" }}
+        </h4>
+        <h6 style="color: red">
+          {{
+            language == "en" ? "i know what i'm doing" : "ich weiß was ich tue"
+          }}
+        </h6>
+        <h3>
+          {{ language == "en" ? "Pokemon loading limit" : "Pokemon Ladelimit" }}
+        </h3>
         @for (limit of loadLimits; track $index) {
         <label class="limit" (click)="setPokemonLimit($event, limit)">
           <input
@@ -73,7 +84,7 @@
             [checked]="limit.isSelected"
           />
           Gen {{ limit.gen }} - {{ limit.limit }} @if (limit.isDefault) {
-          <span>(default)</span>
+          <span>{{ language == "en" ? "(default)" : "(standard)" }}</span>
           }
         </label>
         }
