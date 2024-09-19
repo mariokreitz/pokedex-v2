@@ -24,7 +24,7 @@ export class PokemonPopupComponent implements OnInit {
   @Input() selectedPokemon: Pokemon | null = null;
 
   /**
-   * The conversion factor from centimeters to meters.
+   * The conversion factor from decimeter to centimeters.
    */
   private readonly CM = 10;
 
@@ -42,11 +42,6 @@ export class PokemonPopupComponent implements OnInit {
    * Whether the Pokémon's cry is currently playing.
    */
   private isAudioPlaying = false;
-
-  /**
-   * The selected language.
-   */
-  private selectedLanguage = 'en';
 
   /**
    * Returns the current language setting.
@@ -68,6 +63,54 @@ export class PokemonPopupComponent implements OnInit {
   name!: string;
 
   /**
+   * The names of the Pokémon in different languages.
+   *
+   * @remarks
+   * The names are an array of objects containing the name of the Pokémon in a specific language and the URL of the language resource.
+   *
+   * @property {string} name - The name of the Pokémon in the specific language.
+   * @property {{name: string; url: string}} language - The language resource.
+   */
+  names!: {
+    name: string;
+    language: {
+      name: string;
+      url: string;
+    };
+  }[];
+
+  /**
+   * Returns the name of the Pokémon in the selected language.
+   *
+   * If the Pokémon has a name in the selected language, that name is returned.
+   * Otherwise, the Pokémon's default name is returned.
+   *
+   * @return {string} The name of the Pokémon in the selected language, or the default name if no translation is available.
+   */
+  get getSelectedLanguageName(): string {
+    if (!this.names) return this.name;
+
+    const selectedLanguageName = this.names.find(
+      (name) => name.language.name === this.settingsService.getLanguage()
+    )?.name;
+
+    return selectedLanguageName || this.name;
+  }
+
+  /**
+   * Returns the description of the Pokémon in the selected language.
+   *
+   * @return {string} The description of the Pokémon in the selected language, or an empty string if no description is available.
+   */
+  get getSelectedLanguageDescription(): string {
+    if (!this.flavor_text_entries) return '';
+    const filteredDescriptions = this.flavor_text_entries.filter(
+      ({ language }) => language.name === this.settingsService.getLanguage()
+    );
+    return filteredDescriptions[0].flavor_text.replace('\f', '\n') || '';
+  }
+
+  /**
    * The Pokémon's HP number.
    */
   hp_number!: number;
@@ -83,7 +126,13 @@ export class PokemonPopupComponent implements OnInit {
   imgSrc!: string | null;
 
   /**
-   * The names of the Pokémon's types.
+   * The types of the Pokémon.
+   *
+   * @remarks
+   * The types are an array of objects containing the English and German names of the types.
+   *
+   * @property {string} english - The English name of the type.
+   * @property {string} german - The German name of the type.
    */
   types!: {
     english: string;
@@ -91,7 +140,17 @@ export class PokemonPopupComponent implements OnInit {
   }[];
 
   /**
-   * The Pokémon's stats.
+   * The stats of the Pokémon.
+   *
+   * @remarks
+   * The stats are an array of objects containing the base stat, effort, and
+   * stat name and URL of the Pokémon.
+   *
+   * @property {number} base_stat - The base stat of the Pokémon.
+   * @property {number} effort - The effort of the Pokémon.
+   * @property {Object} stat - The stat of the Pokémon.
+   * @property {string} stat.name - The name of the stat.
+   * @property {string} stat.url - The URL of the stat.
    */
   stats!: {
     base_stat: number;
@@ -100,12 +159,14 @@ export class PokemonPopupComponent implements OnInit {
   }[];
 
   /**
-   * The Pokémon's description.
-   */
-  description!: string;
-
-  /**
-   * The Pokémon's cries, if available.
+   * The cries of the Pokémon.
+   *
+   * @remarks
+   * The cries are an object containing the latest and legacy cries of the
+   * Pokémon.
+   *
+   * @property {string} latest - The latest cry of the Pokémon.
+   * @property {string} legacy - The legacy cry of the Pokémon.
    */
   cries?: {
     latest: string;
@@ -123,7 +184,19 @@ export class PokemonPopupComponent implements OnInit {
   weight!: number;
 
   /**
-   * The items that the Pokémon is holding.
+   * The items that the Pokémon can hold.
+   *
+   * @remarks
+   * Each held item is an object containing the item itself and an array of
+   * version details.
+   *
+   * @property {Object} item - The item that the Pokémon can hold.
+   * @property {string} item.name - The name of the item.
+   * @property {string} item.url - The URL of the item.
+   *
+   * @property {Object[]} version_details - An array of version details.
+   * @property {number} version_details.rarity - The rarity of the item in the
+   * version.
    */
   held_items!: {
     item: { name: string; url: string };
@@ -133,7 +206,45 @@ export class PokemonPopupComponent implements OnInit {
   }[];
 
   /**
-   * The Pokémon's game indices.
+   * The flavor text entries of the Pokémon.
+   *
+   * @remarks
+   * Each flavor text entry is an object containing the flavor text itself, a
+   * language object, and a version object.
+   *
+   * @property {string} flavor_text - The flavor text of the Pokémon.
+   *
+   * @property {Object} language - The language of the flavor text.
+   * @property {string} language.name - The name of the language.
+   * @property {string} language.url - The URL of the language.
+   *
+   * @property {Object} version - The version of the flavor text.
+   * @property {string} version.name - The name of the version.
+   * @property {string} version.url - The URL of the version.
+   */
+  flavor_text_entries!: {
+    flavor_text: string;
+    language: {
+      name: string;
+      url: string;
+    };
+    version: {
+      name: string;
+      url: string;
+    };
+  }[];
+
+  /**
+   * The game indices of the Pokémon.
+   *
+   * @remarks
+   * Each game index is an object containing the game index itself, and a version object.
+   *
+   * @property {number} game_index - The game index of the Pokémon.
+   *
+   * @property {Object} version - The version of the game index.
+   * @property {string} version.name - The name of the version.
+   * @property {string} version.url - The URL of the version.
    */
   game_indices!: {
     game_index: number;
@@ -141,7 +252,15 @@ export class PokemonPopupComponent implements OnInit {
   }[];
 
   /**
-   * The items that the Pokémon can hold, if available.
+   * The items of the Pokémon.
+   *
+   * @remarks
+   * Each item is an object containing the name of the item, and a sprites object.
+   *
+   * @property {string} name - The name of the item.
+   *
+   * @property {Object} sprites - The sprites of the item.
+   * @property {string | null} sprites.default - The default sprite of the item.
    */
   items?: {
     name: string;
@@ -151,7 +270,18 @@ export class PokemonPopupComponent implements OnInit {
   }[];
 
   /**
-   * The Pokémon's abilities.
+   * The abilities of the Pokémon.
+   *
+   * @remarks
+   * Each ability is an object containing the ability object, whether it is hidden, and the slot of the ability.
+   *
+   * @property {Object} ability - The ability object.
+   * @property {string} ability.name - The name of the ability.
+   * @property {string} ability.url - The URL of the ability.
+   *
+   * @property {boolean} is_hidden - Whether the ability is hidden.
+   *
+   * @property {number} slot - The slot of the ability.
    */
   abilities!: {
     ability: {
@@ -161,24 +291,25 @@ export class PokemonPopupComponent implements OnInit {
     is_hidden: boolean;
     slot: number;
   }[];
-
+  /**
+   * Creates an instance of the PokemonPopupComponent.
+   *
+   * @param {SettingsService} settingsService - The settings service that provides the necessary data for this component.
+   * @param {PokemonService} pokemonService - The Pokémon service that provides the necessary data for this component.
+   */
   constructor(
     private settingsService: SettingsService,
     private pokemonService: PokemonService
   ) {}
 
   /**
-   * Initializes the component by subscribing to the current audio volume and language.
+   * Initializes the component by subscribing to the current audio volume.
    *
    * @return {void} No return value.
    */
   ngOnInit(): void {
     this.settingsService.currentAudioVolume.subscribe((volume) => {
       this.audioVolume = volume;
-    });
-
-    this.settingsService.currentLanguage.subscribe((language) => {
-      this.selectedLanguage = language;
     });
   }
 
@@ -207,13 +338,14 @@ export class PokemonPopupComponent implements OnInit {
    */
   private updatePokemonData(): void {
     const {
+      name,
+      names,
       abilities,
       flavor_text_entries,
       game_indices,
       height,
       held_items,
       id,
-      names,
       sprites,
       stats,
       types,
@@ -223,26 +355,15 @@ export class PokemonPopupComponent implements OnInit {
     } = this.selectedPokemon as Pokemon;
 
     this.id = id;
-    this.name = names.find(
-      (name) => name.language.name === this.selectedLanguage
-    )!.name;
-
+    this.name = name;
+    this.names = names;
+    this.flavor_text_entries = flavor_text_entries;
     this.imgSrc =
       sprites.other.dream_world.front_default ??
       sprites.other['official-artwork'].front_default;
-
     this.types = types
       .map(({ type }) => type.name)
       .map((type) => this.pokemonService.getTypeName(type));
-
-    const filteredDescriptions = flavor_text_entries.filter(
-      ({ language }) => language.name === this.selectedLanguage
-    );
-    this.description =
-      filteredDescriptions[
-        Math.floor(Math.random() * filteredDescriptions.length)
-      ].flavor_text;
-
     this.cries = cries;
     this.stats = stats;
     this.hp_number = stats[0].base_stat;
@@ -354,7 +475,7 @@ export class PokemonPopupComponent implements OnInit {
    */
   private getStatLabels(): string[] {
     const labels = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'];
-    if (this.selectedLanguage === 'de') {
+    if (this.settingsService.getLanguage() === 'de') {
       labels[0] = 'HP';
       labels[1] = 'Angriff';
       labels[2] = 'Verteidigung';
