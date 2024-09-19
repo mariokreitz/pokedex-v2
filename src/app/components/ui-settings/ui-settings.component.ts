@@ -25,6 +25,10 @@ export class UiSettingsComponent implements OnInit {
    */
   loadLimits = this.settingsService.getLimits();
 
+  get language(): string {
+    return this.settingsService.getLanguage();
+  }
+
   /**
    * Creates an instance of the UiSettingsComponent.
    *
