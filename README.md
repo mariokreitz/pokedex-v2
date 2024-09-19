@@ -6,6 +6,10 @@ Welcome to **Pokedex-v2**! 🎉 This project is a cutting-edge version of the cl
 
 Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreitz.dev/)
 
+## Screenshot 📸
+
+![Pokedex Screenshot](https://raw.githubusercontent.com/mariokreitz/pokedex-v2/refs/heads/main/src/assets/screenshot.png)
+
 ## Features ✨
 
 - **Caching**: 🗃️ Efficiently cache Pokémon data to reduce loading times and enhance performance.
