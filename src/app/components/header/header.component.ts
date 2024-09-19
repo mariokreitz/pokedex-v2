@@ -37,4 +37,10 @@ export class HeaderComponent implements OnInit {
    * Initializes the component.
    */
   ngOnInit(): void {}
+
+  suprise() {
+    alert(
+      'Hmm... something’s wiggling in there! Could be treasure... or just a very hyper Pikachu. You won’t know unless you peek!'
+    );
+  }
 }
