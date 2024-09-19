@@ -62,6 +62,12 @@ export class SettingsService {
   private readonly language = new BehaviorSubject<string>('en');
 
   /**
+   * A subject that emits a boolean indicating whether the application is currently loading
+   * data from PokeAPI.
+   */
+  private readonly isLoading = new BehaviorSubject<boolean>(true);
+
+  /**
    * An observable that emits the current audio volume whenever it changes.
    */
   readonly currentAudioVolume = this.audioVolume.asObservable();
@@ -75,6 +81,12 @@ export class SettingsService {
    * An observable that emits the current language whenever it changes.
    */
   readonly currentLanguage = this.language.asObservable();
+
+  /**
+   * An observable that emits a boolean indicating whether the application is currently
+   * loading data from PokeAPI.
+   */
+  readonly IsLoading = this.isLoading.asObservable();
 
   /**
    * Initializes the settings service by restoring saved state from local storage.
@@ -239,5 +251,24 @@ export class SettingsService {
    */
   getLanguage(): string {
     return this.language.getValue();
+  }
+
+  /**
+   * Sets the current loading state.
+   *
+   * @param {boolean} isLoading - The new loading state to be set.
+   * @return {void} No return value.
+   */
+  setIsLoading(isLoading: boolean): void {
+    this.isLoading.next(isLoading);
+  }
+
+  /**
+   * Retrieves the current loading state.
+   *
+   * @return {boolean} True if the application is currently loading, false otherwise.
+   */
+  getIsLoading(): boolean {
+    return this.isLoading.getValue();
   }
 }

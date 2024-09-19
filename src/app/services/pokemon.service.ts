@@ -100,6 +100,8 @@ export class PokemonService {
    * of Pokemon.
    */
   async getPokemons(): Promise<Pokemon[]> {
+    this.settingsService.setIsLoading(true);
+
     const lastPokemonLimit = this.interval;
 
     const pokemons = await this.fetchPokemons();
@@ -107,6 +109,8 @@ export class PokemonService {
     if (this.interval !== lastPokemonLimit) {
       return this.getPokemons();
     }
+
+    this.settingsService.setIsLoading(false);
 
     return pokemons;
   }
