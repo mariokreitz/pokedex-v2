@@ -1,3 +1,10 @@
+/**
+ * @description
+ * A component that displays a loading animation.
+ *
+ * @example
+ * <app-loading></app-loading>
+ */
 import { Component } from '@angular/core';
 
 @Component({
