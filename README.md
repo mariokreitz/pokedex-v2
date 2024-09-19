@@ -1,6 +1,5 @@
 # ![Pokedex](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png) Pokedex-v2 [![Version](https://img.shields.io/github/v/release/mariokreitz/pokedex-v2.svg)](https://github.com/mariokreitz/pokedex-v2/releases) [![Build Status](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml/badge.svg)](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml) [![License](https://img.shields.io/github/license/mariokreitz/pokedex-v2.svg)](LICENSE)
 
-
 Welcome to **Pokedex-v2**! 🎉 This project is a cutting-edge version of the classic Pokémon Pokedex, now powered by Angular 17 and the new `pokeapi-js-wrapper`, designed to provide an even more enhanced user experience with a range of exciting features.
 
 ## Demo 🎥
@@ -23,10 +22,9 @@ We are constantly working to improve **Pokedex-v2** and have some exciting featu
 - **Localization**: 🌐 Support for multiple languages, starting with English (default) and German.
 - **Pokémon Moves**: 🎮 Display detailed move sets for selected Pokémon.
 - **PokéStats Overhaul**: 📊 Revamp the chart visuals for a more interactive and insightful Pokémon stats display.
-- **Secret Feature**: 🤫 Coming soon out of the Pokéball! *hihi* Stay tuned for a fun surprise!
+- **Secret Feature**: 🤫 Coming soon out of the Pokéball! _hihi_ Stay tuned for a fun surprise!
 
-## 📖 **Documentation** ![Documentation](https://img.shields.io/badge/Documentation-97%25-brightgreen)
-
+## 📖 **Documentation** ![Documentation](https://img.shields.io/badge/Documentation-94%25-brightgreen)
 
 We now have detailed documentation available to help you understand and use **Pokedex-v2** effectively. You can access it here:
 
