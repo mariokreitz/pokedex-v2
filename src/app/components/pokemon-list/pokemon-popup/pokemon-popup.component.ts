@@ -182,13 +182,11 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Updates the component's Pokémon data based on the selected Pokémon.
+   * Updates the component's data based on the selected Pokémon.
    *
-   * Extracts and processes various properties from the selected Pokémon,
-   * including its ID, name, image source, types, description, stats, and more.
-   * These properties are then assigned to the component's corresponding fields.
+   * Extracts and processes the Pokémon's data, including its ID, name, image source, types, description, stats, and other attributes.
    *
-   * @return {void}
+   * @return {void} No return value.
    */
   private updatePokemonData(): void {
     const {
@@ -198,11 +196,7 @@ export class PokemonPopupComponent implements OnInit {
       height,
       held_items,
       id,
-      moves,
-      name,
       names,
-      order,
-      species,
       sprites,
       stats,
       types,
@@ -210,14 +204,19 @@ export class PokemonPopupComponent implements OnInit {
       cries,
       items,
     } = this.selectedPokemon as Pokemon;
+
     this.id = id;
-    this.name = name;
+    this.name = names.find(
+      (name) => name.language.name === this.selectedLanguage
+    )!.name;
+
     this.imgSrc =
       sprites.other.dream_world.front_default ??
       sprites.other['official-artwork'].front_default;
     this.types = types.map(({ type }) => type.name);
     const filteredDescription = flavor_text_entries.filter(
-      ({ language }) => language.name === this.selectedLanguage
+      ({ language }: { language: { name: string } }) =>
+        language.name === this.selectedLanguage
     );
     const randomDescription =
       filteredDescription[
@@ -292,18 +291,14 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Creates a radar chart to display the Pokémon's stats.
+   * Creates a radar chart displaying the base stats of a Pokémon.
    *
-   * This function first retrieves the canvas element and then defines the labels and data for the chart.
-   * It then checks if a chart already exists on the canvas and destroys it if necessary.
-   * Finally, it creates a new radar chart with the specified options.
-   *
-   * @return {void}
+   * @return {void} This function does not return anything.
    */
   private createStatsChart(): void {
     const ctx = this.getCanvasElement('chart');
 
-    const labels = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'];
+    const labels = this.getStatLabels();
     const data = this.stats.map((stat) => stat.base_stat);
 
     const chart = Chart.getChart(ctx);
@@ -330,6 +325,24 @@ export class PokemonPopupComponent implements OnInit {
         },
       },
     });
+  }
+
+  /**
+   * Returns an array of stat labels based on the selected language.
+   *
+   * @return {string[]} An array of stat labels.
+   */
+  private getStatLabels(): string[] {
+    const labels = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'];
+    if (this.selectedLanguage === 'de') {
+      labels[0] = 'HP';
+      labels[1] = 'Angriff';
+      labels[2] = 'Verteidigung';
+      labels[3] = 'SP. Angriff';
+      labels[4] = 'SP. Verteidigung';
+      labels[5] = 'Initiative';
+    }
+    return labels;
   }
 
   /**
