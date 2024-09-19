@@ -7,6 +7,27 @@
   padding-inline: 20px;
 }
 
+.loader_top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.35);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader_bottom {
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+  z-index: 0;
+  transform: translate(-50%, 0);
+}
+
 .overview {
   position: fixed;
   z-index: 1;

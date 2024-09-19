@@ -7,9 +7,17 @@
   }@empty {
   <h1>No Pokémon found</h1>
   } }@else {
-  <app-loading />
+  <div class="loader_top">
+    <app-loading-big />
+  </div>
   }
 </div>
+@if (isLoading && pokemons) {
+<div class="loader_bottom">
+  <app-loading />
+</div>
+
+}
 <div id="overview" class="overview d_none">
   <button
     type="button"

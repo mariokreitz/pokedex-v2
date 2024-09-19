@@ -6,6 +6,7 @@ import { SearchService } from '../../services/search.service';
 import { PokemonPopupComponent } from './pokemon-popup/pokemon-popup.component';
 import { SettingsService } from '../../services/settings.service';
 import { LoadingComponent } from './loading/loading.component';
+import { LoadingBigComponent } from './loading-big/loading-big.component';
 
 /**
  * A component that displays a list of Pokémon and provides functionality to
@@ -14,7 +15,12 @@ import { LoadingComponent } from './loading/loading.component';
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
-  imports: [PokemonCardComponent, PokemonPopupComponent, LoadingComponent],
+  imports: [
+    PokemonCardComponent,
+    PokemonPopupComponent,
+    LoadingComponent,
+    LoadingBigComponent,
+  ],
   templateUrl: './pokemon-list.component.html',
   styleUrl: './pokemon-list.component.scss',
 })
@@ -158,5 +164,14 @@ export class PokemonListComponent implements OnInit {
       const nextIndex = (currentIndex + 1) % this.pokemons.length;
       this.selectedPokemon = this.pokemons[nextIndex];
     }
+  }
+
+  /**
+   * Returns the value of the isLoading property from the settings service.
+   *
+   * @return {boolean} The value of the isLoading property.
+   */
+  get isLoading(): boolean {
+    return this.settingsService.getIsLoading();
   }
 }
