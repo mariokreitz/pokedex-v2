@@ -478,9 +478,9 @@ export class PokemonPopupComponent implements OnInit {
     if (this.settingsService.getLanguage() === 'de') {
       labels[0] = 'HP';
       labels[1] = 'Angriff';
-      labels[2] = 'Verteidigung';
-      labels[3] = 'SP. Angriff';
-      labels[4] = 'SP. Verteidigung';
+      labels[2] = 'Verteid.';
+      labels[3] = 'SP. Angr.';
+      labels[4] = 'SP. Verteid.';
       labels[5] = 'Initiative';
     }
     return labels;
