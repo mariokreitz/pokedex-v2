@@ -1,7 +1,102 @@
+@if (language === "en") {
 <div class="navigation">
   <button (click)="navigateToHome()" type="button">
     {{ language == "en" ? "Home" : "Startseite" }}
   </button>
+</div>
+<div class="impressum">
+  <h1>Imprint</h1>
+  <p>Information according to § 5 DDG</p>
+  <p>
+    Mario Kreitz <br />
+    Mönchfeldstraße 7<br />
+    70378 Stuttgart <br />
+  </p>
+  <p>
+    <strong>Represented by: </strong><br />
+    Mario Kreitz<br />
+  </p>
+  <p>
+    <strong>Contact:</strong> <br />
+    Email:
+    <a href="mailto:contact@mario-kreitz.dev">contact&#64;mario-kreitz.dev</a
+    ><br />
+  </p>
+  <p>
+    <strong>Disclaimer: </strong><br /><br /><strong
+      >Liability for Content</strong
+    ><br /><br />
+    The contents of our pages were created with the utmost care. However, we
+    cannot guarantee the accuracy, completeness, and timeliness of the content.
+    As a service provider, we are responsible for our own content on these pages
+    according to general laws. According to §§ 8 to 10 DDG, we are not obligated
+    to monitor transmitted or stored external information or to investigate
+    circumstances that indicate illegal activity. Obligations to remove or block
+    the use of information according to general laws remain unaffected.
+    Liability in this regard is only possible from the time we become aware of a
+    specific legal violation. Upon becoming aware of such legal violations, we
+    will remove this content immediately.<br /><br /><strong
+      >Liability for Links</strong
+    ><br /><br />
+    Our offer contains links to external websites of third parties, whose
+    contents we have no influence on. Therefore, we cannot assume any liability
+    for these external contents. The respective provider or operator of the
+    linked pages is always responsible for the contents of the linked pages. The
+    linked pages were checked for possible legal violations at the time of
+    linking. Illegal contents were not recognizable at the time of linking.
+    However, a permanent content control of the linked pages is not reasonable
+    without concrete evidence of a legal violation. Upon becoming aware of legal
+    violations, we will remove such links immediately.<br /><br /><strong
+      >Copyright</strong
+    ><br /><br />
+    All data comes from <a href="https://pokeapi.co/">pokeapi.co</a>.<br />
+    The Pokémon sprites and cries come from
+    <a href="https://raw.githubusercontent.com/PokeAPI/"
+      >https://raw.githubusercontent.com/PokeAPI/</a
+    >.<br />
+    <br />
+    If you become aware of a copyright infringement, we kindly ask you to notify
+    us accordingly. Upon becoming aware of legal violations, we will remove such
+    content immediately. The contents and works created by the site operators on
+    these pages are subject to German copyright law. Duplication, editing,
+    distribution, and any form of utilization beyond the limits of copyright
+    require the written consent of the respective author or creator. Downloads
+    and copies of this page are only permitted for private, non-commercial use.
+    As far as the contents on this page were not created by the operator, the
+    copyrights of third parties are observed. In particular, third-party content
+    is marked as such. If third-party content is used, the copyrights of the
+    following person must be observed: <br />
+    Franziska Wessely (<a href="mailto:fru_tamm_93@yahoo.de"
+      >fru_tamm_93&#64;yahoo.de</a
+    >)<br />
+  </p>
+
+  <ul>
+    <li>The graphical background image</li>
+    <li>The backgrounds of the cards and pop-up cards</li>
+    <li>The images under the diagram</li>
+  </ul>
+  <br />
+  <p>
+    If you become aware of a copyright infringement, we kindly ask you to notify
+    us accordingly. Upon becoming aware of legal violations, we will remove such
+    content immediately.
+  </p>
+
+  <p>
+    <br />
+    Website imprint created by
+    <a href="https://www.impressum-generator.de">impressum-generator.de</a> of
+    <a href="https://www.kanzlei-hasselbach.de/" rel="nofollow"
+      >Kanzlei Hasselbach</a
+    >
+  </p>
+</div>
+<app-back-to-top />
+<router-outlet />
+}@else {
+<div class="navigation">
+  <button (click)="navigateToHome()" type="button">Startseite</button>
 </div>
 <div class="impressum">
   <h1>Impressum</h1>
@@ -98,3 +193,4 @@
 </div>
 <app-back-to-top />
 <router-outlet />
+}
