@@ -330,12 +330,13 @@ export interface Pokemon {
      * The name of the item.
      */
     name: string;
+
     /**
      * The names of this item in different languages.
      */
     names: {
       /**
-       * The language this name is in.
+       * The language of the name.
        */
       language: {
         /**
@@ -348,7 +349,7 @@ export interface Pokemon {
         url: string;
       };
       /**
-       * The name of the item in this language.
+       * The name of the item in the language.
        */
       name: string;
     }[];
