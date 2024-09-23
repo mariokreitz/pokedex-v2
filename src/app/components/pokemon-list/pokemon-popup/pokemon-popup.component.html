@@ -112,7 +112,7 @@
       <div id="editions" class="tabcontent">
         <div class="wrapper">
           @if (game_indices) { @if (game_indices.length > 0) {
-          <h4>{{ language === "en" ? "Description" : "Beschreibung" }}</h4>
+          <h4>{{ language === "en" ? "Released in" : "Erschienen in" }}</h4>
           <div class="content">
             @for (game of game_indices; track $index) {
             <p>{{ game.version.name | titlecase }}</p>
