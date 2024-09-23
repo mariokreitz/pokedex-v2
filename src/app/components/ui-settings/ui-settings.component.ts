@@ -25,6 +25,11 @@ export class UiSettingsComponent implements OnInit {
    */
   loadLimits = this.settingsService.getLimits();
 
+  /**
+   * Retrieves the currently set language from the settings service.
+   *
+   * @return {string} The currently set language.
+   */
   get language(): string {
     return this.settingsService.getLanguage();
   }
@@ -90,16 +95,23 @@ export class UiSettingsComponent implements OnInit {
   }
 
   /**
-   * Sets the Pokémon loading limit by stopping the propagation of the event and then setting the limit using the settings service.
-   *
-   * This method is called when the user selects a loading limit using the radio buttons.
+   * Sets the Pokémon loading limit after prompting the user for confirmation.
    *
    * @param {Event} event - The event that triggered the limit update.
-   * @param {Limit} limit - The new loading limit.
+   * @param {Limit} limit - The new Pokémon loading limit.
    * @return {void} No return value.
    */
   setPokemonLimit(event: Event, limit: Limit): void {
     event.stopPropagation();
+
+    if (this.isLoading || limit.isSelected) return;
+    const response = confirm(
+      this.language == 'en'
+        ? 'Changing the Pokemon loading limit may cause errors. Proceed with caution. Continue?'
+        : 'Das Ändern des Ladegrenzwerts für Pokémon kann Fehler verursachen. Vorsicht! Fortfahren?'
+    );
+
+    if (!response) return;
 
     this.settingsService.setPokemonLimit(limit);
   }
@@ -136,6 +148,11 @@ export class UiSettingsComponent implements OnInit {
     }
   }
 
+  /**
+   * Returns the current loading state of the application.
+   *
+   * @return {boolean} True if the application is currently loading, false otherwise.
+   */
   get isLoading(): boolean {
     return this.settingsService.getIsLoading();
   }

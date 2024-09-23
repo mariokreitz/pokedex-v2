@@ -82,6 +82,7 @@
             name="pokemon-limit"
             [value]="limit"
             [checked]="limit.isSelected"
+            [disabled]="isLoading"
           />
           Gen {{ limit.gen }} - {{ limit.limit }} @if (limit.isDefault) {
           <span>{{ language == "en" ? "(default)" : "(standard)" }}</span>
