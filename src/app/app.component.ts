@@ -7,6 +7,10 @@
  *
  * @example
  * <app-root></app-root>
+ *
+ * @remarks
+ * This component is marked as `standalone: true` to indicate that it does not
+ * rely on any external modules.
  */
 import { Component } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
@@ -17,6 +21,12 @@ import { BackToTopComponent } from './components/back-to-top/back-to-top.compone
 
 /**
  * The root component of the application.
+ *
+ * This component contains the application's header, the Pokémon list, the UI
+ * settings, and the back to top button.
+ *
+ * @example
+ * <app-root></app-root>
  */
 @Component({
   selector: 'app-root',
@@ -32,5 +42,16 @@ import { BackToTopComponent } from './components/back-to-top/back-to-top.compone
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(public router: Router) {}
+  /**
+   * The router instance used to navigate between routes.
+   *
+   * @remarks
+   * This router instance is used to navigate between routes.
+   */
+  constructor(
+    /**
+     * The router instance used to navigate between routes.
+     */
+    public router: Router
+  ) {}
 }
