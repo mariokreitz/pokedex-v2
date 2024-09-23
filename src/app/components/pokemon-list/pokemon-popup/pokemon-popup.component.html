@@ -29,14 +29,29 @@
           {{ hp_number }} <span>{{ hp_text | uppercase }}</span>
         </p>
       </div>
-      <img [src]="imgSrc" [alt]="name" />
+      <img
+        [src]="imgSrc"
+        [alt]="name"
+        [title]="
+          language === 'en'
+            ? (name | titlecase)
+            : (getSelectedLanguageName | titlecase)
+        "
+      />
       <div class="types">
         @for (type of types; track $index) {
-        <span [className]="'type' + ' ' + type.english">{{
-          language === "en"
-            ? (type.english | titlecase)
-            : (type.german | titlecase)
-        }}</span
+        <span
+          [className]="'type' + ' ' + type.english"
+          [title]="
+            language === 'en'
+              ? (type.english | titlecase)
+              : (type.german | titlecase)
+          "
+          >{{
+            language === "en"
+              ? (type.english | titlecase)
+              : (type.german | titlecase)
+          }}</span
         >}
       </div>
     </div>
@@ -143,18 +158,21 @@
           class="tablinks"
           src="./assets/graph.png"
           alt="Graph Icon"
+          title="Stats"
         />
         <img
           (click)="openTab($event, 'items')"
           class="tablinks"
           src="./assets/bag.png"
           alt="Bag Icon"
+          title="Items"
         />
         <img
           (click)="openTab($event, 'editions')"
           class="tablinks"
           src="./assets/gb_cartridge.png"
           alt="Gameboy Cartridge Icon"
+          title="Editions"
         />
       </div>
     </div>
