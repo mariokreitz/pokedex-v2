@@ -2,8 +2,8 @@
 
 .back-to-top {
   position: fixed;
-  bottom: 10px;
-  left: 10px;
+  bottom: 80px;
+  right: 10px;
   width: fit-content;
   height: fit-content;
   background-color: lighten($background-color, 10%);
@@ -14,8 +14,22 @@
   cursor: pointer;
   display: none;
   box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
+
+  svg {
+    animation: bounce 750ms infinite;
+  }
 }
 
 .back-to-top:hover {
   background-color: lighten($background-color, 20%);
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
 }
