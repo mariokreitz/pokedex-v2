@@ -1,8 +1,9 @@
 /**
- * The main application component.
+ * The root component of the application.
  *
- * This component is the root component of the application, and contains the
- * entire application.
+ * This component is the top-level component in the application's component
+ * tree. It contains the application's header, the Pokémon list, the UI
+ * settings, and the back to top button.
  *
  * @example
  * <app-root></app-root>
@@ -14,6 +15,9 @@ import { PokemonListComponent } from './components/pokemon-list/pokemon-list.com
 import { UiSettingsComponent } from './components/ui-settings/ui-settings.component';
 import { BackToTopComponent } from './components/back-to-top/back-to-top.component';
 
+/**
+ * The root component of the application.
+ */
 @Component({
   selector: 'app-root',
   standalone: true,

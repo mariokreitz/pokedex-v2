@@ -40,9 +40,14 @@ export class HeaderComponent implements OnInit {
    */
   ngOnInit(): void {}
 
-  suprise() {
+  /**
+   * Displays a surprise alert message to the user.
+   *
+   * @return {void} No return value.
+   */
+  suprise(): void {
     alert(
-      'Hmm... something’s wiggling in there! Could be treasure... or just a very hyper Pikachu. You won’t know unless you peek!'
+      'Hmm... something is wiggling in there! Could be treasure... or just a very hyper Pikachu. You won’t know unless you peek!'
     );
   }
 }

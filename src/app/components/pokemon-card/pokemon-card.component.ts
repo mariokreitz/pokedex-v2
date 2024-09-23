@@ -27,6 +27,12 @@ import { PokemonService } from '../../services/pokemon.service';
   styleUrls: ['./pokemon-card.component.scss'],
 })
 export class PokemonCardComponent {
+  /**
+   * Initializes a new instance of the PokemonCardComponent class.
+   *
+   * @param {SettingsService} settingsService - The settings service instance.
+   * @param {PokemonService} pokemonService - The Pokémon service instance.
+   */
   constructor(
     private settingsService: SettingsService,
     private pokemonService: PokemonService
