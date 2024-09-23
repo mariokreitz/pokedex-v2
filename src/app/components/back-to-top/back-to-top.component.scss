@@ -1,0 +1,22 @@
+@import "../../../styles/vars";
+
+.back-to-top {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: fit-content;
+  height: fit-content;
+  background-color: lighten($background-color, 10%);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 12px;
+  cursor: pointer;
+  display: none;
+  z-index: 1000;
+  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
+}
+
+.back-to-top:hover {
+  background-color: lighten($background-color, 20%);
+}
