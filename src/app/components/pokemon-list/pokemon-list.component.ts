@@ -26,6 +26,15 @@ import { LoadingBigComponent } from './loading-big/loading-big.component';
 })
 export class PokemonListComponent implements OnInit {
   /**
+   * Returns the current language setting.
+   *
+   * @return {string} The current language setting.
+   */
+  get language(): string {
+    return this.settingsService.getLanguage();
+  }
+
+  /**
    * The list of Pokémon to display, filtered based on the current search term.
    */
   displayedPokemons!: Pokemon[];
