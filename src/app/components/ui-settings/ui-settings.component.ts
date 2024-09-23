@@ -125,7 +125,10 @@ export class UiSettingsComponent implements OnInit {
         : 'Das Ändern des Ladegrenzwerts für Pokémon kann Fehler verursachen. Vorsicht! Fortfahren?'
     );
 
-    if (!response) return;
+    if (!response) {
+      event.preventDefault();
+      return;
+    }
 
     this.settingsService.setPokemonLimit(limit);
   }
