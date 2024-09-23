@@ -90,6 +90,10 @@
         height: 225px;
         filter: drop-shadow(-2px 12px 8px rgba(0, 0, 0, 0.45));
       }
+
+      div > span {
+        cursor: default;
+      }
     }
 
     .right {
@@ -168,7 +172,7 @@
           position: relative;
           width: 40px;
           height: 40px;
-          cursor: pointer;
+          cursor: help;
           filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
 
           &:hover {
