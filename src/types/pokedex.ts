@@ -331,6 +331,28 @@ export interface Pokemon {
      */
     name: string;
     /**
+     * The names of this item in different languages.
+     */
+    names: {
+      /**
+       * The language this name is in.
+       */
+      language: {
+        /**
+         * The name of the language.
+         */
+        name: string;
+        /**
+         * The URL of the language resource.
+         */
+        url: string;
+      };
+      /**
+       * The name of the item in this language.
+       */
+      name: string;
+    }[];
+    /**
      * The sprite for this item.
      */
     sprites: {
