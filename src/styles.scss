@@ -74,7 +74,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  background-color: lighten($background-color, $amount: 10%);
 }
 
 ::-webkit-scrollbar-thumb {
