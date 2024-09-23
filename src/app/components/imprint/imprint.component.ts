@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { SettingsService } from '../../services/settings.service';
+import { BackToTopComponent } from '../back-to-top/back-to-top.component';
 
 /**
  * Imprint component
@@ -10,7 +11,7 @@ import { SettingsService } from '../../services/settings.service';
 @Component({
   selector: 'app-imprint',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, BackToTopComponent],
   templateUrl: './imprint.component.html',
   styleUrls: ['./imprint.component.scss'],
 })
