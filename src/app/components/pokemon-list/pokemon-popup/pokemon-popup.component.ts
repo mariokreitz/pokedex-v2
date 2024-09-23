@@ -100,14 +100,22 @@ export class PokemonPopupComponent implements OnInit {
   /**
    * Returns the description of the Pokémon in the selected language.
    *
-   * @return {string} The description of the Pokémon in the selected language, or an empty string if no description is available.
+   * This function filters the flavor text entries based on the current language setting
+   * and returns the first matching description. If no translation is found, it returns
+   * a default message.
+   *
+   * @return {string} The description of the Pokémon in the selected language.
    */
   get getSelectedLanguageDescription(): string {
     if (!this.flavor_text_entries) return '';
     const filteredDescriptions = this.flavor_text_entries.filter(
       ({ language }) => language.name === this.settingsService.getLanguage()
     );
-    return filteredDescriptions[0].flavor_text.replace('\f', '\n') || '';
+    if (!filteredDescriptions.length) return 'Keine übersetzung gefunden';
+    const descriptions = filteredDescriptions.map(
+      ({ flavor_text }) => flavor_text
+    );
+    return descriptions[0].replace('\f', '\n') || '';
   }
 
   /**
