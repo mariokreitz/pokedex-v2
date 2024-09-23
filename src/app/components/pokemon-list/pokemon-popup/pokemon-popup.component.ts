@@ -399,30 +399,31 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Plays the cry of a Pokémon.
+   * Plays the cry of the selected Pokemon.
    *
-   * If the cry audio URL is available, it creates a new Audio object, sets the volume,
-   * and plays the audio. It also adds an event listener to stop the audio when it ends.
-   * If the audio URL is not available, it displays an alert message.
-   *
-   * @return {void}
+   * @return {void} No return value.
    */
   playCry(): void {
-    const { latest, legacy } = this.cries || {};
-    const audioUrl = latest || legacy;
+    const crySvgElement = document.getElementById('cry');
+    if (!crySvgElement) return;
 
-    if (audioUrl) {
-      const audio = new Audio(audioUrl);
+    const { latest: latestCry, legacy: legacyCry } = this.cries || {};
+    const cryUrl = latestCry || legacyCry;
+
+    if (cryUrl) {
+      const audio = new Audio(cryUrl);
       audio.volume = this.audioVolume;
+
       if (!this.isAudioPlaying) {
         this.isAudioPlaying = true;
+        crySvgElement.style.cursor = 'not-allowed';
         audio.play();
       }
+
       audio.addEventListener('ended', () => {
         this.isAudioPlaying = false;
+        crySvgElement.style.cursor = 'pointer';
       });
-    } else {
-      alert('Cry not found');
     }
   }
 
