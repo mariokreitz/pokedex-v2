@@ -1,17 +1,19 @@
+/**
+ * The main application component.
+ *
+ * This component is the root component of the application, and contains the
+ * entire application.
+ *
+ * @example
+ * <app-root></app-root>
+ */
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { UiSettingsComponent } from './components/ui-settings/ui-settings.component';
+import { BackToTopComponent } from './components/back-to-top/back-to-top.component';
 
-/**
- * The main application component.
- *
- * This component contains the root outlet of the application and the main
- * components: the header, the pokemon list and the ui settings.
- *
- * @example <app-root></app-root>
- */
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -20,6 +22,7 @@ import { UiSettingsComponent } from './components/ui-settings/ui-settings.compon
     PokemonListComponent,
     HeaderComponent,
     UiSettingsComponent,
+    BackToTopComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
