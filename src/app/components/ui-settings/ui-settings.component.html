@@ -1,3 +1,8 @@
+<div class="imprint">
+  <button (click)="navigateToImprint()" type="button">
+    {{ language == "en" ? "Imprint" : "Impressum" }}
+  </button>
+</div>
 <div (click)="toggleSettingsVisibility()" id="settings" class="settings-button">
   <div id="settings-menu" class="settings-menu d_none">
     <div class="settings-content">

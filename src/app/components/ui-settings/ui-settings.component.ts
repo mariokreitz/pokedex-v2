@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../services/settings.service';
 import { PercentPipe } from '@angular/common';
 import { Limit } from '../../../types/loadingLimits';
+import { Router } from '@angular/router';
 
 /**
  * Component that renders the UI settings component.
@@ -35,11 +36,24 @@ export class UiSettingsComponent implements OnInit {
   }
 
   /**
-   * Creates an instance of the UiSettingsComponent.
+   * Initializes the UiSettingsComponent with the required services.
    *
-   * @param {SettingsService} settingsService - The settings service that provides the necessary data for this component.
+   * @param {SettingsService} settingsService - The service providing access to the application settings.
+   * @param {Router} router - The Angular router for navigating between routes.
    */
-  constructor(private settingsService: SettingsService) {}
+  constructor(
+    private settingsService: SettingsService,
+    private router: Router
+  ) {}
+
+  /**
+   * Navigates to the imprint page.
+   *
+   * @return {void} No return value.
+   */
+  navigateToImprint(): void {
+    this.router.navigate(['/imprint']);
+  }
 
   /**
    * Initializes the component after Angular has initialized all data-bound properties.
