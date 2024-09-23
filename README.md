@@ -8,7 +8,7 @@ Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreit
 
 ## Screenshot 📸
 
-![Pokedex Screenshot](https://raw.githubusercontent.com/mariokreitz/pokedex-v2/refs/heads/main/src/assets/preview.png)
+![Pokedex Screenshot](https://raw.githubusercontent.com/mariokreitz/pokedex-v2/refs/heads/main/src/assets/screenshot.png)
 
 ## Features ✨
 
