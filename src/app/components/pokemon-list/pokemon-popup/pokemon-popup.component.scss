@@ -121,10 +121,6 @@
         }
       }
 
-      #items {
-        gap: 10px;
-      }
-
       #editions {
         .wrapper {
           height: 100%;
@@ -145,10 +141,6 @@
         }
       }
 
-      canvas {
-        z-index: 2;
-      }
-
       .tabcontent {
         width: 250px;
         height: 250px;
@@ -157,9 +149,11 @@
         animation: fadeEffect 1s;
 
         .item {
-          display: flex;
-          gap: 10px;
-          align-items: center;
+          .item-label {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+          }
         }
       }
 
@@ -310,10 +304,19 @@
           gap: 10px;
         }
 
-        .tabcontent {
+        .tabcontent#stats-Chart {
           width: 175px !important;
           height: 175px !important;
+        }
+
+        .tabcontent {
+          width: 255px !important;
+          height: 175px !important;
           overflow-y: auto;
+
+          h4 {
+            font-size: 14px;
+          }
 
           .wrapper {
             gap: 5px;
