@@ -17,6 +17,19 @@ import { PokemonService } from '../../../services/pokemon.service';
   templateUrl: './pokemon-popup.component.html',
   styleUrl: './pokemon-popup.component.scss',
 })
+/**
+ * A component that displays a popup with information about a Pokémon.
+ *
+ * @example
+ * <app-pokemon-popup [selectedPokemon]="selectedPokemon"></app-pokemon-popup>
+ *
+ * @prop {Pokemon} selectedPokemon - The Pokémon to display.
+ *
+ * @templateContext
+ * @prop {Pokemon} selectedPokemon - The Pokémon to display.
+ * @prop {string} selectedPokemonLanguageName - The name of the Pokémon in the current language.
+ * @prop {string} selectedPokemonLanguageDescription - The description of the Pokémon in the current language.
+ */
 export class PokemonPopupComponent implements OnInit {
   /**
    * The Pokémon to display.
@@ -119,6 +132,42 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
+   * Returns the name of the selected item in the current language.
+   *
+   * @return {string} The name of the selected item in the current language, or the default name if no translation is available.
+   */
+  get selectedItemLanguageName(): string {
+    if (!this.selectedPokemon) return this.items[0].name;
+
+    const itemNamesInLanguage = this.items.map(
+      (item) =>
+        item.names.find((name) => name.language.name === this.language)?.name
+    );
+
+    return itemNamesInLanguage[0] || this.items[0].name;
+  }
+
+  /**
+   * Returns the flavor text of the selected item in the current language.
+   *
+   * @return {string} The flavor text of the selected item, or an empty string if no item is selected.
+   */
+  get selectedItemFlavorText(): string {
+    if (!this.selectedPokemon) {
+      return this.items[0].flavor_text_entries[0].text;
+    }
+
+    const itemFlavorTexts = this.items.map((item) => {
+      const flavorTextEntry = item.flavor_text_entries.find(
+        (entry) => entry.language.name === this.settingsService.getLanguage()
+      );
+      return flavorTextEntry?.text || '';
+    });
+
+    return itemFlavorTexts[0];
+  }
+
+  /**
    * The Pokémon's HP number.
    */
   hp_number!: number;
@@ -212,13 +261,12 @@ export class PokemonPopupComponent implements OnInit {
       rarity: number;
     }[];
   }[];
-
   /**
    * The flavor text entries of the Pokémon.
    *
    * @remarks
-   * Each flavor text entry is an object containing the flavor text itself, a
-   * language object, and a version object.
+   * Each flavor text entry is an object containing the flavor text itself, and
+   * two objects: one for the language and one for the version.
    *
    * @property {string} flavor_text - The flavor text of the Pokémon.
    *
@@ -231,11 +279,26 @@ export class PokemonPopupComponent implements OnInit {
    * @property {string} version.url - The URL of the version.
    */
   flavor_text_entries!: {
+    /**
+     * The flavor text of the Pokémon.
+     */
     flavor_text: string;
+    /**
+     * The language of the flavor text.
+     *
+     * @property {string} name - The name of the language.
+     * @property {string} url - The URL of the language.
+     */
     language: {
       name: string;
       url: string;
     };
+    /**
+     * The version of the flavor text.
+     *
+     * @property {string} name - The name of the version.
+     * @property {string} url - The URL of the version.
+     */
     version: {
       name: string;
       url: string;
@@ -260,18 +323,56 @@ export class PokemonPopupComponent implements OnInit {
   }[];
 
   /**
-   * The items of the Pokémon.
+   * The items that the Pokémon can have.
    *
    * @remarks
-   * Each item is an object containing the name of the item, and a sprites object.
+   * Each item is an object containing the item name, flavor text entries, names, and sprites.
    *
    * @property {string} name - The name of the item.
+   *
+   * @property {Object[]} flavor_text_entries - An array of flavor text entries.
+   * @property {Object} flavor_text_entries.language - The language of the flavor text entry.
+   * @property {string} flavor_text_entries.language.name - The name of the language.
+   * @property {string} flavor_text_entries.language.url - The URL of the language resource.
+   * @property {string} flavor_text_entries.text - The flavor text of this item.
+   *
+   * @property {Object[]} names - An array of names.
+   * @property {Object} names.language - The language of the name.
+   * @property {string} names.language.name - The name of the language.
+   * @property {string} names.language.url - The URL of the language resource.
+   * @property {string} names.name - The name of the item.
    *
    * @property {Object} sprites - The sprites of the item.
    * @property {string | null} sprites.default - The default sprite of the item.
    */
-  items?: {
+  items!: {
     name: string;
+    flavor_text_entries: {
+      /**
+       * The language of the flavor text entry.
+       */
+      language: {
+        /**
+         * The name of the language.
+         */
+        name: string;
+        /**
+         * The URL of the language resource.
+         */
+        url: string;
+      };
+      /**
+       * The flavor text of this item.
+       */
+      text: string;
+    }[];
+    names: {
+      language: {
+        name: string;
+        url: string;
+      };
+      name: string;
+    }[];
     sprites: {
       default: string | null;
     };
