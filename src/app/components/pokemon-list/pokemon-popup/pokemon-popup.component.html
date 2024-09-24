@@ -91,14 +91,14 @@
         </h4>
         @for (item of items; track $index) {
         <div class="item">
-          <label class="item-label" [title]="selectedItemFlavorText">
+          <label class="item-label" [title]="selectedItemFlavorText($index)">
             <img
               class="item-img"
               [src]="item.sprites.default"
               [alt]="item.name"
             />
             <p>
-              {{ selectedItemLanguageName | titlecase }}
+              {{ selectedItemLanguageName($index) | titlecase }}
             </p>
           </label>
         </div>

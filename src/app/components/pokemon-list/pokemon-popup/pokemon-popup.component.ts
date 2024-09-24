@@ -132,42 +132,6 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Returns the name of the selected item in the current language.
-   *
-   * @return {string} The name of the selected item in the current language, or the default name if no translation is available.
-   */
-  get selectedItemLanguageName(): string {
-    if (!this.selectedPokemon) return this.items[0].name;
-
-    const itemNamesInLanguage = this.items.map(
-      (item) =>
-        item.names.find((name) => name.language.name === this.language)?.name
-    );
-
-    return itemNamesInLanguage[0] || this.items[0].name;
-  }
-
-  /**
-   * Returns the flavor text of the selected item in the current language.
-   *
-   * @return {string} The flavor text of the selected item, or an empty string if no item is selected.
-   */
-  get selectedItemFlavorText(): string {
-    if (!this.selectedPokemon) {
-      return this.items[0].flavor_text_entries[0].text;
-    }
-
-    const itemFlavorTexts = this.items.map((item) => {
-      const flavorTextEntry = item.flavor_text_entries.find(
-        (entry) => entry.language.name === this.settingsService.getLanguage()
-      );
-      return flavorTextEntry?.text || '';
-    });
-
-    return itemFlavorTexts[0];
-  }
-
-  /**
    * The Pokémon's HP number.
    */
   hp_number!: number;
@@ -648,5 +612,41 @@ export class PokemonPopupComponent implements OnInit {
       tabContent.style.display =
         tabContent.id === 'stats-Chart' ? 'block' : 'none';
     });
+  }
+
+  /**
+   * Returns the name of the item at the given index in the current language.
+   *
+   * If no item is selected, returns the name of the first item in the list.
+   *
+   * @param {number} index - The index of the item to retrieve the name for.
+   * @return {string} The name of the item in the current language.
+   */
+  selectedItemLanguageName(index: number): string {
+    const itemNamesInLanguage = this.items.map(
+      (item) =>
+        item.names.find((name) => name.language.name === this.language)?.name
+    );
+
+    return itemNamesInLanguage[index] || this.items[0].name;
+  }
+
+  /**
+   * Returns the flavor text of the item at the given index in the current language.
+   *
+   * If no item is selected, returns the flavor text of the first item in the list.
+   *
+   * @param {number} index - The index of the item to retrieve the flavor text for.
+   * @return {string} The flavor text of the item in the current language.
+   */
+  selectedItemFlavorText(index: number): string {
+    const itemFlavorTexts = this.items.map((item) => {
+      const flavorTextEntry = item.flavor_text_entries.find(
+        ({ language }) => language.name === this.settingsService.getLanguage()
+      );
+      return flavorTextEntry?.text || '';
+    });
+
+    return itemFlavorTexts[index] || '';
   }
 }
