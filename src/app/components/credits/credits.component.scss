@@ -4,15 +4,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin: 20px max(20px, calc((100% - 800px) / 2));
+  max-width: 800px;
   padding: 20px;
+  text-align: center;
 
   h1 {
-    margin-block: 40px;
+    margin-block: 80px;
     font-size: 80px;
+    text-align: center;
+
+    @media screen and (max-width: 520px) {
+      font-size: 60px;
+    }
   }
 
   h2 {
-    margin-block: 20px;
+    margin-block: 80px;
+    font-size: 40px;
   }
 }
 
@@ -29,6 +39,10 @@
 .thanks-list li {
   margin: 10px;
   font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .thanks-list a {
@@ -46,9 +60,23 @@
   text-decoration: underline;
 }
 
+p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+  }
+}
+
 .logo {
-  max-width: 500px;
-  height: auto;
+  width: 100%;
 
   &.profile,
   &.logo-pokeapi-small {
@@ -62,5 +90,14 @@
   &.logo-typescript {
     width: 128px;
     height: 128px;
+  }
+
+  &.logo-pixabay {
+    width: 60%;
+    filter: invert(1);
+
+    @media screen and (max-width: 786px) {
+      width: 100%;
+    }
   }
 }
