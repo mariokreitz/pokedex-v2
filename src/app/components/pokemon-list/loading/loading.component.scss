@@ -1,3 +1,7 @@
 .bottom_loader {
   width: 100px;
+
+  @media screen and (max-width: 520px) {
+    width: 62px;
+  }
 }

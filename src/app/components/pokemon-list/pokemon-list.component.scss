@@ -26,6 +26,12 @@
   bottom: 10px;
   z-index: 0;
   transform: translate(-50%, 0);
+  max-width: 80%;
+  background-color: #1e1e59;
+  border-radius: 9999px;
+  margin-block: auto;
+  padding: 14px;
+  border: solid 1px white;
 }
 
 .overview {
