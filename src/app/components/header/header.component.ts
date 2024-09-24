@@ -22,9 +22,21 @@ export class HeaderComponent implements OnInit {
    * Initializes the HeaderComponent with the necessary services.
    *
    * @param {SearchService} searchService - The search service.
-
+   * @param {SettingsService} settingsService - The settings service.
    */
-  constructor(private searchService: SearchService) {}
+  constructor(
+    private searchService: SearchService,
+    private settingsService: SettingsService
+  ) {}
+
+  /**
+   * Retrieves the currently set language.
+   *
+   * @return {string} The currently set language.
+   */
+  get language(): string {
+    return this.settingsService.getLanguage();
+  }
 
   /**
    * Handles search bar input change.
