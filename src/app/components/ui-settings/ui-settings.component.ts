@@ -181,4 +181,6 @@ export class UiSettingsComponent implements OnInit {
   get isLoading(): boolean {
     return this.settingsService.getIsLoading();
   }
+
+  showCredits() {}
 }
