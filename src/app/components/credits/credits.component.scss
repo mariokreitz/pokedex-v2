@@ -6,6 +6,11 @@
   align-items: center;
   padding: 20px;
 
+  h1 {
+    margin-block: 40px;
+    font-size: 80px;
+  }
+
   h2 {
     margin-block: 20px;
   }
@@ -18,17 +23,44 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 50px;
 }
 
 .thanks-list li {
   margin: 10px;
+  font-size: 18px;
 }
 
 .thanks-list a {
   color: #03a9f4;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+  font-size: 20px;
 }
 
 .thanks-list a:hover {
   text-decoration: underline;
+}
+
+.logo {
+  max-width: 500px;
+  height: auto;
+
+  &.profile,
+  &.logo-pokeapi-small {
+    width: 64px;
+    height: 64px;
+    border-radius: 9999px;
+  }
+
+  &.logo-angular,
+  &.logo-chartjs,
+  &.logo-typescript {
+    width: 128px;
+    height: 128px;
+  }
 }
