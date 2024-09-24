@@ -130,6 +130,14 @@ export class UiSettingsComponent implements OnInit {
       return;
     }
 
+    const settingsUiRef = document.getElementById('settings');
+    const settingsMenuRef = document.getElementById('settings-menu');
+
+    if (settingsUiRef && settingsMenuRef) {
+      settingsUiRef.classList.remove('settings-big');
+      settingsMenuRef.classList.add('d_none');
+    }
+
     this.settingsService.setPokemonLimit(limit);
   }
 
