@@ -36,7 +36,6 @@ export class PokemonService {
     protocol: 'https',
     hostName: 'pokeapi.co',
     versionPath: '/api/v2/',
-    timeout: 5 * 1000,
     cache: true,
   });
 

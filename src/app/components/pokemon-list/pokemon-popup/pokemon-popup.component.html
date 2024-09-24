@@ -37,6 +37,8 @@
             ? (name | titlecase)
             : (getSelectedLanguageName | titlecase)
         "
+        loading="lazy"
+        decoding="auto"
       />
       <div class="types">
         @for (type of types; track $index) {
@@ -96,6 +98,8 @@
               class="item-img"
               [src]="item.sprites.default"
               [alt]="item.name"
+              loading="lazy"
+              decoding="auto"
             />
             <p>
               {{ selectedItemLanguageName($index) | titlecase }}
@@ -163,6 +167,8 @@
           src="./assets/graph.png"
           alt="Graph Icon"
           title="Stats"
+          loading="lazy"
+          decoding="auto"
         />
         <img
           (click)="openTab($event, 'items')"
@@ -170,6 +176,8 @@
           src="./assets/bag.png"
           alt="Bag Icon"
           title="Items"
+          loading="lazy"
+          decoding="auto"
         />
         <img
           (click)="openTab($event, 'editions')"
@@ -177,6 +185,8 @@
           src="./assets/gb_cartridge.png"
           alt="Gameboy Cartridge Icon"
           title="Editions"
+          loading="lazy"
+          decoding="auto"
         />
       </div>
     </div>
