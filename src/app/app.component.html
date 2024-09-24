@@ -1,9 +1,12 @@
-@if (router.url !== '/imprint') {
+@switch (router.url) { @case ('/imprint') {
+<app-imprint />
+} @case ('/credits') {
+<app-credits />
+} @default {
 <div class="content-wrapper">
   <app-header />
   <app-pokemon-list />
   <app-ui-settings />
   <app-back-to-top />
 </div>
-}
-<router-outlet />
+} }

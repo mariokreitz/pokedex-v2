@@ -13,11 +13,13 @@
  * rely on any external modules.
  */
 import { Component } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { UiSettingsComponent } from './components/ui-settings/ui-settings.component';
 import { BackToTopComponent } from './components/back-to-top/back-to-top.component';
+import { ImprintComponent } from './components/imprint/imprint.component';
+import { CreditsComponent } from './components/credits/credits.component';
 
 /**
  * The root component of the application.
@@ -32,11 +34,12 @@ import { BackToTopComponent } from './components/back-to-top/back-to-top.compone
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
     PokemonListComponent,
     HeaderComponent,
     UiSettingsComponent,
     BackToTopComponent,
+    ImprintComponent,
+    CreditsComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

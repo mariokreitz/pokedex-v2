@@ -182,5 +182,7 @@ export class UiSettingsComponent implements OnInit {
     return this.settingsService.getIsLoading();
   }
 
-  showCredits() {}
+  showCredits() {
+    this.router.navigate(['/credits']);
+  }
 }
