@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../services/settings.service';
 
 @Component({
@@ -8,9 +8,8 @@ import { SettingsService } from '../../services/settings.service';
   templateUrl: './credits.component.html',
   styleUrl: './credits.component.scss',
 })
-export class CreditsComponent {
-  constructor(private settingsService: SettingsService) {}
-
+export class CreditsComponent implements OnInit {
+  audio: HTMLAudioElement | undefined;
   /**
    * Retrieves the currently set language from the settings service.
    *
@@ -18,6 +17,41 @@ export class CreditsComponent {
    */
   get language(): string {
     return this.settingsService.getLanguage();
+  }
+  /**
+   * Constructor
+   *
+   * Initializes the CreditsComponent with the necessary services.
+   *
+   * @param {SettingsService} settingsService - The settings service that provides the necessary data for this component.
+   */
+  constructor(private settingsService: SettingsService) {
+    this.audio = new Audio('./assets/game-music-loop-7-145285.mp3');
+  }
+
+  ngOnInit(): void {
+    if (this.audio) {
+      let initialVolume = 0;
+      this.audio.loop = true;
+      this.audio.volume = initialVolume;
+      const intervalId = setInterval(() => {
+        if (initialVolume < this.settingsService.getAudioVolume()) {
+          initialVolume += 0.01;
+          this.audio!.volume = initialVolume;
+        } else {
+          clearInterval(intervalId);
+        }
+      }, 90);
+      this.audio.play();
+      this.audio.loop = true;
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio.currentTime = 0;
+    }
   }
 
   /**
