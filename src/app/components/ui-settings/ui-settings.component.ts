@@ -47,15 +47,6 @@ export class UiSettingsComponent implements OnInit {
   ) {}
 
   /**
-   * Navigates to the imprint page.
-   *
-   * @return {void} No return value.
-   */
-  navigateToImprint(): void {
-    this.router.navigate(['/imprint']);
-  }
-
-  /**
    * Initializes the component after Angular has initialized all data-bound properties.
    * Sets the initial state of the checkbox.
    *
@@ -182,7 +173,21 @@ export class UiSettingsComponent implements OnInit {
     return this.settingsService.getIsLoading();
   }
 
-  showCredits() {
+  /**
+   * Navigates to the imprint page.
+   *
+   * @return {void} No return value.
+   */
+  navigateToImprint(): void {
+    this.router.navigate(['/imprint']);
+  }
+
+  /**
+   * Navigates to the credits page.
+   *
+   * @return {void} No return value.
+   */
+  navigateToCredits(): void {
     this.router.navigate(['/credits']);
   }
 }
