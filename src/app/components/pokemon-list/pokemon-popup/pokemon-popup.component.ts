@@ -364,16 +364,20 @@ export class PokemonPopupComponent implements OnInit {
     is_hidden: boolean;
     slot: number;
   }[];
+
   /**
-   * Creates an instance of the PokemonPopupComponent.
+   * Initializes the component by setting up event listeners.
    *
-   * @param {SettingsService} settingsService - The settings service that provides the necessary data for this component.
-   * @param {PokemonService} pokemonService - The Pokémon service that provides the necessary data for this component.
+   * @param {SettingsService} settingsService - The settings service used to retrieve application settings.
+   * @param {PokemonService} pokemonService - The Pokémon service used to interact with the Pokémon API.
+   *
    */
   constructor(
     private settingsService: SettingsService,
     private pokemonService: PokemonService
-  ) {}
+  ) {
+    document.addEventListener('keydown', (event) => this.handleKeydown(event));
+  }
 
   /**
    * Initializes the component by subscribing to the current audio volume.
@@ -571,30 +575,28 @@ export class PokemonPopupComponent implements OnInit {
   }
 
   /**
-   * Opens a tab based on the provided tab name and updates the active tab links.
+   * Opens a tab based on the provided event and tab name, hiding all other tabs and setting the selected tab to active.
    *
-   * @param {Event} event - The event that triggered the tab opening.
-   * @param {string} tabName - The name of the tab to be opened.
-   * @return {void}
+   * @param {Event | HTMLElement} event - The event or HTML element that triggered the tab opening.
+   * @param {string} tabName - The ID of the tab to be opened.
+   * @return {void} No return value.
    */
-  openTab(event: Event, tabName: string): void {
+  openTab(event: Event | HTMLElement, tabName: string): void {
     const tabContents =
       document.querySelectorAll<HTMLDivElement>('.tabcontent');
-
     tabContents.forEach((tabContent) => {
       tabContent.style.display = 'none';
     });
-
     const tabs = document.querySelectorAll<HTMLImageElement>('.tablinks');
-
     tabs.forEach((tab) => tab.classList.remove('active'));
-
     const selectedTab = document.getElementById(tabName);
-
     if (selectedTab) {
       selectedTab.style.display = 'block';
-
-      if (event.currentTarget) {
+      if (event instanceof HTMLImageElement) {
+        console.log(event);
+        event.classList.add('active');
+      }
+      if (event instanceof Event) {
         (event.currentTarget as HTMLImageElement).classList.add('active');
       }
     }
@@ -648,5 +650,45 @@ export class PokemonPopupComponent implements OnInit {
     });
 
     return itemFlavorTexts[index] || '';
+  }
+
+  /**
+   * Handles keyboard events for the Pokémon popup.
+   *
+   *  Closes the popup when the 'Escape' key is pressed.
+   *  Opens specific tabs when the corresponding number key is pressed.
+   *
+   * @param {KeyboardEvent} event - The keyboard event to handle.
+   * @return {void}
+   */
+  handleKeydown(event: KeyboardEvent): void {
+    const overviewElement = document.getElementById('overview');
+
+    if (!overviewElement) return;
+    if (overviewElement.classList.contains('d_none')) return;
+
+    switch (event.key) {
+      case 'Escape':
+        this.closePopup();
+        break;
+      case '1':
+        const tabChart = document.getElementById(
+          'TabControlStats'
+        ) as HTMLImageElement;
+        this.openTab(tabChart, 'stats-Chart');
+        break;
+      case '2':
+        const tabItems = document.getElementById(
+          'TabControlItem'
+        ) as HTMLImageElement;
+        this.openTab(tabItems, 'items');
+        break;
+      case '3':
+        const tabEditions = document.getElementById(
+          'TabControlEditions'
+        ) as HTMLImageElement;
+        this.openTab(tabEditions, 'editions');
+        break;
+    }
   }
 }

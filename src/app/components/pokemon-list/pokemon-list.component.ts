@@ -58,12 +58,16 @@ export class PokemonListComponent implements OnInit {
    *
    * @param {PokemonService} pokemonService - The service used to fetch Pokémon data.
    * @param {SearchService} searchService - The service used to handle search functionality.
+   * @param {SettingsService} settingsService - The service used to handle settings.
+   *
    */
   constructor(
     private readonly pokemonService: PokemonService,
     private readonly searchService: SearchService,
     private readonly settingsService: SettingsService
-  ) {}
+  ) {
+    document.addEventListener('keydown', (event) => this.handleKeydown(event));
+  }
 
   /**
    * Initializes the component by setting up subscriptions to the Pokémon limit and search term.
@@ -182,5 +186,30 @@ export class PokemonListComponent implements OnInit {
    */
   get isLoading(): boolean {
     return this.settingsService.getIsLoading();
+  }
+
+  /**
+   * Handles keyboard events to navigate through Pokémon.
+   *
+   *  This function checks if the 'overview' element is present and visible on the page.
+   *  If it is, the function listens for 'ArrowLeft' and 'ArrowRight' key presses to navigate to the previous or next Pokémon respectively.
+   *
+   * @param {KeyboardEvent} event - The keyboard event triggered by the user.
+   * @return {void}
+   */
+  handleKeydown(event: KeyboardEvent): void {
+    const overviewElement = document.getElementById('overview');
+
+    if (!overviewElement) return;
+    if (overviewElement.classList.contains('d_none')) return;
+
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.onPrevClick();
+        break;
+      case 'ArrowRight':
+        this.onNextClick();
+        break;
+    }
   }
 }
