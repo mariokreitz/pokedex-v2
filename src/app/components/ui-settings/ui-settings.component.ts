@@ -157,9 +157,7 @@ export class UiSettingsComponent implements OnInit {
       buttons.forEach((button) => {
         button.addEventListener('click', (e) => {
           e.stopPropagation();
-
           const isYesButton = button.classList.contains('btn-yes');
-
           this.isModalOpen = false;
           this.response = isYesButton;
 
@@ -168,18 +166,28 @@ export class UiSettingsComponent implements OnInit {
             return;
           }
 
-          const settingsUIElement = document.getElementById('settings');
-          const settingsMenuElement = document.getElementById('settings-menu');
-
-          if (settingsUIElement && settingsMenuElement) {
-            settingsUIElement.classList.remove('settings-big');
-            settingsMenuElement.classList.add('d_none');
-          }
-
+          this.changeSettingsUIandMenuVisibility();
           this.settingsService.setPokemonLimit(limit);
         });
       });
     }, 30);
+  }
+
+  /**
+   * Changes the visibility of the settings UI and menu.
+   *
+   * This method removes the 'settings-big' class from the settings UI element and adds the 'd_none' class to the settings menu element.
+   *
+   * @return {void} No return value.
+   */
+  changeSettingsUIandMenuVisibility(): void {
+    const settingsUIElement = document.getElementById('settings');
+    const settingsMenuElement = document.getElementById('settings-menu');
+
+    if (settingsUIElement && settingsMenuElement) {
+      settingsUIElement.classList.remove('settings-big');
+      settingsMenuElement.classList.add('d_none');
+    }
   }
 
   /**
