@@ -80,7 +80,7 @@
         <h3>
           {{ language == "en" ? "Pokemon loading limit" : "Pokemon Ladelimit" }}
         </h3>
-        @for (limit of loadLimits; track $index) {
+        @if (!isModalOpen) { @for (limit of loadLimits; track $index) {
         <label class="limit" (click)="setPokemonLimit($event, limit)">
           <input
             type="radio"
@@ -94,6 +94,16 @@
           <span>{{ language == "en" ? "(default)" : "(standard)" }}</span>
           }
         </label>
+        } }@else {
+        <p>{{ confirmationText }}</p>
+        <div class="btn-control">
+          <button class="btn btn-yes">
+            {{ language == "en" ? "Yes" : "Ja" }}
+          </button>
+          <button class="btn btn-no">
+            {{ language == "en" ? "No" : "Nein" }}
+          </button>
+        </div>
         }
       </div>
     </div>

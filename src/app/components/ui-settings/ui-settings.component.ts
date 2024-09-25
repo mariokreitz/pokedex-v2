@@ -27,6 +27,15 @@ export class UiSettingsComponent implements OnInit {
   loadLimits = this.settingsService.getLimits();
 
   /**
+   * Indicates whether the settings menu is currently visible.
+   *
+   * This property is used to toggle the visibility of the settings menu.
+   *
+   * @type {boolean}
+   */
+  isModalOpen: boolean = false;
+
+  /**
    * Retrieves the currently set language from the settings service.
    *
    * @return {string} The currently set language.
@@ -100,9 +109,36 @@ export class UiSettingsComponent implements OnInit {
   }
 
   /**
-   * Sets the Pokémon loading limit after prompting the user for confirmation.
+   * @private
+   * @type {boolean}
+   * @description
+   * Property that is used to determine whether the settings menu is visible or not.
+   */
+  private _response: boolean = false;
+
+  /**
+   * Get the value of the response property.
    *
-   * @param {Event} event - The event that triggered the limit update.
+   * @return {boolean} The value of the response property.
+   */
+  get response(): boolean {
+    return this._response;
+  }
+
+  /**
+   * Sets the response value.
+   *
+   * @param {boolean} value - The new response value.
+   *
+   */
+  set response(value: boolean) {
+    this._response = value;
+  }
+
+  /**
+   * Sets the Pokémon loading limit based on the provided event and limit.
+   *
+   * @param {Event} event - The event that triggered the Pokémon loading limit update.
    * @param {Limit} limit - The new Pokémon loading limit.
    * @return {void} No return value.
    */
@@ -110,26 +146,49 @@ export class UiSettingsComponent implements OnInit {
     event.stopPropagation();
 
     if (this.isLoading || limit.isSelected) return;
-    const response = confirm(
-      this.language == 'en'
-        ? 'Changing the Pokemon loading limit may cause errors. Proceed with caution. Continue?'
-        : 'Das Ändern des Ladegrenzwerts für Pokémon kann Fehler verursachen. Vorsicht! Fortfahren?'
-    );
 
-    if (!response) {
-      event.preventDefault();
-      return;
-    }
+    this.isModalOpen = true;
 
-    const settingsUiRef = document.getElementById('settings');
-    const settingsMenuRef = document.getElementById('settings-menu');
+    setTimeout(() => {
+      const buttons = document.querySelectorAll<HTMLButtonElement>('.btn');
 
-    if (settingsUiRef && settingsMenuRef) {
-      settingsUiRef.classList.remove('settings-big');
-      settingsMenuRef.classList.add('d_none');
-    }
+      buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
 
-    this.settingsService.setPokemonLimit(limit);
+          const isYesButton = button.classList.contains('btn-yes');
+
+          this.isModalOpen = false;
+          this.response = isYesButton;
+
+          if (!this.response) {
+            event.preventDefault();
+            return;
+          }
+
+          const settingsUIElement = document.getElementById('settings');
+          const settingsMenuElement = document.getElementById('settings-menu');
+
+          if (settingsUIElement && settingsMenuElement) {
+            settingsUIElement.classList.remove('settings-big');
+            settingsMenuElement.classList.add('d_none');
+          }
+
+          this.settingsService.setPokemonLimit(limit);
+        });
+      });
+    }, 30);
+  }
+
+  /**
+   * Retrieves the confirmation text for changing the Pokémon loading limit based on the current language setting.
+   *
+   * @return {string} The confirmation text in the currently set language.
+   */
+  get confirmationText(): string {
+    return this.language == 'en'
+      ? 'Changing the Pokemon loading limit may cause errors. Proceed with caution. Continue?'
+      : 'Das Ändern des Ladegrenzwerts für Pokémon kann möglicherweiße Fehler verursachen... Fortfahren?';
   }
 
   /**
@@ -190,4 +249,7 @@ export class UiSettingsComponent implements OnInit {
   navigateToCredits(): void {
     this.router.navigate(['/credits']);
   }
+}
+function handleConfirmation() {
+  throw new Error('Function not implemented.');
 }

@@ -169,7 +169,30 @@
 
       .danger-zone {
         border: solid 1px red;
+        border-radius: 4px;
+        box-shadow: 0 0 4px red;
         padding: 4px;
+
+        p {
+          margin-block: 18px;
+        }
+
+        .btn-control {
+          display: flex;
+          gap: 8px;
+          justify-content: center;
+          margin-block: 18px;
+
+          .btn {
+            width: fit-content;
+            height: 100%;
+            padding: 4px 12px;
+            border: solid 1px $text-color;
+            border-radius: 4px;
+            text-shadow: 0 0 4px $text-color;
+            box-shadow: 0 0 4px $text-color;
+          }
+        }
       }
     }
   }
