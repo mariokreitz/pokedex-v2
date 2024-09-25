@@ -141,20 +141,17 @@
             <p>{{ game.version.name | titlecase }}</p>
             }@empty {
             <p>
-              Whoops, looks like the Pokédex is missing some info... must be a
-              wild Porygon on the loose!
+              {{ missingDataString }}
             </p>
             }
           </div>
           }@else {
           <p>
-            Whoops, looks like the Pokédex is missing some info... must be a
-            wild Porygon on the loose!
+            {{ missingDataString }}
           </p>
           } }@else {
           <p>
-            Whoops, looks like the Pokédex is missing some info... must be a
-            wild Porygon on the loose!
+            {{ missingDataString }}
           </p>
           }
         </div>

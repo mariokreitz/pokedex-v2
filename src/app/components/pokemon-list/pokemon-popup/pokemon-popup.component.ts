@@ -690,4 +690,17 @@ export class PokemonPopupComponent implements OnInit {
         break;
     }
   }
+
+  /**
+   * Returns a localized string indicating that the Pokédex is missing some information.
+   *
+   * @return {string} A localized string in either English or the current language.
+   */
+  get missingDataString(): string {
+    if (this.language === 'en') {
+      return 'Whoops, looks like the Pokédex is missing some info... must be awild Porygon on the loose!';
+    } else {
+      return 'Ups, scheint so, als fehlt dem Pokédex einige Infos... muss ein wildes Porygon auf der Lauer sein!';
+    }
+  }
 }
