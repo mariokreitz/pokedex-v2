@@ -152,6 +152,8 @@ export class UiSettingsComponent implements OnInit {
     setTimeout(() => {
       const buttons = document.querySelectorAll<HTMLButtonElement>('.btn');
 
+      if (!buttons) return;
+
       buttons.forEach((button) => {
         button.addEventListener('click', (e) => {
           e.stopPropagation();
