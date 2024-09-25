@@ -46,8 +46,8 @@ export class CreditsComponent implements OnInit {
   /**
    * Initializes the CreditsComponent by setting up the audio playback and event listeners.
    *
-   * @param {SettingsService} settingsService - The settings service used to retrieve the current language.
-   * @param {Router} router - The router used to navigate to the root route when the audio ends.
+   * @param {SettingsService} settingsService - The service used to retrieve the current language and other settings.
+   * @param {Router} router - The router used to navigate to other routes.
    */
   constructor(
     private settingsService: SettingsService,
@@ -65,6 +65,14 @@ export class CreditsComponent implements OnInit {
     });
 
     document.addEventListener('keydown', (event) => this.handleKeydown(event));
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden' && this.audio) {
+        this.audio.volume = 0;
+      } else if (document.visibilityState === 'visible' && this.audio) {
+        this.audio.volume = this.settingsService.getAudioVolume();
+      }
+    });
   }
 
   /**
