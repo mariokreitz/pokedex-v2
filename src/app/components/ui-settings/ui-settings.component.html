@@ -97,10 +97,10 @@
         } }@else {
         <p>{{ confirmationText }}</p>
         <div class="btn-control">
-          <button class="btn btn-yes">
+          <button (click)="handleConfirmationClick($event)" class="btn btn-yes">
             {{ language == "en" ? "Yes" : "Ja" }}
           </button>
-          <button class="btn btn-no">
+          <button (click)="handleConfirmationClick($event)" class="btn btn-no">
             {{ language == "en" ? "No" : "Nein" }}
           </button>
         </div>

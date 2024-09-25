@@ -3,6 +3,7 @@ import { SettingsService } from '../../services/settings.service';
 import { PercentPipe } from '@angular/common';
 import { Limit } from '../../../types/loadingLimits';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 
 /**
  * Component that renders the UI settings component.
@@ -109,37 +110,36 @@ export class UiSettingsComponent implements OnInit {
   }
 
   /**
+   * An observable boolean value that is used to store the response of the confirmation dialog.
+   *
    * @private
-   * @type {boolean}
-   * @description
-   * Property that is used to determine whether the settings menu is visible or not.
+   * @type {BehaviorSubject<boolean>}
    */
-  private _response: boolean = false;
+  private _response = new BehaviorSubject<boolean>(false);
 
   /**
-   * Get the value of the response property.
+   * Gets the response as an observable boolean value.
    *
-   * @return {boolean} The value of the response property.
+   * @return {Observable<boolean>} The response as an observable boolean value.
    */
-  get response(): boolean {
-    return this._response;
+  get response(): Observable<boolean> {
+    return this._response.asObservable();
   }
 
   /**
    * Sets the response value.
    *
    * @param {boolean} value - The new response value.
-   *
    */
   set response(value: boolean) {
-    this._response = value;
+    this._response.next(value);
   }
 
   /**
-   * Sets the Pokémon loading limit based on the provided event and limit.
+   * Sets the current Pokémon limit and updates the UI accordingly.
    *
-   * @param {Event} event - The event that triggered the Pokémon loading limit update.
-   * @param {Limit} limit - The new Pokémon loading limit.
+   * @param {Event} event - The event that triggered the limit update.
+   * @param {Limit} limit - The new Pokémon limit to be set.
    * @return {void} No return value.
    */
   setPokemonLimit(event: Event, limit: Limit): void {
@@ -148,44 +148,41 @@ export class UiSettingsComponent implements OnInit {
     if (this.isLoading || limit.isSelected) return;
 
     this.isModalOpen = true;
+    this.response = false;
 
-    setTimeout(() => {
-      const buttons = document.querySelectorAll<HTMLButtonElement>('.btn');
-
-      if (!buttons) return;
-
-      buttons.forEach((button) => {
-        button.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isYesButton = button.classList.contains('btn-yes');
-          this.isModalOpen = false;
-          this.response = isYesButton;
-
-          if (!this.response) {
-            event.preventDefault();
-            return;
-          }
-
-          this.changeSettingsUIandMenuVisibility();
-          this.settingsService.setPokemonLimit(limit);
-        });
-      });
-    }, 30);
+    this.response.subscribe((shouldUpdate) => {
+      if (shouldUpdate) {
+        this.hideSettingsUIandMenu();
+        this.settingsService.setPokemonLimit(limit);
+      }
+    });
   }
 
   /**
-   * Changes the visibility of the settings UI and menu.
+   * Handles the click event on the confirmation buttons in the settings modal.
    *
-   * This method removes the 'settings-big' class from the settings UI element and adds the 'd_none' class to the settings menu element.
+   * @param {Event} event - The click event triggered by the user.
+   * @return {void} No return value.
+   */
+  handleConfirmationClick(event: Event): void {
+    event.stopPropagation();
+    const targetElement = event.target as HTMLButtonElement;
+    const isConfirmation = targetElement.classList.contains('btn-yes');
+    this.isModalOpen = false;
+    this.response = isConfirmation;
+  }
+
+  /**
+   * Hides the settings UI and menu by removing the 'settings-big' class from the settings element and adding the 'd_none' class to the settings menu element.
    *
    * @return {void} No return value.
    */
-  changeSettingsUIandMenuVisibility(): void {
-    const settingsUIElement = document.getElementById('settings');
+  hideSettingsUIandMenu(): void {
+    const settingsElement = document.getElementById('settings');
     const settingsMenuElement = document.getElementById('settings-menu');
 
-    if (settingsUIElement && settingsMenuElement) {
-      settingsUIElement.classList.remove('settings-big');
+    if (settingsElement && settingsMenuElement) {
+      settingsElement.classList.remove('settings-big');
       settingsMenuElement.classList.add('d_none');
     }
   }
@@ -259,7 +256,4 @@ export class UiSettingsComponent implements OnInit {
   navigateToCredits(): void {
     this.router.navigate(['/credits']);
   }
-}
-function handleConfirmation() {
-  throw new Error('Function not implemented.');
 }
