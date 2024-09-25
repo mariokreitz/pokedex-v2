@@ -1,15 +1,21 @@
-<header>
+<header role="banner">
   <div class="grid-layout">
     <div class="grid-item-1">
-      <img src="./assets/pokedex_logo.png" alt="Pokedex Logo" />
+      <img
+        src="./assets/pokedex_logo.png"
+        alt="Pokedex Logo"
+        aria-hidden="true"
+      />
       <input
         (input)="handleSearchInputChange(searchbar.value.toLowerCase())"
         type="text"
         name="searchbar"
         id="searchbar"
+        aria-label="Searchbar"
         [placeholder]="language === 'en' ? 'Search...' : 'Suche...'"
         tabindex="0"
         #searchbar
+        aria-autocomplete="list"
       />
     </div>
     <div class="grid-item-2">
@@ -18,6 +24,7 @@
         class="pokeball"
         src="./assets/pokeball.png"
         alt="Pokeball"
+        aria-label="Surprise me"
       />
     </div>
   </div>
