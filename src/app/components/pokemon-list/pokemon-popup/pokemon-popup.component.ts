@@ -593,7 +593,6 @@ export class PokemonPopupComponent implements OnInit {
     if (selectedTab) {
       selectedTab.style.display = 'block';
       if (event instanceof HTMLImageElement) {
-        console.log(event);
         event.classList.add('active');
       }
       if (event instanceof Event) {

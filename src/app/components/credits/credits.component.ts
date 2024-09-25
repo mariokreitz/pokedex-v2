@@ -61,7 +61,6 @@ export class CreditsComponent implements OnInit {
         this.audio.currentTime = 0;
         this.audio.volume = 0;
       }
-      document.body.style.overflowY = 'unset';
       this.router.navigate(['/']);
     });
 
@@ -120,7 +119,7 @@ export class CreditsComponent implements OnInit {
     const content = document.querySelector('.content') as HTMLDivElement;
     if (content) {
       content.style.opacity = '0';
-      document.body.style.overflowY = 'hidden';
+      document.body.classList.add('no-scroll');
       setTimeout(() => {
         content.style.transition = 'opacity 3000ms ease-in-out';
         content.style.opacity = '1';
@@ -142,7 +141,6 @@ export class CreditsComponent implements OnInit {
    */
   handleKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
-      document.body.style.overflowY = 'unset';
       this.router.navigate(['/']);
     }
   }

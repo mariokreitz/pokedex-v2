@@ -77,6 +77,7 @@ export class PokemonListComponent implements OnInit {
    * @return {Promise<void>} No return value, initializes the component instead.
    */
   async ngOnInit(): Promise<void> {
+    document.body.classList.remove('no-scroll');
     this.settingsService.currentPokemonLimit.subscribe(() => {
       this.pokemonService.getPokemons().then((fetchedPokemons) => {
         this.pokemons = fetchedPokemons;
