@@ -1,3 +1,27 @@
+@import "../../../styles/vars";
+
+.navigation {
+  position: fixed;
+  bottom: 50%;
+  left: -104px;
+  transform: rotate(-90deg);
+  width: 262px;
+
+  p {
+    width: fit-content;
+    height: 100%;
+    padding: 4px 12px;
+    border: solid 1px $text-color;
+    border-radius: 4px;
+    text-shadow: 0 0 4px $text-color;
+    box-shadow: 0 0 4px $text-color;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
 .content {
   margin: 20px max(20px, calc((100% - 800px) / 2));
   max-width: 800px;
