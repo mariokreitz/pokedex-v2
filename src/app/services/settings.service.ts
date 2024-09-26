@@ -25,7 +25,7 @@ export class SettingsService {
    * An array of objects containing the generation and limit of Pokémon.
    */
   private readonly POKEMON_LIMITS: Limit[] = [
-    { gen: 1, limit: 151, isDefault: true, isSelected: true },
+    { gen: 1, limit: 151, isDefault: true, isSelected: false },
     { gen: 2, limit: 251, isDefault: false, isSelected: false },
     { gen: 3, limit: 386, isDefault: false, isSelected: false },
     { gen: 4, limit: 493, isDefault: false, isSelected: false },
