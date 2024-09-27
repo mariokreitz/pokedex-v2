@@ -46,7 +46,7 @@ export class SearchService {
    *
    * @param {number} randomID - The new random ID to update the current random ID with.
    */
-  changeRandomID(randomID: number): void {
+  changeRandomID(randomID: number | null): void {
     this.randomID.next(randomID);
   }
 }

@@ -88,6 +88,7 @@ export class PokemonListComponent implements OnInit {
     this.settingsService.currentPokemonLimit.subscribe(() => {
       this.pokemonService.getPokemons().then((fetchedPokemons) => {
         this.pokemons = fetchedPokemons;
+        this.searchService.changeRandomID(null);
         this.searchService.currentRandomID.subscribe((id) => {
           if (id !== null) this.getRandomPokemon(id);
         });
