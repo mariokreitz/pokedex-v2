@@ -152,23 +152,25 @@ export class PokemonListComponent implements OnInit {
   }
 
   /**
-   * Retrieves a random Pokémon from the list of Pokémon and plays its cry.
+   * Retrieves a random Pokémon from the list of Pokémon and plays its cry and reveals it.
    *
-   * @param {number} id - The index of the Pokémon to retrieve.
-   * @return {void} No return value, plays the Pokémon cry instead.
+   * @param {number} id - The index of the random Pokémon to retrieve.
+   * @return {void} No return value, plays the Pokémon's cry and reveals it instead.
    */
   getRandomPokemon(id: number): void {
     const randomPokemon = this.pokemons[id];
     this.playCryFromRandomPokemon(randomPokemon);
+    this.revealRandomPokemon(randomPokemon);
   }
 
   /**
    * Plays the cry of a random Pokémon.
    *
    * @param {Pokemon} randomPokemon - The Pokémon whose cry will be played.
-   * @return {void} No return value, plays the Pokémon cry instead.
+   * @return {void}
    */
   private playCryFromRandomPokemon(randomPokemon: Pokemon): void {
+    const pokeball = './assets/pokeball.png';
     const pokeballImg = document.querySelector<HTMLImageElement>('.pokeball');
     if (!pokeballImg) return;
 
@@ -198,7 +200,23 @@ export class PokemonListComponent implements OnInit {
     audio.addEventListener('ended', () => {
       this.isAudioPlaying = false;
       pokeballImg.style.cursor = 'pointer';
+      pokeballImg.src = pokeball;
+      this.showPokemonOverview(randomPokemon);
     });
+  }
+
+  /**
+   * Reveals a random Pokémon by updating the pokeball image source to the Pokémon's sprite.
+   *
+   * @param {Pokemon} randomPokemon - The Pokémon to be revealed.
+   * @return {void} No return value.
+   */
+  revealRandomPokemon(randomPokemon: Pokemon): void {
+    const pokeballImg = document.querySelector<HTMLImageElement>('.pokeball');
+    if (!pokeballImg) return;
+
+    const sprite = randomPokemon.sprites.other.dream_world.front_default;
+    pokeballImg.src = sprite!;
   }
 
   /**
