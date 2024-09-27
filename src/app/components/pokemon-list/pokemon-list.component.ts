@@ -30,6 +30,7 @@ export class PokemonListComponent implements OnInit {
    *
    * @return {string} The current language setting.
    */
+
   get language(): string {
     return this.settingsService.getLanguage();
   }
@@ -38,10 +39,12 @@ export class PokemonListComponent implements OnInit {
    * The list of Pokémon to display, filtered based on the current search term.
    */
   displayedPokemons!: Pokemon[];
+
   /**
    * The complete list of Pokémon, fetched from the API.
    */
   pokemons!: Pokemon[];
+
   /**
    * The filtered list of Pokémon, used to store the filtered list of Pokémon
    * while the component is initializing.
@@ -81,6 +84,10 @@ export class PokemonListComponent implements OnInit {
     this.settingsService.currentPokemonLimit.subscribe(() => {
       this.pokemonService.getPokemons().then((fetchedPokemons) => {
         this.pokemons = fetchedPokemons;
+        this.searchService.currentRandomID.subscribe((id) => {
+          this.showRandomPokemon(id);
+        });
+
         this.filterPokemonsBySearchTerm('');
       });
     });
@@ -137,6 +144,16 @@ export class PokemonListComponent implements OnInit {
       overviewElement.classList.remove('d_none');
     }
     document.body.classList.add('no-scroll');
+  }
+
+  /**
+   * Displays the overview of a random Pokemon.
+   *
+   * @param {number} id - The index of the Pokemon in the list.
+   * @return {void}
+   */
+  showRandomPokemon(id: number): void {
+    this.showPokemonOverview(this.pokemons[id]);
   }
 
   /**

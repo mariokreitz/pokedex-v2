@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { SettingsService } from '../../services/settings.service';
+import { PokemonService } from '../../services/pokemon.service';
 
 /**
  * The header component.
@@ -21,8 +22,9 @@ export class HeaderComponent implements OnInit {
   /**
    * Initializes the HeaderComponent with the necessary services.
    *
-   * @param {SearchService} searchService - The search service.
-   * @param {SettingsService} settingsService - The settings service.
+   * @param {SearchService} searchService - The service used to handle search functionality.
+   * @param {SettingsService} settingsService - The service used to handle application settings.
+   *
    */
   constructor(
     private searchService: SearchService,
@@ -53,13 +55,15 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {}
 
   /**
-   * Displays a surprise alert message to the user.
+   * Retrieves a random Pokémon ID within the current Pokémon limit and updates the search service with the new ID.
    *
-   * @return {void} No return value.
+   * @return {void}
    */
-  suprise(): void {
-    alert(
-      'Hmm... something is wiggling in there! Could be treasure... or just a very hyper Pikachu. You won’t know unless you peek!'
+  getRandomPokemon() {
+    const randomId = Math.floor(
+      Math.random() * this.settingsService.getPokemonLimit()
     );
+
+    this.searchService.changeRandomID(randomId);
   }
 }

@@ -9,14 +9,28 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SearchService {
   /**
-   * The current search term.
+   * The subject that notifies components of changes to the search term.
+   *
+   * Components can subscribe to this subject to receive updates to the search term.
    */
   private readonly searchSubject = new BehaviorSubject<string>('');
+
+  /**
+   * The current random ID.
+   *
+   * This is a BehaviorSubject which emits a new random ID whenever it is subscribed to.
+   */
+  private readonly randomID = new BehaviorSubject<number>(0);
 
   /**
    * An observable that emits the current search term whenever it changes.
    */
   readonly currentSearch = this.searchSubject.asObservable();
+
+  /**
+   * An observable that emits a new random ID whenever it is subscribed to.
+   */
+  readonly currentRandomID = this.randomID.asObservable();
 
   /**
    * Updates the current search term.
@@ -25,5 +39,14 @@ export class SearchService {
    */
   changeSearch(searchTerm: string): void {
     this.searchSubject.next(searchTerm);
+  }
+
+  /**
+   * Updates the current random ID.
+   *
+   * @param {number} randomID - The new random ID to update the current random ID with.
+   */
+  changeRandomID(randomID: number): void {
+    this.randomID.next(randomID);
   }
 }
