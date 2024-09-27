@@ -26,6 +26,11 @@ import { LoadingBigComponent } from './loading-big/loading-big.component';
 })
 export class PokemonListComponent implements OnInit {
   /**
+   * Whether the Pokémon's cry is currently playing.
+   */
+  private isAudioPlaying = false;
+
+  /**
    * Returns the current language setting.
    *
    * @return {string} The current language setting.
@@ -146,12 +151,27 @@ export class PokemonListComponent implements OnInit {
     document.body.classList.add('no-scroll');
   }
 
+  /**
+   * Retrieves a random Pokémon from the list of Pokémon and plays its cry.
+   *
+   * @param {number} id - The index of the Pokémon to retrieve.
+   * @return {void} No return value, plays the Pokémon cry instead.
+   */
   getRandomPokemon(id: number): void {
     const randomPokemon = this.pokemons[id];
     this.playCryFromRandomPokemon(randomPokemon);
   }
 
+  /**
+   * Plays the cry of a random Pokémon.
+   *
+   * @param {Pokemon} randomPokemon - The Pokémon whose cry will be played.
+   * @return {void} No return value, plays the Pokémon cry instead.
+   */
   private playCryFromRandomPokemon(randomPokemon: Pokemon): void {
+    const pokeballImg = document.querySelector<HTMLImageElement>('.pokeball');
+    if (!pokeballImg) return;
+
     const isIos = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent);
 
     const { latest: latestCry, legacy: legacyCry } = randomPokemon.cries || {};
@@ -168,7 +188,17 @@ export class PokemonListComponent implements OnInit {
 
     const audio = new Audio(cryUrl);
     audio.volume = this.settingsService.getAudioVolume();
-    audio.play();
+
+    if (!this.isAudioPlaying) {
+      this.isAudioPlaying = true;
+      pokeballImg.style.cursor = 'not-allowed';
+      audio.play();
+    }
+
+    audio.addEventListener('ended', () => {
+      this.isAudioPlaying = false;
+      pokeballImg.style.cursor = 'pointer';
+    });
   }
 
   /**
