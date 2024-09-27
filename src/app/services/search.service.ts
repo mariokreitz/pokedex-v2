@@ -20,7 +20,7 @@ export class SearchService {
    *
    * This is a BehaviorSubject which emits a new random ID whenever it is subscribed to.
    */
-  private readonly randomID = new BehaviorSubject<number>(0);
+  private readonly randomID = new BehaviorSubject<number | null>(null);
 
   /**
    * An observable that emits the current search term whenever it changes.
