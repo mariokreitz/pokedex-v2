@@ -85,7 +85,7 @@ export class PokemonListComponent implements OnInit {
       this.pokemonService.getPokemons().then((fetchedPokemons) => {
         this.pokemons = fetchedPokemons;
         this.searchService.currentRandomID.subscribe((id) => {
-          this.showRandomPokemon(id);
+          if (id !== null) this.getRandomPokemon(id);
         });
 
         this.filterPokemonsBySearchTerm('');
@@ -146,14 +146,29 @@ export class PokemonListComponent implements OnInit {
     document.body.classList.add('no-scroll');
   }
 
-  /**
-   * Displays the overview of a random Pokemon.
-   *
-   * @param {number} id - The index of the Pokemon in the list.
-   * @return {void}
-   */
-  showRandomPokemon(id: number): void {
-    this.showPokemonOverview(this.pokemons[id]);
+  getRandomPokemon(id: number): void {
+    const randomPokemon = this.pokemons[id];
+    this.playCryFromRandomPokemon(randomPokemon);
+  }
+
+  private playCryFromRandomPokemon(randomPokemon: Pokemon): void {
+    const isIos = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent);
+
+    const { latest: latestCry, legacy: legacyCry } = randomPokemon.cries || {};
+    const cryUrl = latestCry || legacyCry;
+
+    if (!cryUrl) return;
+    if (cryUrl.includes('.ogg') && isIos) {
+      alert(
+        this.language === 'en'
+          ? 'Cry not available on iOS'
+          : 'Audio nicht verfügbar auf iOS'
+      );
+    }
+
+    const audio = new Audio(cryUrl);
+    audio.volume = this.settingsService.getAudioVolume();
+    audio.play();
   }
 
   /**

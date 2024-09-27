@@ -473,27 +473,35 @@ export class PokemonPopupComponent implements OnInit {
    * @return {void} No return value.
    */
   playCry(): void {
+    const isIos = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent);
     const crySvgElement = document.getElementById('cry');
     if (!crySvgElement) return;
 
     const { latest: latestCry, legacy: legacyCry } = this.cries || {};
     const cryUrl = latestCry || legacyCry;
 
-    if (cryUrl) {
-      const audio = new Audio(cryUrl);
-      audio.volume = this.audioVolume;
-
-      if (!this.isAudioPlaying) {
-        this.isAudioPlaying = true;
-        crySvgElement.style.cursor = 'not-allowed';
-        audio.play();
-      }
-
-      audio.addEventListener('ended', () => {
-        this.isAudioPlaying = false;
-        crySvgElement.style.cursor = 'pointer';
-      });
+    if (!cryUrl) return;
+    if (cryUrl.includes('.ogg') && isIos) {
+      alert(
+        this.language === 'en'
+          ? 'Cry not available on iOS'
+          : 'Audio nicht verfügbar auf iOS'
+      );
     }
+
+    const audio = new Audio(cryUrl);
+    audio.volume = this.audioVolume;
+
+    if (!this.isAudioPlaying) {
+      this.isAudioPlaying = true;
+      crySvgElement.style.cursor = 'not-allowed';
+      audio.play();
+    }
+
+    audio.addEventListener('ended', () => {
+      this.isAudioPlaying = false;
+      crySvgElement.style.cursor = 'pointer';
+    });
   }
 
   /**
