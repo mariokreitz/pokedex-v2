@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
    *
    * @return {void}
    */
-  getRandomPokemon() {
+  getRandomPokemon(): void {
     const randomId = Math.floor(
       Math.random() * this.settingsService.getPokemonLimit()
     );
