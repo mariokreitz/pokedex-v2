@@ -31,11 +31,10 @@ export class PokemonListComponent implements OnInit {
   private isAudioPlaying = false;
 
   /**
-   * Returns the current language setting.
+   * Returns the currently set language.
    *
    * @return {string} The current language setting.
    */
-
   get language(): string {
     return this.settingsService.getLanguage();
   }
@@ -222,6 +221,12 @@ export class PokemonListComponent implements OnInit {
     return cryUrl.endsWith('.ogg') && isIOS;
   }
 
+  /**
+   * Reveals a random Pokémon by updating the pokeball image with the Pokémon's sprite.
+   *
+   * @param {Pokemon} randomPokemon - The Pokémon to be revealed.
+   * @return {void} No return value, the Pokémon is revealed instead.
+   */
   revealRandomPokemon(randomPokemon: Pokemon): void {
     const pokeballImg = document.querySelector<HTMLImageElement>('.pokeball');
     if (!pokeballImg) return;
