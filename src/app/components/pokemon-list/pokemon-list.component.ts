@@ -159,28 +159,27 @@ export class PokemonListComponent implements OnInit {
    */
   getRandomPokemon(id: number): void {
     const randomPokemon = this.pokemons[id];
-    this.playCryFromRandomPokemon(randomPokemon);
+    this.playCryAndRevealPokemon(randomPokemon);
     this.revealRandomPokemon(randomPokemon);
   }
 
   /**
-   * Plays the cry of a random Pokémon.
+   * Plays the cry of a Pokémon and reveals it.
    *
-   * @param {Pokemon} randomPokemon - The Pokémon whose cry will be played.
-   * @return {void}
+   * @param {Pokemon} pokemon - The Pokémon whose cry will be played and revealed.
+   * @return {void} No return value, plays the Pokémon's cry and reveals it instead.
    */
-  private playCryFromRandomPokemon(randomPokemon: Pokemon): void {
-    const pokeball = './assets/pokeball.png';
+  private playCryAndRevealPokemon(pokemon: Pokemon): void {
     const pokeballImg = document.querySelector<HTMLImageElement>('.pokeball');
     if (!pokeballImg) return;
 
     const isIos = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent);
-
-    const { latest: latestCry, legacy: legacyCry } = randomPokemon.cries || {};
+    const { latest: latestCry, legacy: legacyCry } = pokemon.cries || {};
     const cryUrl = latestCry || legacyCry;
 
     if (!cryUrl) return;
-    if (cryUrl.includes('.ogg') && isIos) {
+
+    if (this.isOggFileOnIOS(cryUrl, isIos)) {
       alert(
         this.language === 'en'
           ? 'Cry not available on iOS'
@@ -188,29 +187,41 @@ export class PokemonListComponent implements OnInit {
       );
     }
 
-    const audio = new Audio(cryUrl);
-    audio.volume = this.settingsService.getAudioVolume();
+    if (isIos) {
+      setTimeout(() => {
+        pokeballImg.src = './assets/pokeball.png';
+        this.showPokemonOverview(pokemon);
+      }, 1000);
+    } else {
+      const audio = new Audio(cryUrl);
+      audio.volume = this.settingsService.getAudioVolume();
 
-    if (!this.isAudioPlaying) {
-      this.isAudioPlaying = true;
-      pokeballImg.style.cursor = 'not-allowed';
-      audio.play();
+      if (!this.isAudioPlaying) {
+        this.isAudioPlaying = true;
+        pokeballImg.style.cursor = 'not-allowed';
+        audio.play();
+      }
+
+      audio.addEventListener('ended', () => {
+        this.isAudioPlaying = false;
+        pokeballImg.style.cursor = 'pointer';
+        pokeballImg.src = './assets/pokeball.png';
+        this.showPokemonOverview(pokemon);
+      });
     }
-
-    audio.addEventListener('ended', () => {
-      this.isAudioPlaying = false;
-      pokeballImg.style.cursor = 'pointer';
-      pokeballImg.src = pokeball;
-      this.showPokemonOverview(randomPokemon);
-    });
   }
 
   /**
-   * Reveals a random Pokémon by updating the pokeball image source to the Pokémon's sprite.
+   * Checks if a given cry URL is an OGG file and if the platform is iOS.
    *
-   * @param {Pokemon} randomPokemon - The Pokémon to be revealed.
-   * @return {void} No return value.
+   * @param {string} cryUrl - The URL of the Pokémon's cry.
+   * @param {boolean} isIOS - Whether the current platform is iOS.
+   * @return {boolean} True if the cry URL is an OGG file and the platform is iOS, false otherwise.
    */
+  private isOggFileOnIOS(cryUrl: string, isIOS: boolean): boolean {
+    return cryUrl.endsWith('.ogg') && isIOS;
+  }
+
   revealRandomPokemon(randomPokemon: Pokemon): void {
     const pokeballImg = document.querySelector<HTMLImageElement>('.pokeball');
     if (!pokeballImg) return;
