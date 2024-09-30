@@ -89,6 +89,8 @@
         width: 225px;
         height: 225px;
         filter: drop-shadow(-2px 12px 8px rgba(0, 0, 0, 0.45));
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
       }
 
       div > span {
