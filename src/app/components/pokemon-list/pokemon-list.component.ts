@@ -239,7 +239,9 @@ export class PokemonListComponent implements OnInit {
     const pokeballImg = document.querySelector<HTMLImageElement>('.pokeball');
     if (!pokeballImg) return;
 
-    const sprite = randomPokemon.sprites.other.dream_world.front_default;
+    const sprite =
+      randomPokemon.sprites.other.dream_world.front_default ||
+      randomPokemon.sprites.other['official-artwork'].front_default;
     pokeballImg.src = sprite!;
   }
 
