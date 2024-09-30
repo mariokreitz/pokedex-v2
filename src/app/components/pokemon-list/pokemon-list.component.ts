@@ -149,6 +149,13 @@ export class PokemonListComponent implements OnInit {
       overviewElement.classList.remove('d_none');
     }
     document.body.classList.add('no-scroll');
+    if (overviewElement) {
+      overviewElement.style.opacity = '0';
+      overviewElement.style.transition = 'opacity 125ms ease-in-out';
+      window.setTimeout(() => {
+        overviewElement.style.opacity = '1';
+      }, 50);
+    }
   }
 
   /**
