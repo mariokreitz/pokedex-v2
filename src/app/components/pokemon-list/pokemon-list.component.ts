@@ -61,6 +61,11 @@ export class PokemonListComponent implements OnInit {
   selectedPokemon: Pokemon | null = null;
 
   /**
+   * The audio element that represents the cry of the random Pokémon.
+   */
+  private audio: HTMLAudioElement | null = null;
+
+  /**
    * Initializes the PokemonListComponent with the necessary services.
    *
    * @param {PokemonService} pokemonService - The service used to fetch Pokémon data.
@@ -166,8 +171,8 @@ export class PokemonListComponent implements OnInit {
    */
   getRandomPokemon(id: number): void {
     const randomPokemon = this.pokemons[id];
-    this.playCryAndRevealPokemon(randomPokemon);
     this.revealRandomPokemon(randomPokemon);
+    this.playCryAndRevealPokemon(randomPokemon);
   }
 
   /**
@@ -177,6 +182,7 @@ export class PokemonListComponent implements OnInit {
    * @return {void} No return value, plays the Pokémon's cry and reveals it instead.
    */
   private playCryAndRevealPokemon(pokemon: Pokemon): void {
+    if (this.isAudioPlaying) return;
     const pokeballImg = document.querySelector<HTMLImageElement>('.pokeball');
     if (!pokeballImg) return;
 
@@ -200,16 +206,16 @@ export class PokemonListComponent implements OnInit {
         this.showPokemonOverview(pokemon);
       }, 1000);
     } else {
-      const audio = new Audio(cryUrl);
-      audio.volume = this.settingsService.getAudioVolume();
+      this.audio = new Audio(cryUrl);
+      this.audio.volume = this.settingsService.getAudioVolume();
 
       if (!this.isAudioPlaying) {
         this.isAudioPlaying = true;
         pokeballImg.style.cursor = 'not-allowed';
-        audio.play();
+        this.audio.play();
       }
 
-      audio.addEventListener('ended', () => {
+      this.audio.addEventListener('ended', () => {
         this.isAudioPlaying = false;
         pokeballImg.style.cursor = 'pointer';
         pokeballImg.src = './assets/pokeball.png';
@@ -230,12 +236,13 @@ export class PokemonListComponent implements OnInit {
   }
 
   /**
-   * Reveals a random Pokémon by updating the pokeball image with the Pokémon's sprite.
+   * Reveals a random Pokémon by updating the pokeball image source to the Pokémon's sprite.
    *
    * @param {Pokemon} randomPokemon - The Pokémon to be revealed.
-   * @return {void} No return value, the Pokémon is revealed instead.
+   * @return {void} No return value.
    */
   revealRandomPokemon(randomPokemon: Pokemon): void {
+    if (this.isAudioPlaying) return;
     const pokeballImg = document.querySelector<HTMLImageElement>('.pokeball');
     if (!pokeballImg) return;
 
