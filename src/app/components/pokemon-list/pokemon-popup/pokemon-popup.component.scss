@@ -224,6 +224,7 @@
 @media screen and (max-width: 768px) {
   .overview-card {
     width: 100%;
+    // height: 95%;
     .main {
       .left {
         .hitpoints {
@@ -358,5 +359,11 @@
         }
       }
     }
+  }
+}
+
+@media screen and (max-height: 800px) and (min-width: 521px) {
+  .overview-card {
+    height: 90%;
   }
 }
