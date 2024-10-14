@@ -101,6 +101,10 @@
           height: 0;
         }
 
+        select, select option {
+          background-color: #2196f3;
+        }
+
         .slider {
           position: absolute;
           cursor: pointer;

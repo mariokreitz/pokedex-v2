@@ -11,9 +11,11 @@
   <div class="types">
     @for (classType of classTypes; track $index) {
     <span [className]="'type' + ' ' + classType.english">{{
-      language === "en"
-        ? (classType.english | titlecase)
-        : (classType.german | titlecase)
+      language === 'en' 
+      ? (classType.english | titlecase)
+      : (language === 'de' 
+        ? (classType.german | titlecase) 
+        : (classType.portuguese | titlecase))
     }}</span
     >}
   </div>

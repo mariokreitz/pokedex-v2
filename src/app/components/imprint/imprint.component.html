@@ -103,7 +103,7 @@
   </p>
 </div>
 <app-back-to-top />
-}@else {
+}@else if (language === "de") {
 <div class="navigation">
   <button (click)="navigateToHome()" type="button">Startseite</button>
 </div>
@@ -211,4 +211,107 @@
   </p>
 </div>
 <app-back-to-top />
-}
+} @if (language === "pt") {
+  <div class="navigation">
+    <button (click)="navigateToHome()" type="button">Início</button>
+  </div>
+  <div class="impressum">
+    <h1>Autoria</h1>
+    <p>Informação de acordo com o § 5 DDG</p>
+    <p>
+      Mario Kreitz <br />
+      Mönchfeldstraße 7<br />
+      70378 Stuttgart <br />
+    </p>
+    <p>
+      <strong>Represented by: </strong><br />
+      Mario Kreitz<br />
+    </p>
+    <p>
+      <strong>Contato:</strong> <br />
+      Email:
+      <a href="mailto:contact@mario-kreitz.dev">contact&#64;mario-kreitz.dev</a
+      ><br />
+    </p>
+    <p>
+      <strong>Isenção de responsabilidade: </strong><br /><br /><strong
+        >Responsabilidade do conteúdo</strong
+      ><br /><br />
+      Os conteúdos das nossas páginas foram criados com o máximo cuidado. Porém, nós
+      não podemos garantir a acurácia, completude e pontualidade do conteúdo.
+      Como fornecedores de serviços, somos responsáveis pelos nossos próprios conteúdos
+      nestas páginas de acordo com as leis gerais. De acordo com os §§ 8 a 10 DDG, nós
+      não somos obrigados a monitorar informações externas transmitidas ou armazenadas, ou
+      de investigar circunstâncias que indicam atividades ilegais. Obrigações para remover
+      ou bloquear o uso de informações de acordo com leis gerais se mantém inafetadas.
+      A responsabilidade de conteúdo neste aspecto só é possível no instante em que ficamos
+      cientes de uma violação legal específica. Através do aviso de tais violações legais, 
+      removeremos este conteúdo imediatamente.<br /><br /><strong
+        >Responsabilidade de conteúdo dos Links</strong
+      ><br /><br />
+      A nossa proposta contém links para páginas externas de terceiros, aos quais
+      não temos influência sobre os conteúdos. Assim, não podemos assumir nenhuma
+      responsabilidade por estes conteúdos externos. O respectivo fornecedor ou
+      operador destas páginas vinculadas sempre são responsáveis pelos conteúdos
+      destas páginas. As páginas anexadas através de link foram checadas para
+      possíveis violações legais durante o momento de citação. 
+      Ademais, um controle de conteúdo contínuo das páginas vinculadas não é justificável
+      sem uma evidência concreta de violação legal. Com a notificação de violações
+      legais, removeremos tais anexos imediatamente.<br /><br /><strong
+        >Direitos autorais</strong
+      ><br /><br />
+      Todos os dados vieram de <a href="https://pokeapi.co/">pokeapi.co</a>.<br />
+      Os sprites dos Pokemón e áudios vieram de
+      <a href="https://raw.githubusercontent.com/PokeAPI/"
+        >https://raw.githubusercontent.com/PokeAPI/</a
+      >.<br />
+      <br />
+      Se você ficar ciente de um infringimento de direitos autorais, nós gentilmente
+      solicitamos que você nos solicite. Com a ciência de violações legais, nós
+      removeremos tais conteúdos imediatamente. Os conteúdos e trabalos criados pelos
+      operadores do site nestas páginas estão sujeitos à lei de direitos autorais
+      alemã. Duplicações, edições, distribuições, e quaisquer formas de uso além
+      dos limites de direitos autorais demandam o consentimento escrito dos respectivos
+      autores ou criadores. Downloads e cópias desta página só são permitidos para uso
+      privado e não comercial. Como os conteúdos desta página não foram criados pelo
+      operador, os direitos autoráis de terceiros são observados. Em particular, o conteúdo
+      de terceiros é marcado como tal. Se um conteúdo de terceiro for usado, os direitos
+      autorais da seguinte pessoa devem ser observados:<br />
+      Franziska Wessely (<a href="mailto:fru_tamm_93@yahoo.de"
+        >fru_tamm_93&#64;yahoo.de</a
+      >)<br />
+    </p>
+  
+    <ul>
+      <li>A figura gráfica de fundo</li>
+      <li>Os fundos dos cards e pop-ups</li>
+      <li>As imagens abaixo dos diagramas</li>
+    </ul>
+    <br />
+    Efeito sonoro por
+    <a
+      href="https://pixabay.com/de/users/xtremefreddy-32332307/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=145285"
+      >Gaston A-P</a
+    >
+    de
+    <a
+      href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=145285"
+      >Pixabay</a
+    >
+    <p>
+      Se você se tornar ciente de um infringimento de direitos autorais, nós gentilmente
+      pedimos que você nos notifique devidamente. Com a ciência de violações legais, nós
+      removeremos tais conteúdos imediatamente.
+    </p>
+  
+    <p>
+      <br />
+      Autoria de site criada por
+      <a href="https://www.impressum-generator.de">impressum-generator.de</a> de
+      <a href="https://www.kanzlei-hasselbach.de/" rel="nofollow"
+        >Kanzlei Hasselbach</a
+      >
+    </p>
+  </div>
+  <app-back-to-top />
+  }

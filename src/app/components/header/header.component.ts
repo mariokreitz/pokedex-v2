@@ -19,6 +19,13 @@ import { PokemonService } from '../../services/pokemon.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  // Text for the search input
+  searchPlaceholders: { [key: string]: string } = {
+    en: 'Search...',
+    de: 'Suche...',
+    pt: 'Buscar...',
+  };
+
   /**
    * Initializes the HeaderComponent with the necessary services.
    *

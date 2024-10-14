@@ -47,12 +47,16 @@
           [title]="
             language === 'en'
               ? (type.english | titlecase)
-              : (type.german | titlecase)
+              : (language === 'de' 
+                ? (type.german | titlecase) 
+                : (type.portuguese | titlecase))
           "
           >{{
-            language === "en"
-              ? (type.english | titlecase)
-              : (type.german | titlecase)
+            language === 'en' 
+            ? (type.english | titlecase)
+            : (language === 'de' 
+              ? (type.german | titlecase) 
+              : (type.portuguese | titlecase))
           }}</span
         >}
       </div>
@@ -84,13 +88,7 @@
       </div>
       <div id="items" class="tabcontent">
         @if (items) { @if (items.length > 0) {
-        <h4>
-          {{
-            language === "en"
-              ? "Possible items to receive upon catching"
-              : "Mögliche Gegenstände, die man beim Fangen erhalten kann"
-          }}
-        </h4>
+        <h4>{{ getLabel('items', language) }}</h4>
         @for (item of items; track $index) {
         <div class="item">
           <label class="item-label" [title]="selectedItemFlavorText($index)">
@@ -107,35 +105,17 @@
           </label>
         </div>
         }@empty {
-        <p>
-          {{
-            language === "en"
-              ? "Snorlax must have eaten all the items!"
-              : "Snorlax muss alle Gegenstände aufgegessen haben!"
-          }}
-        </p>
+        <p>{{ getLabel('no_items1', language) }}</p>
         }} @else {
-        <p>
-          {{
-            language === "en"
-              ? "It seems this Pokémon doesn't come with any items!"
-              : "Es scheint, als käme dieses Pokémon ohne Gegenstände!"
-          }}
-        </p>
+        <p>{{ getLabel('no_items2', language) }}</p>
         }} @else {
-        <p>
-          {{
-            language === "en"
-              ? "All Pokémon used Fly and flew off with the items!"
-              : "Alle Pokémon haben Fliegen eingesetzt und sind mit den Gegenständen davon geflogen!"
-          }}
-        </p>
+        <p>{{ getLabel('no_items3', language) }}</p>
         }
       </div>
       <div id="editions" class="tabcontent">
         <div class="wrapper">
           @if (game_indices) { @if (game_indices.length > 0) {
-          <h4>{{ language === "en" ? "Released in" : "Erschienen in" }}</h4>
+            <h4>{{ getLabel('released', language) }}</h4>
           <div class="content">
             @for (game of game_indices; track $index) {
             <p>{{ game.version.name | titlecase }}</p>
@@ -193,13 +173,11 @@
   </div>
   <div class="footer">
     <div class="info">
-      <h4>{{ language === "en" ? "Description" : "Beschreibung" }}</h4>
+      <h4>{{ getLabel('description', language) }}</h4>
       <p>{{ getSelectedLanguageDescription }}</p>
     </div>
     <div class="passiv-ability">
-      <h4>
-        {{ language === "en" ? "Passive Ability" : "Passive Fähigkeit" }}
-      </h4>
+      <h4>{{ getLabel('ability', language) }}</h4>
       @for (ability of abilities; track $index) {
       <span
         >{{ ability.ability.name | titlecase }} ({{

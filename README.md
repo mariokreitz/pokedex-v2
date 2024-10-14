@@ -18,7 +18,7 @@ Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreit
 - **Detailed Pokémon Information**: 📜 Get comprehensive details such as held items, availability by edition, and more!
 - **Angular 17**: 🚀 Built with the latest version of Angular for improved performance and developer experience.
 - **pokeapi-js-wrapper**: 🔌 Seamlessly integrated with `pokeapi-js-wrapper` for more flexible and powerful API interactions.
-- **Localization**: 🌐 Available in English (default) and German.
+- **Localization**: 🌐 Available in English (default), German and Portuguese.
 
 ## New in Version 2.2.0 🚀
 

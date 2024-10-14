@@ -25,6 +25,18 @@ import { LoadingBigComponent } from './loading-big/loading-big.component';
   styleUrl: './pokemon-list.component.scss',
 })
 export class PokemonListComponent implements OnInit {
+  // Texts for previous and next pokemon
+  previousPlaceholders: { [key: string]: string } = {
+    en: 'Previous Pokémon',
+    de: 'Vorheriges Pokémon',
+    pt: 'Pokémon anterior',
+  };
+  nextPlaceholders: { [key: string]: string } = {
+    en: 'Next Pokémon',
+    de: 'Nächstes Pokémon',
+    pt: 'Próximo Pokémon',
+  };
+
   /**
    * Whether the Pokémon's cry is currently playing.
    */
