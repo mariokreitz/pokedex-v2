@@ -40,8 +40,11 @@ import { PokemonService } from '../../../services/pokemon.service';
           no_items2: "It seems this Pokémon doesn't come with any items!",
           no_items3: "All Pokémon used Fly and flew off with the items!",
           released: "Released in",
+          t_stats: "Stats",
+          t_items: "Items",
+          t_edition: "Editions",
           description: "Description",
-          ability: "Passive Hability",
+          ability: "Passive Ability",
         },
         de: {
           items: "Mögliche Gegenstände, die man beim Fangen erhalten kann",
@@ -49,6 +52,9 @@ import { PokemonService } from '../../../services/pokemon.service';
           no_items2: "Es scheint, als käme dieses Pokémon ohne Gegenstände!",
           no_items3: "Alle Pokémon haben Fliegen eingesetzt und sind mit den Gegenständen davon geflogen!",
           released: "Erschienen in",
+          t_stats: "Stats",
+          t_items: "Items",
+          t_edition: "Editions",
           description: "Beschreibung",
           ability: "Passive Fähigkeit",
         },
@@ -58,6 +64,9 @@ import { PokemonService } from '../../../services/pokemon.service';
           no_items2: "Este Pokémon parece não vir com itens!",
           no_items3: "Todos os Pokémon usaram Fly e fugiram com os itens!",
           released: "Aparece em",
+          t_stats: "Status",
+          t_items: "Itens",
+          t_edition: "Edições",
           description: "Descrição",
           ability: "Habilidade Passiva",
         }
@@ -679,9 +688,15 @@ import { PokemonService } from '../../../services/pokemon.service';
    * @return {string} The name of the item in the current language.
    */
   selectedItemLanguageName(index: number): string {
+
+    let selectedLanguage = this.settingsService.getLanguage();
+    // If the language is portuguese, the item name is in spanish
+    selectedLanguage = selectedLanguage === 'pt' ? 'es' : selectedLanguage;
+
     const itemNamesInLanguage = this.items.map(
       (item) =>
-        item.names.find((name) => name.language.name === this.language)?.name
+        // item.names.find((name) => name.language.name === this.language)?.name
+      item.names.find((name) => name.language.name === selectedLanguage)?.name
     );
 
     return itemNamesInLanguage[index] || this.items[0].name;
@@ -696,13 +711,19 @@ import { PokemonService } from '../../../services/pokemon.service';
    * @return {string} The flavor text of the item in the current language.
    */
   selectedItemFlavorText(index: number): string {
+  
+    // If the language is portuguese, the item description is in spanish
+    let selectedLanguage = this.settingsService.getLanguage();
+    selectedLanguage = selectedLanguage === 'pt' ? 'es' : selectedLanguage;
+
     const itemFlavorTexts = this.items.map((item) => {
+      
       const flavorTextEntry = item.flavor_text_entries.find(
-        ({ language }) => language.name === this.settingsService.getLanguage()
+        ({ language }) => language.name === selectedLanguage
       );
       return flavorTextEntry?.text || '';
     });
-
+  
     return itemFlavorTexts[index] || '';
   }
 

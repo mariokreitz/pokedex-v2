@@ -258,10 +258,10 @@ export class UiSettingsComponent implements OnInit {
     event.stopPropagation();
   }
   setLanguage(event: Event): void {
-    const target = event.target as HTMLSelectElement;  // Agora estamos lidando com um <select>
-    const language = target.value;  // O valor selecionado ('en' ou 'de')
+    const target = event.target as HTMLSelectElement;
+    const language = target.value;  // 'en', 'de', 'pt' or other language
   
-    this.settingsService.setLanguage(language);  // Define o idioma conforme o valor selecionado
+    this.settingsService.setLanguage(language);
   }
 
   /**

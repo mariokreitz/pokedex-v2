@@ -98,8 +98,6 @@ export class LoadingBigComponent implements OnInit {
    */
   private getRandomLoadingText(): string {
     const language = this.settingsService.getLanguage();
-    // const loadingTexts =
-      // language === 'de' ? this.loadingGermanText : this.loadingEnglishText;
 
     const loadingTexts = (() => {
       switch (language) {
@@ -108,7 +106,7 @@ export class LoadingBigComponent implements OnInit {
         case 'pt':
           return this.loadingPortugueseText;
         default:
-          return this.loadingEnglishText; // Fallback para inglês
+          return this.loadingEnglishText; // English as default
       }
     })();
 
