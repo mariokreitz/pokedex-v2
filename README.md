@@ -1,6 +1,6 @@
 # ![Pokedex](https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png) Pokedex-v2 [![Version](https://img.shields.io/github/v/release/mariokreitz/pokedex-v2.svg)](https://github.com/mariokreitz/pokedex-v2/releases) [![Build Status](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml/badge.svg)](https://github.com/mariokreitz/pokedex-v2/actions/workflows/main.yml) [![License](https://img.shields.io/github/license/mariokreitz/pokedex-v2.svg)](LICENSE)
 
-Welcome to **Pokedex-v2**! 🎉 This project is a cutting-edge version of the classic Pokémon Pokedex, now officially released as **version 2.2.0**. It is powered by Angular 17 and the new `pokeapi-js-wrapper`, designed to provide an even more enhanced user experience with a range of exciting features.
+Welcome to **Pokedex-v2**! 🎉 This project is a cutting-edge version of the classic Pokémon Pokedex, now officially released as **version 2.3.0**. It is powered by Angular 17 and the new `pokeapi-js-wrapper`, designed to provide an even more enhanced user experience with a range of exciting features.
 
 ## Demo 🎥
 
@@ -18,7 +18,15 @@ Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreit
 - **Detailed Pokémon Information**: 📜 Get comprehensive details such as held items, availability by edition, and more!
 - **Angular 17**: 🚀 Built with the latest version of Angular for improved performance and developer experience.
 - **pokeapi-js-wrapper**: 🔌 Seamlessly integrated with `pokeapi-js-wrapper` for more flexible and powerful API interactions.
-- **Localization**: 🌐 Available in English (default), German and Portuguese.
+- **Localization**: 🌐 Available in English (default), German, Portuguese, and now Spanish!
+
+## New in Version 2.3.0 🚀
+
+### ✨ New Features:
+
+- 🌐 **Language Dropdown Selector**: The language switch is now a dropdown, making it easier and more intuitive to switch between languages.
+- 🇪🇸 **Spanish Language Support**: Added Spanish as a supported language. If Portuguese translations are unavailable via the API, Spanish will now appear in those description fields.
+- 🗣️ **Fourth Language Support**: Enhanced the language system to allow for the easy addition of a fourth language, making future language expansions seamless.
 
 ## New in Version 2.2.0 🚀
 
@@ -45,7 +53,7 @@ Check out our live demo here: [Pokedex-v2 Live Demo](https://pokedex.mario-kreit
 - 🚫 **Overflow Bug**: Corrected a bug causing `overflow:hidden` to improperly hide content and removed leftover debug console.log entries for cleaner code.
 - 🔄 **Generation 1 Limit Bug**: Fixed a bug where the Gen 1 Pokémon limit was incorrectly selected after a page refresh, ensuring accurate data loading.
 
-## 📖 **Documentation** ![Documentation](https://img.shields.io/badge/Documentation-100%25-brightgreen)
+## 📖 **Documentation** ![Documentation](https://img.shields.io/badge/Documentation-97%25-brightgreen)
 
 We now have detailed documentation available to help you understand and use **Pokedex-v2** effectively. You can access it here:
 
@@ -121,6 +129,7 @@ Having trouble? Here are some common issues and solutions:
 
 ## Changelog 📅
 
+- **v2.3.0**: Added language dropdown selector, Spanish language support, and improved the language system for future expansions.
 - **v2.2.0**: Added new features such as lazy loading, keyboard navigation, a credits page, and the Pokéball secret feature. Included several bug fixes and improvements.
 
 ## Acknowledgements 🙏
