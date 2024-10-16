@@ -4,6 +4,7 @@ import { PercentPipe } from '@angular/common';
 import { Limit } from '../../../types/loadingLimits';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, take } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 /**
  * Component that renders the UI settings component.
@@ -15,11 +16,59 @@ import { BehaviorSubject, Observable, take } from 'rxjs';
 @Component({
   selector: 'app-ui-settings',
   standalone: true,
-  imports: [PercentPipe],
+  imports: [PercentPipe, CommonModule ],
   templateUrl: './ui-settings.component.html',
   styleUrl: './ui-settings.component.scss',
 })
 export class UiSettingsComponent implements OnInit {
+
+  // Inserting a dictionary of translations for each language
+  getLabel = (key: string, language: string): string => {
+    const translations_dict: { [key: string]: { [key: string]: string } } = {
+      en: {
+        impressum: "Imprint",
+        credits: "Credits",
+        settings: "Settings",
+        language: "Language:",
+        volume: "Volume",
+        danger_zone: "Danger zone",
+        danger_zone_text: "i know what i'm doing",
+        limit: "Pokemon loading limit",
+        default: "(default)",
+        yes: "Yes",
+        no: "No",
+      },
+      de: {
+        impressum: "Impressum",
+        credits: "Credits",
+        settings: "Einstellungen",
+        language: "Sprache:",
+        volume: "Lautstärke",
+        danger_zone: "Gefahrenbereich",
+        danger_zone_text: "ich weiß was ich tue",
+        limit: "Pokemon Ladelimit",
+        default: "(standard)",
+        yes: "Ja",
+        no: "Nein",
+      },
+      pt: {
+        impressum: "Autoria",
+        credits: "Créditos",
+        settings: "Configurações",
+        language: "Idioma:",
+        volume: "Volume",
+        danger_zone: "Área de testes",
+        danger_zone_text: "Sei o que estou fazendo",
+        limit: "Limite de Pokémon carregados",
+        default: "(padrão)",
+        yes: "Sim",
+        no: "Não",
+      }
+    };
+  
+    // If the translation exists, returns it, case contrary, returns english(default)
+    return translations_dict[language]?.[key] || translations_dict["en"][key];
+  }
   /**
    * The available Pokémon loading limits.
    *
@@ -204,10 +253,14 @@ export class UiSettingsComponent implements OnInit {
    * @param {Event} event - The event that triggered the language update.
    * @return {void} No return value.
    */
+  // This functions stops the selector from closing before selecting the language
+  stopEvent(event: Event): void {
+    event.stopPropagation();
+  }
   setLanguage(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const language = target.checked ? 'de' : 'en';
-
+    const target = event.target as HTMLSelectElement;
+    const language = target.value;  // 'en', 'de', 'pt' or other language
+  
     this.settingsService.setLanguage(language);
   }
 

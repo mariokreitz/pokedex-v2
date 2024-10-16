@@ -75,6 +75,22 @@ export class LoadingBigComponent implements OnInit {
     'Bereite dein Abenteuer vor. Unser Server ist auf eigener Quest!',
   ];
 
+    /**
+   * An array of loading texts in Portuguese.
+   * @type {string[]}
+   */
+    loadingPortugueseText: string[] = [
+      'Carregando... aguardando o Pikachu carregar!',
+      'Um momento. Nossos servidores estão tirando uma soneca como o Snorlax.',
+      'Obtendo dados... tomara que não seja um Ditto disfarçado!',
+      'Aquecendo o servidor com um Fire Blast!',
+      'Nossa tela de carregamento está evoluindo para uma versão mais rápida!',
+      'Procurando uma Master Ball para resolver isso logo!',
+      'Processando... tentando não ser pego na rede de um treinador!',
+      'Carregando... prometo que não é culpa do Slowpoke!',
+      'Preparando sua aventura. Nosso servidor está em sua própria missão!',
+    ];
+
   /**
    * Returns a random loading text based on the current language setting.
    *
@@ -82,8 +98,17 @@ export class LoadingBigComponent implements OnInit {
    */
   private getRandomLoadingText(): string {
     const language = this.settingsService.getLanguage();
-    const loadingTexts =
-      language === 'de' ? this.loadingGermanText : this.loadingEnglishText;
+
+    const loadingTexts = (() => {
+      switch (language) {
+        case 'de':
+          return this.loadingGermanText;
+        case 'pt':
+          return this.loadingPortugueseText;
+        default:
+          return this.loadingEnglishText; // English as default
+      }
+    })();
 
     return loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
   }

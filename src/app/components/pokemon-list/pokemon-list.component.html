@@ -25,7 +25,7 @@
     class="overview-button"
     id="prev-pokemon"
     (click)="onPrevClick()"
-    [title]="language === 'en' ? 'Previous Pokemon' : 'Vorheriges Pokemon'"
+    [title]="previousPlaceholders[language]"
   >
     &#9001;
   </button>
@@ -35,7 +35,7 @@
     class="overview-button"
     id="next-pokemon"
     (click)="onNextClick()"
-    [title]="language === 'en' ? 'Next Pokemon' : 'Nächstes Pokemon'"
+    [title]="nextPlaceholders[language]"
   >
     &#9002;
   </button>

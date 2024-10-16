@@ -12,7 +12,7 @@
         name="searchbar"
         id="searchbar"
         aria-label="Searchbar"
-        [placeholder]="language === 'en' ? 'Search...' : 'Suche...'"
+        [placeholder]="searchPlaceholders[language]"
         tabindex="0"
         #searchbar
         aria-autocomplete="list"

@@ -30,7 +30,52 @@ import { PokemonService } from '../../../services/pokemon.service';
  * @prop {string} selectedPokemonLanguageName - The name of the Pokémon in the current language.
  * @prop {string} selectedPokemonLanguageDescription - The description of the Pokémon in the current language.
  */
-export class PokemonPopupComponent implements OnInit {
+  export class PokemonPopupComponent implements OnInit {
+    // Inserting a dictionary of translations for each language
+    getLabel = (key: string, language: string): string => {
+      const translations_dict: { [key: string]: { [key: string]: string } } = {
+        en: {
+          items: "Possible items to receive upon catching",
+          no_items1: "Snorlax must have eaten all the items!",
+          no_items2: "It seems this Pokémon doesn't come with any items!",
+          no_items3: "All Pokémon used Fly and flew off with the items!",
+          released: "Released in",
+          t_stats: "Stats",
+          t_items: "Items",
+          t_edition: "Editions",
+          description: "Description",
+          ability: "Passive Ability",
+        },
+        de: {
+          items: "Mögliche Gegenstände, die man beim Fangen erhalten kann",
+          no_items1: "Snorlax muss alle Gegenstände aufgegessen haben!",
+          no_items2: "Es scheint, als käme dieses Pokémon ohne Gegenstände!",
+          no_items3: "Alle Pokémon haben Fliegen eingesetzt und sind mit den Gegenständen davon geflogen!",
+          released: "Erschienen in",
+          t_stats: "Stats",
+          t_items: "Items",
+          t_edition: "Editions",
+          description: "Beschreibung",
+          ability: "Passive Fähigkeit",
+        },
+        pt: {
+          items: "Possíveis itens obtidos com a captura",
+          no_items1: "Snorlax parece ter comido todos os itens!",
+          no_items2: "Este Pokémon parece não vir com itens!",
+          no_items3: "Todos os Pokémon usaram Fly e fugiram com os itens!",
+          released: "Aparece em",
+          t_stats: "Status",
+          t_items: "Itens",
+          t_edition: "Edições",
+          description: "Descrição",
+          ability: "Habilidade Passiva",
+        }
+      };
+    
+      // If the translation exists, returns it, case contrary, returns english(default)
+      return translations_dict[language]?.[key] || translations_dict["en"][key];
+    }
+
   /**
    * The Pokémon to display.
    */
@@ -121,15 +166,24 @@ export class PokemonPopupComponent implements OnInit {
    */
   get getSelectedLanguageDescription(): string {
     if (!this.flavor_text_entries) return '';
+    
+    // If the language is portuguese, the Pokémon description is in spanish
+    let selectedLanguage = this.settingsService.getLanguage();
+    selectedLanguage = selectedLanguage === 'pt' ? 'es' : selectedLanguage;
+  
     const filteredDescriptions = this.flavor_text_entries.filter(
-      ({ language }) => language.name === this.settingsService.getLanguage()
+      ({ language }) => language.name === selectedLanguage
     );
+  
     if (!filteredDescriptions.length) return 'Keine übersetzung gefunden';
+    
     const descriptions = filteredDescriptions.map(
       ({ flavor_text }) => flavor_text
     );
+    
     return descriptions[0].replace('\f', '\n') || '';
   }
+  
 
   /**
    * The Pokémon's HP number.
@@ -154,10 +208,12 @@ export class PokemonPopupComponent implements OnInit {
    *
    * @property {string} english - The English name of the type.
    * @property {string} german - The German name of the type.
+   * @property {string} portuguese - The Portuguese name of the type.
    */
   types!: {
     english: string;
     german: string;
+    portuguese: string;
   }[];
 
   /**
@@ -632,9 +688,15 @@ export class PokemonPopupComponent implements OnInit {
    * @return {string} The name of the item in the current language.
    */
   selectedItemLanguageName(index: number): string {
+
+    let selectedLanguage = this.settingsService.getLanguage();
+    // If the language is portuguese, the item name is in spanish
+    selectedLanguage = selectedLanguage === 'pt' ? 'es' : selectedLanguage;
+
     const itemNamesInLanguage = this.items.map(
       (item) =>
-        item.names.find((name) => name.language.name === this.language)?.name
+        // item.names.find((name) => name.language.name === this.language)?.name
+      item.names.find((name) => name.language.name === selectedLanguage)?.name
     );
 
     return itemNamesInLanguage[index] || this.items[0].name;
@@ -649,13 +711,19 @@ export class PokemonPopupComponent implements OnInit {
    * @return {string} The flavor text of the item in the current language.
    */
   selectedItemFlavorText(index: number): string {
+  
+    // If the language is portuguese, the item description is in spanish
+    let selectedLanguage = this.settingsService.getLanguage();
+    selectedLanguage = selectedLanguage === 'pt' ? 'es' : selectedLanguage;
+
     const itemFlavorTexts = this.items.map((item) => {
+      
       const flavorTextEntry = item.flavor_text_entries.find(
-        ({ language }) => language.name === this.settingsService.getLanguage()
+        ({ language }) => language.name === selectedLanguage
       );
       return flavorTextEntry?.text || '';
     });
-
+  
     return itemFlavorTexts[index] || '';
   }
 

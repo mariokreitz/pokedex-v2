@@ -92,13 +92,14 @@ export class PokemonCardComponent {
   }
 
   /**
-   * Retrieves the types of the Pokémon, with their English and German names.
+   * Retrieves the types of the Pokémon, with their English, German and Portuguese names.
    *
-   * @returns {{ english: string; german: string }[]} An array of objects, each containing the English and German names of a type.
+   * @returns {{ english: string; german: string; portuguese: string }[]} An array of objects, each containing the English, German and Portuguese names of a type.
    */
   get classTypes(): {
     english: string;
     german: string;
+    portuguese: string;
   }[] {
     const types = this.Pokemon.types.map(({ type }) => type.name);
     const typesInLanguage = types.map((type) =>

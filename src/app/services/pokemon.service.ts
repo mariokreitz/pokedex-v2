@@ -142,34 +142,35 @@ export class PokemonService {
    *
    * @param {string} type - The English name of the Pokémon type.
    *
-   * @returns {{ english: string; german: string }} An object containing both the
-   * English and German names of the Pokémon type.
+   * @returns {{ english: string; german: string, portuguese: string }} An object containing the
+   * English, German and Portuguese names of the Pokémon type.
    *
    * @example
    * const type = pokemonService.getTypeName('fire');
    * console.log(type.english); // fire
    * console.log(type.german); // Feuer
+   * console.log(type.portuguese); // Fogo
    */
-  getTypeName(type: string): { english: string; german: string } {
+  getTypeName(type: string): { english: string; german: string, portuguese: string } {
     const types = [
-      { english: 'normal', german: 'Normal' },
-      { english: 'fire', german: 'Feuer' },
-      { english: 'water', german: 'Wasser' },
-      { english: 'electric', german: 'Elektro' },
-      { english: 'grass', german: 'Pflanze' },
-      { english: 'flying', german: 'Flug' },
-      { english: 'bug', german: 'Käfer' },
-      { english: 'poison', german: 'Gift' },
-      { english: 'rock', german: 'Gestein' },
-      { english: 'ground', german: 'Boden' },
-      { english: 'fighting', german: 'Kämpfer' },
-      { english: 'ice', german: 'Eis' },
-      { english: 'psychic', german: 'Psycho' },
-      { english: 'ghost', german: 'Geist' },
-      { english: 'dragon', german: 'Drache' },
-      { english: 'fairy', german: 'Fee' },
-      { english: 'dark', german: 'Unlicht' },
-      { english: 'steel', german: 'Stahl' },
+      { english: 'normal', german: 'Normal', portuguese: 'Normal' },
+      { english: 'fire', german: 'Feuer', portuguese: 'Fogo' },
+      { english: 'water', german: 'Wasser', portuguese: 'Água' },
+      { english: 'electric', german: 'Elektro', portuguese: 'Elétrico' },
+      { english: 'grass', german: 'Pflanze', portuguese: 'Planta' },
+      { english: 'flying', german: 'Flug', portuguese: 'Voador' },
+      { english: 'bug', german: 'Käfer', portuguese: 'Inseto' },
+      { english: 'poison', german: 'Gift', portuguese: 'Venenoso' },
+      { english: 'rock', german: 'Gestein', portuguese: 'Pedra' },
+      { english: 'ground', german: 'Boden', portuguese: 'Terrestre' },
+      { english: 'fighting', german: 'Kämpfer', portuguese: 'Lutador' },
+      { english: 'ice', german: 'Eis', portuguese: 'Gelo' },
+      { english: 'psychic', german: 'Psycho', portuguese: 'Psíquico' },
+      { english: 'ghost', german: 'Geist', portuguese: 'Fantasma' },
+      { english: 'dragon', german: 'Drache', portuguese: 'Dragão' },
+      { english: 'fairy', german: 'Fee', portuguese: 'Fada' },
+      { english: 'dark', german: 'Unlicht', portuguese: 'Sombrio' },
+      { english: 'steel', german: 'Stahl', portuguese: 'Aço' },
     ];
 
     const typeObject = types.find((t) => t.english === type);
